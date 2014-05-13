@@ -1,0 +1,34 @@
+/*
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/
+
+:host {
+  position: relative;
+  display: inline-block;
+}
+
+#overlay {
+  position: absolute;
+  left: 0px;
+  top: 40px;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+#overlay[halign=right] {
+  left: auto;
+  right: 0px;
+}
+
+#overlay[valign=top] {
+  top: auto;
+  bottom: 40px;
+}
+
+core-menu {
+  margin: 0;
+}

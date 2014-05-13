@@ -1,0 +1,48 @@
+<script src="../components/platform/platform.js"></script>
+
+<link rel="import" href="../components/core-header-panel/core-header-panel.html">
+<link rel="import" href="../components/core-toolbar/core-toolbar.html">
+<link rel="import" href="../components/core-icon-button/core-icon-button.html">
+<link rel="import" href="quote-panel.html">
+
+
+<style>
+core-header-panel  {
+  height: 100%;
+  width: 100%;
+}
+core-toolbar {
+  background: rgb(69, 85, 165);
+}
+.content div {
+  display: block;
+  background: white;
+  width: 300px;
+  height: 300px;
+  position: relative;
+  margin: 16px;
+  border-radius: 2px;
+}
+.content {
+  margin-left: 20%;
+}
+</style>
+
+<core-header-panel mode="standard">
+
+<core-toolbar>
+  <core-icon-button icon="menu"></core-icon-button>
+  <span core-flex>Blah</span>
+  <core-icon-button icon="search"></core-icon-button>
+  <core-icon-button icon="more-vert"></core-icon-button>
+</core-toolbar>
+
+<div class="content">
+  <quote-panel></quote-panel>
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+  <div>4</div>
+</div>
+
+</core-header-panel>

@@ -1,0 +1,67 @@
+﻿<link rel="import" href="firebase-import.html">
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+Element wrapper for the FireBase Web API.
+
+@class core-firebase
+@blurb Element wrapper for the FireBase Web API
+@status alpha
+@snap snap.png
+-->
+
+<polymer-element name="core-firebase" attributes="location list">
+
+  <script>
+
+    Polymer('core-firebase', {
+
+      locationChanged: function() {
+        var dataRef = new Firebase(this.location);
+
+        var job, list = [];
+
+        // TODO(sjmiles): this is a really bad way of doing this
+        dataRef.on('child_added', function(snapshot) {
+          list.push(snapshot.val());
+          job = this.job(job, function() {
+            this.fire('items-added');
+          });
+        }, this);
+
+        this.list = list;
+        this.dataRef = dataRef;
+      },
+
+      push: function(item) {
+        this.dataRef.push(item);
+      },
+
+      remove: function(item) {
+        // TODO(sjmiles): this is a really bad way of doing this
+        this.dataRef.once('value', function(snap) {
+          snap.forEach(function(snap) {
+            var rec = snap.val();
+            for (var n in rec) {
+              if (item[n] !== rec[n]) {
+                return false;
+              }
+            }
+            snap.ref().remove();
+            this._removeFromList(item);
+            return true;
+          }.bind(this));
+        }, this);
+      },
+
+      _removeFromList: function(item) {
+        var index = this.list.indexOf(item);
+        if (index >= 0) {
+          this.list.splice(index, 1);
+        }
+      }
+    });
+
+  </script>
+
+</polymer-element>

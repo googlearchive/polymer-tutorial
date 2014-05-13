@@ -1,0 +1,36 @@
+/*
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+*/
+
+:host {
+  display: block;
+  color: #333;
+  font-size: 14px;
+}
+
+/*@polyfill :host > core-icon*/
+::content > core-icon {
+  margin: 8px;
+}
+
+/*@polyfill :host input*/
+::content input {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0 4px;
+  color: #333;
+  font-size: 14px;
+}
+
+/*@polyfill :host input:focus*/
+::content input:focus {
+  outline: none;
+}
+
+/*@polyfill :host input::placeholder*/
+::content input::placeholder {
+  color: #b3b3b3;
+}

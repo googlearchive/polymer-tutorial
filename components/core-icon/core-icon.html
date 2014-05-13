@@ -1,0 +1,171 @@
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!--
+
+The `core-icon` element displays an icon using CSS background image. By default an icon renders as 24px square.
+
+Example using src:
+
+    <core-icon src="star.png"></core-icon>
+
+Example setting size to 32px x 32px:
+
+    <core-icon src="big_star.png" size="32"></core-icon>
+
+Example using icon from default iconset:
+
+    <core-icon icon="menu"></core-icon>
+
+Example using icon `cherry` from custom iconset `fruit`:
+
+    <core-icon icon="fruit:cherry"></core-icon>
+
+See <a href="#core-iconset">core-iconset</a> for more information about 
+how to use a custom iconset.
+
+The default set of includes these icons:
+
+<div theme="core-light-theme">
+  <core-icon icon="drawer"></core-icon> drawer,
+  <core-icon icon="menu"></core-icon> menu,
+  <core-icon icon="search"></core-icon> search,
+  <core-icon icon="dropdown"></core-icon> dropdown,
+  <core-icon icon="close"></core-icon> close,
+  <core-icon icon="add"></core-icon> add,
+  <core-icon icon="trash"></core-icon> trash,
+  <core-icon icon="refresh"></core-icon> refresh,
+  <core-icon icon="settings"></core-icon> settings,
+  <core-icon icon="dialoga"></core-icon> dialoga,
+  <core-icon icon="left"></core-icon> left,
+  <core-icon icon="right"></core-icon> right,
+  <core-icon icon="down"></core-icon> down,
+  <core-icon icon="up"></core-icon> up,
+  <core-icon icon="grid"></core-icon> grid,
+  <core-icon icon="contact"></core-icon> contact,
+  <core-icon icon="account"></core-icon> account,
+  <core-icon icon="plus"></core-icon> plus,
+  <core-icon icon="time"></core-icon> time,
+  <core-icon icon="marker"></core-icon> marker,
+  <core-icon icon="briefcase"></core-icon> briefcase,
+  <core-icon icon="array"></core-icon> array,
+  <core-icon icon="columns"></core-icon> columns,
+  <core-icon icon="list"></core-icon> list,
+  <core-icon icon="modules"></core-icon> modules,
+  <core-icon icon="quilt"></core-icon> quilt,
+  <core-icon icon="stream"></core-icon> stream,
+  <core-icon icon="maximize"></core-icon> maximize,
+  <core-icon icon="shrink"></core-icon> shrink,
+  <core-icon icon="sort"></core-icon> sort,
+  <core-icon icon="shortcut"></core-icon> shortcut,
+  <core-icon icon="dialog"></core-icon> dialog,
+  <core-icon icon="twitter"></core-icon> twitter,
+  <core-icon icon="facebook"></core-icon> facebook,
+  <core-icon icon="favorite"></core-icon> favorite,
+  <core-icon icon="gplus"></core-icon> gplus,
+  <core-icon icon="filter"></core-icon> filter,
+  <core-icon icon="tag"></core-icon> tag,
+  <core-icon icon="plusone"></core-icon> plusone,
+  <core-icon icon="dots"></core-icon> dots,
+</div>
+
+@group Polymer Core Elements
+@element core-icon
+@homepage github.io
+-->
+
+<link rel="import" href="../core-theme-aware/core-theme-aware.html">
+<link rel="import" href="../core-iconset/core-iconset.html">
+
+<polymer-element name="core-icon" extends="core-theme-aware" attributes="src size icon">
+
+  <template>
+
+    <link rel="stylesheet" href="core-icon.css">
+    <core-iconset id="meta"></core-iconset>
+    <content></content>
+
+  </template>
+
+  <script>
+
+    Polymer('core-icon', {
+
+      /**
+       * The URL of an image for the icon. If the src property is specified,
+       * the icon property should not be.
+       *
+       * @attribute src
+       * @type string
+       * @default ''
+       */
+      src: '',
+
+      /**
+       * Specifies the size of the icon in pixel units.
+       *
+       * @attribute size
+       * @type string
+       * @default 24
+       */
+      size: 24,
+
+      /**
+       * Specifies the icon name or index in the set of icons available in
+       * the icon's icon set. If the icon property is specified,
+       * the src property should not be.
+       *
+       * @attribute icon
+       * @type string
+       * @default ''
+       */
+      icon: '',
+
+      defaultIconset: 'icons',
+
+      observe: {
+        icon: 'updateIcon',
+        activeTheme: 'updateIcon'
+      },
+
+      ready: function() {
+        this.sizeChanged();
+      },
+
+      sizeChanged: function() {
+        this.style.width = this.style.height = this.size + 'px';
+      },
+
+      srcChanged: function() {
+        this.style.backgroundImage = 'url(' + this.src + ')';
+        this.style.backgroundPosition = 'center';
+        this.style.backgroundSize = this.size + 'px ' + this.size + 'px';
+      },
+
+      getIconset: function(name) {
+        return this.$.meta.byId(name || this.defaultIconset);
+      },
+
+      updateIcon: function() {
+        if (!(this.icon && typeof this.icon === 'string')) {
+          return;
+        }
+        var parts = this.icon.split(':');
+        var icon = parts.pop();
+        var set = this.getIconset(parts.pop());
+        if (set && icon) {
+          var scale = this.size / set.iconSize;
+          set.applyIcon(this, icon, this.activeTheme, scale);
+        }
+      }
+
+    });
+
+  </script>
+
+</polymer-element>

@@ -1,0 +1,9 @@
+{
+  "name": "core-field",
+  "private": true,
+  "dependencies": {
+    "core-icon": "Polymer/core-icon#0.2.4",
+    "core-layout": "Polymer/core-layout#0.2.4"
+  },
+  "version": "0.2.4"
+}

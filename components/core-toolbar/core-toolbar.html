@@ -1,0 +1,78 @@
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!--
+`core-toolbar` is a horizontal bar containing elements that can be used for
+label, navigation, search and actions. It extends [core-theme-aware](../core-theme-aware).
+
+<b>Example:</b>
+
+    <core-toolbar>
+      <core-icon-button icon="menu" on-tap="{{menuAction}}"></core-icon-button>
+      <div core-flex>Title</div>
+      <core-icon-button icon="more" on-tap="{{moreAction}}"></core-icon-button>
+    </core-toolbar>
+
+`core-toolbar` has a standard height, but can be taller by setting `tall`
+class on the `core-toolbar`.
+
+    <core-toolbar class="tall">
+      <core-icon-button icon="menu"></core-icon-button>
+    </core-toolbar>
+    
+Apply `medium-tall` class to make the toolbar medium tall.
+
+    <core-toolbar class="medium-tall">
+      <core-icon-button icon="menu"></core-icon-button>
+    </core-toolbar>
+
+When taller, actions can pin to either the top (default), middle or bottom.
+
+    <core-toolbar class="tall">
+      <core-icon-button class="bottom" icon="menu"></core-icon-button>
+      <div class="middle">Toolbar</div>
+    </core-toolbar>
+
+@group Polymer Core Elements
+@element core-toolbar
+@extends core-theme-aware
+@homepage github.io
+-->
+
+<link rel="import" href="../core-theme-aware/core-theme-aware.html">
+
+<polymer-element name="core-toolbar" extends="core-theme-aware">
+<template>
+
+  <link rel="stylesheet" href="core-toolbar.css">
+  <link rel="stylesheet" href="../core-layout/core-layout.css">
+
+  <div class="toolbar-tools toolbar-tools-bottom core-h core-align-center">
+    <content select=".bottom"></content>
+  </div>
+  
+  <div class="toolbar-tools toolbar-tools-middle core-h core-align-center">
+    <content select=".middle"></content>
+  </div>
+
+  <div class="toolbar-tools toolbar-tools-top core-h core-align-center">
+    <content></content>
+  </div>
+
+</template>
+<script>
+
+  Polymer('core-toolbar', {
+
+    defaultTheme: 'core-light-theme'
+
+  });
+
+</script>
+</polymer-element>

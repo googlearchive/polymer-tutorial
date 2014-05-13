@@ -1,0 +1,207 @@
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!--
+@group Polymer Core Elements
+
+The `core-theme-aware` element is a base element which can be 
+extended to create elements that can support theming. This element applies
+no styling itself; instead it allows the author to create styles that 
+apply known themes.
+
+The user of a theme-aware element can set a `theme` attribute anywhere 
+in the dom tree containing the element, ShadowDOM inclusive. The theme-aware
+element simply ensures that the element has the appropriate theme class. This
+theme class corresponds to the theme attribute.
+
+This means an author can create a set of elements that support a particular
+theme, and the user of that set can, for example, set a theme attribute
+on the body element to apply that theme inside the body element. The 
+`core-theme-aware` element also supports nested theming. For example,
+the body element might be given theme="standard" but a particuarly subtree
+could be given a theme="different".
+
+`core-theme-aware` uses the [Polymer.ThemeAware](#Polymer.ThemeAware) mixin.
+
+Example:
+
+    <body theme="pretty">
+
+      <core-theme-aware> 
+        auto-styled with class="pretty" as a result of the containing theme
+      </core-theme-aware>
+
+      <section theme="different">
+
+        <core-theme-aware> 
+          auto-styled with class="different" as a result of the containing theme
+        </core-theme-aware>
+
+      </section>
+
+    </body>
+
+@class core-theme-aware
+@status beta
+@homepage github.io
+
+-->
+
+<!--
+ // NOTE: Polymer.ThemeAware methods separately documented so they can be part
+ // of core-theme-aware.
+ /**
+   * When no theme is specified, the value `defaultTheme` will be applied
+   * as the theme class.
+   * This is not typically intended for a user to set but is 
+   * useful in an element that extends `core-theme-aware`.
+   * 
+   * @attribute defaultTheme
+   * @type string
+   * @default ''
+   */
+
+  /**
+   * The `activeTheme` property stores the current theme. When the activeTheme
+   * changes, the element's theme class is updated. An element can 
+   * implement the `activeThemeChanged` method to do processing when the
+   * theme changes.
+   *
+   * This is not typically intended for a user to set but is 
+   * useful in an element that extends `core-theme-aware`.
+   * 
+   * @attribute activeTheme
+   * @type string
+   * @default ''
+   */
+
+  /**
+   * The theme set by the user of the theme-aware element. The `theme`
+   * property will only be set if the user has specifically given the
+   * theme-aware element a theme attribute.
+   *
+   * @attribute theme
+   * @type string
+   * @default ''
+   */
+-->
+<link rel="import" href="../polymer/polymer.html">
+
+<polymer-element name="core-theme-aware" attributes="theme">
+
+  <script>
+    /**
+     * `Polymer.ThemeAware` is a helper class that can be used to mixin basic
+     * theme-aware capability to an element which cannot extend from 
+     * `core-theme-aware` because it extends from another element.
+     * The `Platform.mixin` method can be used to mixin theme aware capability
+     * into an element's prototype. Here's an example:
+     * 
+     *     Polymer('my-element', Platform.mixin({
+     *
+     *       // my-element's properties and methods
+     *       foo: 'foo',
+     *
+     *       // be sure to call the validateTheme method in the attached method
+     *       // to initialize the theme.
+     *       attached: function() {
+     *         this.validateTheme();
+     *       }
+     *
+     *     }, Polymer.ThemeAware));
+     *
+     * @class Polymer.ThemeAware
+     */
+    Polymer.ThemeAware = {
+
+      /**
+       * When no theme is specified, the value `defaultTheme` will be applied
+       * as the theme class.
+       * This is not typically intended for a user to set but is 
+       * useful in an element that extends `core-theme-aware`.
+       * 
+       * @attribute defaultTheme
+       * @type string
+       * @default ''
+       */
+      defaultTheme: '',
+
+      // TODO(sorvell): activeTheme exists so that we do not always serialize
+      // the theme property. This could be addressed instead via the serialize
+      // block (tbd) like this: serialize: {theme: false}. One issue with this
+      // approach, however, is that if Platform.mixin is used to supply 
+      // Polymer.ThemeAware, it will overwrite the existing serialize block.
+      // Perhaps Platform.mixin should also mixin sub-objects?
+      
+      /**
+       * The `activeTheme` property stores the current theme. When the activeTheme
+       * changes, the element's theme class is updated. An element can 
+       * implement the `activeThemeChanged` method to do processing when the
+       * theme changes.
+       *
+       * This is not typically intended for a user to set but is 
+       * useful in an element that extends `core-theme-aware`.
+       * 
+       * @attribute activeTheme
+       * @type string
+       * @default ''
+       */
+      activeTheme: '',
+
+      /**
+       * The theme set by the user of the theme-aware element. The `theme`
+       * property will only be set if the user has specifically given the
+       * theme-aware element a theme attribute.
+       *
+       * @attribute theme
+       * @type string
+       * @default ''
+       */
+      theme: '',
+
+      /**
+       * 
+       *
+       * @method validateTheme
+       */
+      validateTheme: function() {
+        var theme = this.theme;
+        var defaultTheme = this.defaultTheme;
+        if (!theme) {
+          var p = this;
+          while (p && !theme) {
+            theme = p.getAttribute && p.getAttribute('theme');
+            defaultTheme = defaultTheme || p.defaultTheme;
+            p = p.parentNode || p.host;
+          }
+        }
+        this.activeTheme = this.theme || theme || defaultTheme;
+      },
+
+      themeChanged: function() {
+        this.activeTheme = this.theme;
+      },
+
+      activeThemeChanged: function(old) {
+        this.classList.switch(old, this.activeTheme);
+      }
+      
+    };
+
+    Polymer('core-theme-aware', Platform.mixin({
+
+      attached: function() {
+        this.validateTheme();
+      }
+
+    }, Polymer.ThemeAware));
+
+  </script>
+
+</polymer-element>

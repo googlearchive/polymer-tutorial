@@ -1,0 +1,19 @@
+{
+  "name": "core-field",
+  "private": true,
+  "dependencies": {
+    "core-icon": "Polymer/core-icon#0.2.4",
+    "core-layout": "Polymer/core-layout#0.2.4"
+  },
+  "version": "0.2.4",
+  "homepage": "https://github.com/Polymer/core-field",
+  "_release": "0.2.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.2.4",
+    "commit": "fda2111a0008089a057087b4d3e8566c87006716"
+  },
+  "_source": "git://github.com/Polymer/core-field.git",
+  "_target": "0.2.4",
+  "_originalSource": "Polymer/core-field"
+}

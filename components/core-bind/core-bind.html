@@ -1,0 +1,76 @@
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!--
+The `core-bind` element provides a simple, declarative way to bind elements 
+together. It extends the `template` element and automatically stamps
+out the template content when it's created. The element itself is the model.
+
+    <template is="core-bind">
+      <input value="{{value}}">
+      <input value="{{value}}">
+    </template>
+ 
+To setup initial model values and event handlers, set values on the `core-bind`
+element.
+
+    <template is="core-bind" id="myBinder">
+      <input value="{{value}}" on-change="{{inputChange}}">
+      <input value="{{value}}">
+    </template>
+
+    <script>
+      var myBinder = document.querySelector('#myBinder');
+      myBinder.value = 5;
+      myBinder.inputChange = function(e) {
+        console.log(e.target.value);
+      }
+    </script>
+
+@group Polymer Core Elements
+@element core-bind
+@status beta
+@homepage github.io
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+<polymer-element name="core-bind" extends="template">
+<script>
+
+(function() {
+
+  Polymer('core-bind', {
+
+    createdCallback: function() {
+      this.syntax = this.bindingDelegate = makeSyntax(this);
+      this.model = this;
+      this.setAttribute('bind', '');
+    }
+
+  });
+
+  // A PolymerExpressions that uses Polymer api to handle event delegation.
+  // We ensure that the event controller is always the given element.
+  function makeSyntax(element) {
+    var events = Object.create(Polymer.api.declaration.events);
+    events.findController = function() { return element; };
+
+    var syntax = new PolymerExpressions();
+    var prepareBinding = syntax.prepareBinding;  
+    syntax.prepareBinding = function(pathString, name, node) {
+      return events.prepareEventBinding(pathString, name, node) ||
+             prepareBinding.call(syntax, pathString, name, node);
+    };
+    return syntax;
+  }
+
+})();
+
+</script>
+</polymer-element>

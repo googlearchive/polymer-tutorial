@@ -1,0 +1,18 @@
+{
+  "name": "core-bind",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#0.2.4"
+  },
+  "version": "0.2.4",
+  "homepage": "https://github.com/Polymer/core-bind",
+  "_release": "0.2.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.2.4",
+    "commit": "7d2eafae00a8e09d88e857f3ad374a5cd74aac15"
+  },
+  "_source": "git://github.com/Polymer/core-bind.git",
+  "_target": "0.2.4",
+  "_originalSource": "Polymer/core-bind"
+}

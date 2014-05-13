@@ -1,0 +1,101 @@
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<!--
+`core-item` is a simple line-item object: a label and/or an icon that can also 
+act as a link.
+
+Example:
+
+    <core-item icon="settings" label="Settings"></core-item>
+    
+To use as a link, set `href` property.
+
+Example:
+
+    <core-item icon="settings" label="Settings" href="/settings"></core-item>
+
+@group Polymer Core Elements
+@element core-item
+@homepage github.io
+-->
+
+<link rel="import" href="../core-icon/core-icon.html">
+<link rel="import" href="../core-theme-aware/core-theme-aware.html">
+
+<polymer-element name="core-item" extends="core-theme-aware" attributes="label icon src href">
+<template>
+
+  <link rel="stylesheet" href="core-item.css">
+  <link rel="stylesheet" href="../core-layout/core-layout.css">
+  
+  <div class="item-container core-h core-align-center">
+  
+    <core-icon src="{{src}}" icon="{{icon}}" hidden?="{{!src && !icon}}"></core-icon>
+    
+    <span id="label" core-flex class="core-h core-align-center">{{label}}<content></content></span>
+    
+    <a id="link" href="{{href}}" hidden?="{{!href}}"></a>
+    
+  </div>
+
+</template>
+<script>
+
+  Polymer('core-item', {
+    
+    /**
+     * The URL of an image for the icon.
+     *
+     * @attribute src
+     * @type string
+     * @default ''
+     */
+
+    /**
+     * Specifies the icon from the Polymer icon set.
+     *
+     * @attribute icon
+     * @type string
+     * @default ''
+     */
+
+    /**
+     * Specifies a link target.
+     *
+     * Example:
+     *
+     *     <core-item icon="favorite" label="Favorite" href="http://www.polymer-project.org/"></core-item>
+     *
+     * If you want more control on the link, e.g. specify the target for where to
+     * open the linked document, you can put &lt;a> directly inside the item.
+     *
+     * Example:
+     *
+     *     <core-item icon="favorite" label="Favorite">
+     *       <a href="http://www.polymer-project.org/" target="_self"></a>
+     *     </core-item>
+     *
+     * @attribute href
+     * @type string
+     * @default ''
+     */
+
+    /**
+     * Specifies the label for the menu item.
+     *
+     * @attribute label
+     * @type string
+     * @default ''
+     */
+
+  });
+
+</script>
+</polymer-element>

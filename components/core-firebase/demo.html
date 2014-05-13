@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <title>fire-base</title>
+    <script src="../platform/platform.js"></script>
+    <link rel="import" href="fire-base.html">
+  </head>
+  <body unresolved>
+    <fire-base location="https://scorching-fire-4234.firebaseio.com/catalog"></fire-base>
+    <script>
+      var $ = document.querySelector.bind(document);
+      var fb = $('fire-base');
+      function update() {
+        $('pre').innerHTML = JSON.stringify(fb.list);
+      }
+      fb.addEventListener('items-added', update);
+      function add() {
+        fb.add($('input').value);
+      }
+    </script>
+    <input value="ayuh"><button onclick="add()">Add</button>
+    <pre></pre>
+  </body>
+</html>

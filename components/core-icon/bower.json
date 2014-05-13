@@ -1,0 +1,10 @@
+{
+  "name": "core-icon",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#0.2.4",
+    "core-theme-aware": "Polymer/core-theme-aware#0.2.4",
+    "core-iconset": "Polymer/core-iconset#0.2.4"
+  },
+  "version": "0.2.4"
+}
