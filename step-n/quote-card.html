@@ -1,0 +1,58 @@
+﻿<!doctype html>
+<html>
+<head>
+  <link rel="import" href="../components/core-toolbar/core-toolbar.html">
+  <link rel="import" href="../components/core-icons/core-icons.html">
+  <link rel="import" href="../components/core-icon-button/core-icon-button.html">
+</head>
+
+<polymer-element name="quote-card" attributes="attribution favorite" vertical layout>
+<template>
+  <style>
+    :host {
+      display: block;
+      background-color: white;
+      margin-bottom: 20px;
+      box-shadow: rgba(0, 0, 0, 0.14902) 0px 2px 4px, rgba(0, 0, 0, 0.14902) 0px 0px 3px;
+
+    }
+
+    core-toolbar {
+      background-color: lightblue;
+    }
+
+    .card-content {
+      padding: 8px;
+    }
+    </style>
+
+
+    <!-- the toolbar forms a header for each card -->
+
+      <core-toolbar>
+        <core-icon-button icon="{{favorite ? 'favorite' : 'favorite-outline' }}" on-click="{{toggleFavorite}}" right-justfied layout></core-icon-button>
+
+        <!-- title text on the toolbar -->
+        <span>{{attribution}}</span>
+        <!-- 
+        <a href="https://www.google.com/#q={{attribution}}" target="_blank"><core-icon-button icon="account-circle"></core-icon-button></a>
+        -->
+      </core-toolbar>
+
+
+      <div class="card-content">
+      <h3><content></content></h3>
+      </div>
+
+
+  </template>
+  <script>
+    Polymer('quote-card', {
+      favorite: false,
+      toggleFavorite: function(event, detail, sender) {
+        this.fire('favoriteclicked');
+      }
+    });
+  </script>
+</polymer-element>
+</html>

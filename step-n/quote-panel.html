@@ -1,0 +1,48 @@
+﻿<!doctype html>
+<html>
+<head>
+  <link rel="import" href="../components/core-ajax/core-ajax.html">
+  <link rel="import" href="quote-data.html">
+
+  <link rel="import" href="quote-card.html">
+</head>
+<polymer-element name="quote-panel" attributes="show">
+
+<template>
+  <style>
+  :host {
+    display: block;
+    background-color: rgba(0,0,0,0);
+  }
+  </style>
+  <!--
+  <core-ajax id="ajax" url="https://polymerdemo.firebaseio.com/quotes.json" response="{{test-quotes}}" 
+       handleAs="json"></core-ajax>
+     -->
+  <quote-data id="data" quotes="{{quotes}}"></quote-data>
+
+  <template repeat="{{quote in quotes}}">
+    <template if="{{ show == 'all' || quote.favorite}}">
+      <quote-card attribution="{{quote.attribution}}" favorite="{{quote.favorite}}" 
+         on-favoriteclicked="{{favoriteChanged}}">
+        {{quote.quote}}
+      </quote-card>
+    </template>
+  </template>
+</template>
+
+<script>
+Polymer('quote-panel', {
+  favoriteChanged: function(event, detail, sender) {
+    var quote = event.target.templateInstance.model.quote;
+    if (quote.favorite) {
+      this.$.data.unsetFavorite(quote.uid);
+    } else {
+      this.$.data.setFavorite(quote.uid);
+    }
+  }
+});
+</script>
+
+</polymer-element>
+</html>

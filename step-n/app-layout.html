@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="import" href="../components/core-item/core-item.html">
+  <link rel="import" href="../components/core-menu/core-menu.html">
+  <link rel="import" href="../components/core-pages/core-pages.html">
+  <link rel="import" href="../components/core-pages/core-selector.html">
+  <link rel="import" href="../components/core-scaffold/core-header-panel.html">
+    <link rel="import" href="../components/core-scaffold/core-toolbar.html">
+  <link rel="import" href="../components/core-scaffold/core-drawer-panel.html">
+
+</head>
+
+<polymer-element name="app-layout" attributes="attribution settings">
+<template>
+  <style>
+    core-scaffold {
+      height: 100%;
+      width: 100%;
+    }
+
+    [navigation] {
+      padding: 20px;
+      font-family: sans-serif;
+    }
+
+    .content {
+      padding: 20px;
+      height: auto;
+    }
+     .title {
+  display: none;
+}
+  .title.core-selected {
+  display: inline;
+}
+  </style>
+
+<core-drawer-panel>
+
+  <div drawer>
+  	<!-- use a core-menu because it manages a selection state -->
+  	<core-menu selected="{{selected}}">
+  	  <core-item label="Quotations"></core-item>
+  	  <core-item label="Settings"></core-item>
+    </core-menu>
+   </div>
+
+
+  <core-pages selected="{{selected}}">
+  <core-header-panel>
+  <!--  contents for the toolbar. Use core-selector to 
+    switch the toolbar contents for the selected page. -->
+  <core-toolbar>
+  	  <span class="title">Quotable</span>
+  </core-toolbar>
+
+  <!-- use core-pages to display the selected page -->
+    <div class="content">
+        <quote-panel settings="{{settings}}"></quote-panel>
+    </div>
+   <div class="content">
+   	  Text color: <input type="color" value="{{settings.textColor}}"> </input>
+   </div>
+</core-header-panel>
+
+<core-header-panel>
+  <core-toolbar>
+      <span class="title">Settings</span>
+  </core-toolbar>
+
+</core-header-panel>
+</core-pages>
+
+<core-drawer-panel>
+</template>
+<script>
+Polymer({
+	selected: 0,
+	ready: function() {
+		this.settings = {
+          textColor: black;
+		}
+	}
+});
+</script>
+</polymer-element>
