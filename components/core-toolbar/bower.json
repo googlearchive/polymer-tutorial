@@ -2,8 +2,6 @@
   "name": "core-toolbar",
   "private": true,
   "dependencies": {
-    "core-icon-button": "Polymer/core-icon-button#master",
-    "core-layout": "Polymer/core-layout#master",
-    "core-theme-aware": "Polymer/core-theme-aware#master"
+    "core-icon-button": "Polymer/core-icon-button#>=0.3.0  <1.0.0"
   }
 }

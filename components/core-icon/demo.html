@@ -7,57 +7,29 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-
 <html>
 <head>
-
   <title>core-icon</title>
-
   <script src="../platform/platform.js"></script>
+  <link rel="import" href="../core-icons/core-icons.html">
   <link rel="import" href="core-icon.html">
-
+  
+  <style>
+    segment {
+      min-width: 200px;
+    }
+  </style>
 </head>
 <body unresolved>
 
-  <div>
-    <template repeat="{{}}">
-      <core-icon icon="{{}}"></core-icon>
+<template is="auto-binding">
+  <div wrap horizontal layout>
+    <template repeat="{{icon in $.meta.metaData.icons.iconNames}}">
+      <segment><core-icon icon="{{icon}}"></core-icon> {{icon}}</segment>
     </template>
   </div>
-
-  <div theme="core-light-theme">
-    <template repeat="{{}}">
-      <core-icon icon="{{}}"></core-icon>
-    </template>
-  </div>
-
-  <div theme="core-dark-theme" style="background-color: #333;">
-    <template repeat="{{}}">
-      <core-icon icon="{{}}"></core-icon>
-    </template>
-  </div>
-
-  <br />
-
-  <div theme="core-light-theme">
-    <template repeat="{{}}">
-      <span style="display: inline-block; width: 164px; border: 1px dotted whitesmoke;">
-        <core-icon style="vertical-align: middle;" icon="{{}}"></core-icon> <span style="vertical-align: middle; font: bold 1em sans-serif;">{{}}</span>
-      </span>
-    </template>
-  </div>
-
-  <core-icon id="meta"></core-icon>
-
-  <script>
-    addEventListener('polymer-ready', function() {
-      var icons = Object.keys(document.querySelector('#meta').getIconset().iconMap);
-      var plates = document.querySelectorAll('template');
-      for (var i = 0, p; p=plates[i]; i++) {
-        p.model = icons;
-      }
-    });
-  </script>
+  <core-iconset id="meta"></core-iconset>
+</template>
 
 </body>
 </html>

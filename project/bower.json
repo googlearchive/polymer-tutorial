@@ -1,0 +1,42 @@
+{
+  "name": "polymer-tutorial",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer",
+    "core-ajax": "Polymer/core-ajax",
+    "core-layout": "Polymer/core-layout",
+    "core-toolbar": "Polymer/core-toolbar",
+    "core-icon-button": "Polymer/core-layout",
+    "core-scaffold": "Polymer/core-scaffold",
+    "core-menu": "Polymer/core-menu",
+    "core-item": "Polymer/core-item",
+    "core-selector": "Polymer/core-selector",
+    "core-pages": "Polymer/core-pages"
+  },
+  "resolutions": {
+    "core-item": ">=0.3.0  <1.0.0",
+    "core-selector": ">=0.3.0  <1.0.0",
+    "core-toolbar": ">=0.3.0  <1.0.0",
+    "core-icon-button": ">=0.3.0  <1.0.0",
+    "core-icon": ">=0.3.0  <1.0.0",
+    "core-icons": ">=0.3.0  <1.0.0",
+    "polymer": ">=0.3.0  <1.0.0",
+    "core-header-panel": ">=0.3.0  <1.0.0",
+    "core-selection": ">=0.3.0  <1.0.0",
+    "core-collapse": ">=0.3.0  <1.0.0",
+    "core-iconset-svg": ">=0.3.0 <1.0.0",
+    "core-component-page": ">=0.3.0  <1.0.0",
+    "platform": ">=0.3.0  <1.0.0",
+    "core-iconset": ">=0.3.0  <1.0.0",
+    "core-meta": ">=0.3.0  <1.0.0"
+  }
+}

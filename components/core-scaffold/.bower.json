@@ -2,21 +2,20 @@
   "name": "core-scaffold",
   "private": true,
   "dependencies": {
-    "core-drawer-panel": "Polymer/core-drawer-panel#master",
-    "core-header-panel": "Polymer/core-header-panel#master",
-    "core-icon-button": "Polymer/core-icon-button#master",
-    "core-layout": "Polymer/core-layout#master",
-    "core-toolbar": "Polymer/core-toolbar#master"
+    "core-drawer-panel": "Polymer/core-drawer-panel#>=0.3.0  <1.0.0",
+    "core-header-panel": "Polymer/core-header-panel#>=0.3.0  <1.0.0",
+    "core-icon-button": "Polymer/core-icon-button#>=0.3.0  <1.0.0",
+    "core-toolbar": "Polymer/core-toolbar#>=0.3.0  <1.0.0"
   },
   "homepage": "https://github.com/Polymer/core-scaffold",
-  "_release": "86cdfc2797",
+  "version": "0.3.0",
+  "_release": "0.3.0",
   "_resolution": {
-    "type": "branch",
-    "branch": "master",
-    "commit": "86cdfc279747210d707f6e10dd1511c177e9d36c"
+    "type": "version",
+    "tag": "0.3.0",
+    "commit": "6c371b5de18d94ae946ad0d6dc38679fc8348d05"
   },
   "_source": "git://github.com/Polymer/core-scaffold.git",
-  "_target": "master",
-  "_originalSource": "Polymer/core-scaffold",
-  "_direct": true
+  "_target": "*",
+  "_originalSource": "Polymer/core-scaffold"
 }

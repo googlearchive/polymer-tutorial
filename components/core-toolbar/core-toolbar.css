@@ -21,10 +21,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   transition: height 0.18s ease-in;
 }
 
-:host(.core-dark-theme) {
-  color: #eee;
-}
-
 :host(.medium-tall) {
   height: 128px;
 }
@@ -56,8 +52,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   padding: 0 1px;
 }
 
-/* middle tools */
-.toolbar-tools-middle {
+/* middle bar */
+#middleBar {
   position: absolute;
   top: calc(100% / 3);
   right: 0;
@@ -65,8 +61,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   pointer-events: none;
 }
 
-/* bottom tools */
-.toolbar-tools-bottom {
+/* bottom bar */
+#bottomBar {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -74,34 +70,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   pointer-events: none;
 }
 
-/* shows bottom tools only when in normal height (!tall && !medium-tall) */
-:host(.no-overlap) > .toolbar-tools-top, 
-:host(.no-overlap) > .toolbar-tools-middle {
+/* shows bottom bar only when in normal height (!tall && !medium-tall) */
+:host(.no-overlap) > #topBar, 
+:host(.no-overlap) > #middleBar {
   transition: -webkit-transform 0.18s ease-in;
   transition: transform 0.18s ease-in;
 }
 
-:host(.no-overlap:not(.medium-tall):not(.tall)) > .toolbar-tools-top {
+:host(.no-overlap:not(.medium-tall):not(.tall)) > #topBar {
   -webkit-transform: translateY(-100%);
   transform: translateY(-100%);
 }
 
-:host(.no-overlap:not(.medium-tall):not(.tall)) > .toolbar-tools-middle {
+:host(.no-overlap:not(.medium-tall):not(.tall)) > #middleBar {
   -webkit-transform: translateY(-200%);
   transform: translateY(-200%);
 }
 
-/*@polyfill :host > .toolbar-tools-middle > *, :host > .toolbar-tools-bottom > * */
+polyfill-next-selector { content: ':host > #middleBar > *, :host > #bottomBar > *'; }
 ::content[select=".middle"] > *, ::content[select=".bottom"] > * {
   pointer-events: visible;
 }
 
-/*@polyfill :host > .toolbar-tools > * */
+polyfill-next-selector { content: ':host > .toolbar-tools > *'; }
 ::content > * {
   margin: 0px 8px;
 }
 
-/*@polyfill :host .core-fit, :host [core-fit] */
+polyfill-next-selector { content: ':host .core-fit, :host [core-fit]'; }
 ::content > .core-fit, ::content > [core-fit] {
   position: absolute;
   top: 0;
@@ -111,7 +107,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   margin: 0;
 }
 
-/*@polyfill :host .indent */
+polyfill-next-selector { content: ':host .indent'; }
 ::content > .indent {
   margin-left: 60px;
 }

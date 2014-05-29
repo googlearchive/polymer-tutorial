@@ -1,10 +1,10 @@
 <!--
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE
-The complete set of authors may be found at http://polymer.github.io/AUTHORS
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
 <!--
@@ -29,7 +29,7 @@ Example:
       <div>Content goes here...</div>
     </core-header-panel>
 
-Use `mode` to controls the header and scrolling behavior.
+Use `mode` to control the header and scrolling behavior.
 
 @group Polymer Core Elements
 @element core-header-panel
@@ -37,28 +37,27 @@ Use `mode` to controls the header and scrolling behavior.
 -->
 
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../core-layout/core-layout.html">
 
 <polymer-element name="core-header-panel">
 <template>
 
   <link rel="stylesheet" href="core-header-panel.css">
   
-  <core-layout id="outerContainer" vertical on-scroll="{{scroll}}">
+  <div id="outerContainer" on-scroll="{{scroll}}" vertical layout>
 
     <content id="headerContent" select="core-toolbar, .core-header"></content>
 
-    <core-layout id="mainPanel" core-flex>
+    <div id="mainPanel" flex vertical layout>
     
-      <div id="mainContainer" core-flex?="{{mode !== 'cover'}}" on-scroll="{{scroll}}">
+      <div id="mainContainer" flex?="{{mode !== 'cover'}}" on-scroll="{{scroll}}">
         <content id="mainContent" select="*"></content>
       </div>
       
       <div id="dropShadow"></div>
       
-    </core-layout>
+    </div>
 
-  </core-layout>
+  </div>
 
 </template>
 <script>
@@ -90,12 +89,21 @@ Use `mode` to controls the header and scrolling behavior.
        * `cover`: The panel covers the whole `core-header-panel` including the
        * header. This allows user to style the panel in such a way that the panel is
        * partially covering the header.
+       *
+       *     <style>
+       *       core-header-panel[mode=cover]::shadow #mainContainer {
+       *         left: 80px;
+       *       }
+       *       .content {
+       *         margin: 60px 60px 60px 0;
+       *       }
+       *     </style>
        * 
        *     <core-header-panel mode="cover">
        *       <core-appbar class="tall">
        *         <core-icon-button icon="menu"></core-icon-button>
        *       </core-appbar>
-       *       <div class="content" style="margin: 60px;"></div>
+       *       <div class="content"></div>
        *     </core-header-panel>
        *
        * @attribute mode
@@ -124,7 +132,7 @@ Use `mode` to controls the header and scrolling behavior.
       shadow: false,
     },
     
-    attached: function() {
+    domReady: function() {
       this.async('scroll');
     },
 

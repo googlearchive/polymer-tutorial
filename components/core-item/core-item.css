@@ -7,39 +7,25 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-:host {
+html /deep/ core-item {
   display: block;
+  position: relative;
   height: 40px;
   white-space: nowrap;
-  cursor: pointer;
 }
 
-:host(.core-dark-theme) {
-  color: #eee;
-}
-
-:host(.core-selected) {
+html /deep/ core-item.core-selected {
   font-weight: bold;
 }
 
-.item-container {
-  position: relative;
-  height: 100%;
-}
-
-.item-container > core-icon {
+html /deep/ core-item::shadow core-icon {
   margin: 0 16px 0 4px;
 }
 
-/*@polyfill :host #label > a, #link */
-::content > a, #link {
+html /deep/ core-item::shadow ::content > a {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-}
-
-[hidden] {
-  display: none;
 }

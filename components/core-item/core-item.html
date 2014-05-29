@@ -15,11 +15,13 @@ Example:
 
     <core-item icon="settings" label="Settings"></core-item>
     
-To use as a link, set `href` property.
+To use as a link, put &lt;a&gt; element in the item.
 
 Example:
 
-    <core-item icon="settings" label="Settings" href="/settings"></core-item>
+    <core-item icon="settings" label="Settings">
+      <a href="#settings" target="_self"></a>
+    </core-item>
 
 @group Polymer Core Elements
 @element core-item
@@ -27,24 +29,14 @@ Example:
 -->
 
 <link rel="import" href="../core-icon/core-icon.html">
-<link rel="import" href="../core-theme-aware/core-theme-aware.html">
 
-<polymer-element name="core-item" extends="core-theme-aware" attributes="label icon src href">
+<link rel="stylesheet" href="core-item.css" shim-shadowdom>
+
+<polymer-element name="core-item" attributes="label icon src" horizontal center layout>
 <template>
 
-  <link rel="stylesheet" href="core-item.css">
-  <link rel="stylesheet" href="../core-layout/core-layout.css">
+  <core-icon src="{{src}}" icon="{{icon}}" hidden?="{{!src && !icon}}"></core-icon>{{label}}<content></content>
   
-  <div class="item-container core-h core-align-center">
-  
-    <core-icon src="{{src}}" icon="{{icon}}" hidden?="{{!src && !icon}}"></core-icon>
-    
-    <span id="label" core-flex class="core-h core-align-center">{{label}}<content></content></span>
-    
-    <a id="link" href="{{href}}" hidden?="{{!href}}"></a>
-    
-  </div>
-
 </template>
 <script>
 
@@ -62,27 +54,6 @@ Example:
      * Specifies the icon from the Polymer icon set.
      *
      * @attribute icon
-     * @type string
-     * @default ''
-     */
-
-    /**
-     * Specifies a link target.
-     *
-     * Example:
-     *
-     *     <core-item icon="favorite" label="Favorite" href="http://www.polymer-project.org/"></core-item>
-     *
-     * If you want more control on the link, e.g. specify the target for where to
-     * open the linked document, you can put &lt;a> directly inside the item.
-     *
-     * Example:
-     *
-     *     <core-item icon="favorite" label="Favorite">
-     *       <a href="http://www.polymer-project.org/" target="_self"></a>
-     *     </core-item>
-     *
-     * @attribute href
      * @type string
      * @default ''
      */

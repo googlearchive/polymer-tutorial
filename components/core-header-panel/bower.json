@@ -2,7 +2,6 @@
   "name": "core-header-panel",
   "private": true,
   "dependencies": {
-    "core-layout": "Polymer/core-layout#0.2.4"
-  },
-  "version": "0.2.4"
+    "polymer": "Polymer/polymer#>=0.3.0  <1.0.0"
+  }
 }

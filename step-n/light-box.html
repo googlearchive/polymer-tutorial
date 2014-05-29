@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="import" href="../components/core-overlay/core-overlay.html">
+</head>
+
+<polymer-element name="light-box">
+<template>
+  <style>
+    #overlay {
+      background-color: rgb(220,220,220);
+      border: 1px solid black;
+      box-shadow: 10px 10px 18px 0px rgba(20,20,20,1);
+      padding: 30px;
+      width: 90%;
+    }
+    #image {
+    	width: 70%;
+    	float: left;
+    }
+    #text {
+    	width: 30%;
+    	height: 100%;
+     	float: left;
+     	padding: 10px;
+    }
+  </style>
+  <core-overlay id="overlay" margin="20" layout horizontal center center-justified transition="core-transition-center">
+  <div id="image" core-overlay-toggle>
+  	<content select=".image"></content>
+  </div>  
+  <div id="text" layout vertical left-justified end>
+  	<content select="*"></content>
+  </div>
+</template>
+<script>
+	Polymer({
+		open: function() {
+			this.$.overlay.open();
+		}
+	});
+</script>
+</polymer-element>

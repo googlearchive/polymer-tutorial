@@ -53,6 +53,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
  *     iconset.applyIcon(iconNode, 'car', 'special');
  *
  * @element core-iconset
+ * @extends core-meta
  * @homepage github.io
  */
 -->
@@ -219,10 +220,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
          var offset = this.getOffset(icon, theme);
          scale = scale || 1;
          if (element && offset) {
-           element.style.backgroundImage = 'url(' + this.src + ')';
-           element.style.backgroundPosition = (-offset.offsetX * scale + 'px') + 
+           var style = element.style;
+           style.backgroundImage = 'url(' + this.src + ')';
+           style.backgroundPosition = (-offset.offsetX * scale + 'px') + 
               ' ' + (-offset.offsetY * scale + 'px');
-           element.style.backgroundSize = scale === 1 ? 'auto' :
+           style.backgroundSize = scale === 1 ? 'auto' :
               this.width * scale + 'px';
          }
       }

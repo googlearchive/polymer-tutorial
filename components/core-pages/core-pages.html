@@ -6,14 +6,28 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
+
 <!--
+`core-pages` is used to select one of its children to show. One use is to cycle through a list of children "pages".
 
-core-pages
+Example: 
 
+    <core-pages selected="0">
+      <div>One</div>
+      <div>Two</div>
+      <div>Three</div>
+    </core-pages>
+
+    <script>
+      document.addEventListener('click', function(e) {
+        var pages = document.querySelector('core-pages');
+        pages.selected = (pages.selected + 1) % pages.children.length;
+      };
+    </script>
+
+@group Polymer Core Elements
 @class core-pages
 @extends core-selector
-@group Polymer Core Elements
-
 -->
 
 <link rel="import" href="../polymer/polymer.html">

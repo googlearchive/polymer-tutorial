@@ -14,31 +14,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="core-selection.html">
 </head>
 <body unresolved>
-<polymer-element name="selection-example">
-  <template>
-    <style>
-      /* @polyfill ul > * */
-      ::content > * {
-        cursor: pointer;
-      }
 
-      /* @polyfill ul > .selected */
-      ::content > .selected {
-        font-weight: bold;
-        font-style: italic;
-      }
-    </style>
-    <ul on-tap="{{itemTapAction}}">
-      <content></content>
-    </ul>
-    <core-selection id="selection" multi on-core-select="{{selectAction}}"></core-selection>
+  <polymer-element name="selection-example">
+    <template>
+      <style>
+        polyfill-next-selector { content: 'ul > *'; }
+        ::content > * {
+          cursor: pointer;
+        }
+
+        polyfill-next-selector { content: 'ul > .selected'; }
+        ::content > .selected {
+          font-weight: bold;
+          font-style: italic;
+        }
+      </style>
+
+      <ul on-tap="{{itemTapAction}}">
+        <content></content>
+      </ul>
+
+      <core-selection id="selection" multi on-core-select="{{selectAction}}"></core-selection>
+
     </template>
     <script>
     Polymer('selection-example', {
-      itemTapAction: function(e) {
+      itemTapAction: function(e, detail, sender) {
         this.$.selection.select(e.target);
       },
-      selectAction: function(e, detail) {
+      selectAction: function(e, detail, sender) {
         detail.item.classList.toggle('selected', detail.isSelected);
       }
     });

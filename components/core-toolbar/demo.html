@@ -9,7 +9,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <html>
 <head>
-
   <title>core-toolbar</title>
 
   <script src="../platform/platform.js"></script>
@@ -17,7 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="core-toolbar.html">
   <link rel="import" href="../core-icon-button/core-icon-button.html">
 
-  <style>
+  <style shim-shadowdom>
 
     body {
       font-family: sans-serif;
@@ -27,10 +26,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       background-color: #CFA0E9;
     }
 
-    core-toolbar.core-dark-theme {
+    core-toolbar.dark-theme {
       background-color: #7D25AC;
+      color: #f1f1f1;
+      fill: #f1f1f1;
     }
-
+    
   </style>
 
 </head>
@@ -38,16 +39,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <core-toolbar>
     <core-icon-button icon="menu"></core-icon-button>
-    <span core-flex>Toolbar: light-theme (default)</span>
+    <span flex>Toolbar</span>
     <core-icon-button icon="refresh"></core-icon-button>
     <core-icon-button icon="add"></core-icon-button>
   </core-toolbar>
 
   <br>
 
-  <core-toolbar theme="core-dark-theme">
+  <core-toolbar class="dark-theme">
     <core-icon-button icon="menu"></core-icon-button>
-    <span core-flex>Toolbar: dark-theme</span>
+    <span flex>Toolbar: dark-theme</span>
     <core-icon-button icon="refresh"></core-icon-button>
     <core-icon-button icon="add"></core-icon-button>
   </core-toolbar>
@@ -56,7 +57,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <core-toolbar class="tall">
     <core-icon-button icon="menu"></core-icon-button>
-    <span core-flex>Toolbar: tall</span>
+    <span flex>Toolbar: tall</span>
     <core-icon-button icon="refresh"></core-icon-button>
     <core-icon-button icon="add"></core-icon-button>
   </core-toolbar>
@@ -65,7 +66,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <core-toolbar class="tall">
     <core-icon-button icon="menu" class="bottom"></core-icon-button>
-    <span core-flex class="bottom">Toolbar: tall with actions pin to the bottom</span>
+    <span flex class="bottom">Toolbar: tall with actions pin to the bottom</span>
     <core-icon-button icon="refresh" class="bottom"></core-icon-button>
     <core-icon-button icon="add" class="bottom"></core-icon-button>
   </core-toolbar>
@@ -74,7 +75,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   
   <core-toolbar class="medium-tall">
     <core-icon-button icon="menu"></core-icon-button>
-    <span core-flex></span>
+    <span flex></span>
     <core-icon-button icon="refresh"></core-icon-button>
     <core-icon-button icon="add"></core-icon-button>
     <span class="bottom indent">Toolbar: medium tall with label aligns to the bottom</span>
@@ -84,11 +85,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   
   <core-toolbar class="tall">
     <core-icon-button icon="menu"></core-icon-button>
-    <div core-flex></div>
+    <div flex></div>
     <core-icon-button icon="refresh"></core-icon-button>
     <core-icon-button icon="add"></core-icon-button>
-    <div core-flex class="middle indent">Toolbar: label aligns to the middle</div>
-    <div core-flex class="bottom indent" style="color: #666; font-size: 18px;">some stuffs align to the bottom</div>
+    <div flex class="middle indent">Toolbar: label aligns to the middle</div>
+    <div flex class="bottom indent" style="color: #666; font-size: 18px;">some stuffs align to the bottom</div>
   </core-toolbar>
   
 </body>

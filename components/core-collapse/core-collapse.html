@@ -98,7 +98,7 @@ will be collapsed.  Use `opened` to show/hide the content.
       this.target = this.target || this;
     },
 
-    attached: function() {
+    domReady: function() {
       this.async(function() {
         this.afterInitialUpdate = true;
       });

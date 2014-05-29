@@ -18,6 +18,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   padding: 7px;
   margin: 2px;
   vertical-align: middle;
+  font-size: 1rem;
   cursor: pointer;
 }
 
@@ -60,7 +61,5 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 }
 
 core-icon {
-  display: block;
-  vertical-align: middle;
   pointer-events: none;
 }

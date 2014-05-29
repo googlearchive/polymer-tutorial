@@ -29,7 +29,7 @@
   </style>
 
 </head>
-<body unresolved theme="core-light-theme">
+<body unresolved>
 
     <h2>items with icon and label:</h2>
 
@@ -41,11 +41,6 @@
     <core-item label="Settings"></core-item>
     <core-item label="Account"></core-item>
     
-    <h2>links (via href):</h2>
-    
-    <core-item icon="settings" label="Settings" href="#settings"></core-item>
-    <core-item icon="account-box" label="Account" href="#account"></core-item>
-    
     <h2>links (via &lt;a&gt;):</h2>
     
     <core-item icon="settings" label="Settings"><a href="#settings" target="_self"></a></core-item>
@@ -53,13 +48,12 @@
     
     <h2>custom item:</h2>
     
-    <core-item icon="contact" class="contact-item">
-      <div core-flex>
+    <core-item icon="account-circle" class="label-outline">
+      <div flex>
         <div style="font-size: 18px;">John Doe</div>
         <div style="font-size: 12px;">123 A Street, San Francisco, CA</div>
       </div>
-      <core-icon icon="gplus"></core-icon>
-      <core-icon icon="dots"></core-icon>
+      <core-icon icon="more-vert"></core-icon>
     </core-item>
 
 </body>

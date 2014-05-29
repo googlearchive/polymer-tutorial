@@ -42,6 +42,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
  *     iconset.applyIcon(iconNode, 'car');
  *
  * @element core-iconset-svg
+ * @extends core-meta
  * @homepage github.io
  */
 -->
@@ -84,8 +85,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       get iconNames() {
+        if (!this._iconNames) {
+          this._iconNames = this.findIconNames();
+        }
+        return this._iconNames;
+      },
+
+      findIconNames: function() {
         var icons = this.querySelectorAll('[id]').array();
-        return icons.map(function(n){ return n.id });
+        if (icons.length) {
+          return icons.map(function(n){ return n.id });
+        }
       },
 
       /**
@@ -106,8 +116,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         // install new
         var svg = this.cloneIcon(icon);
+        if (!svg) {
+          return;
+        }
+        svg.style.height = svg.style.width = this.iconSize + 'px';
+        svg.style.verticalAlign = 'middle';
         if (svg) {
-          root.appendChild(svg);
+          root.insertBefore(svg, root.firstElementChild);
         }
       }
     });

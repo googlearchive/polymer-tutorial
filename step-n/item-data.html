@@ -5,7 +5,7 @@
   <link rel="import" href="../components/core-localstorage/core-localstorage.html">
 
 </head>
-<polymer-element name="quote-data" attributes="quotes">
+<polymer-element name="item-data" attributes="items favoriteCount">
 
 <template>
   <style>
@@ -13,30 +13,32 @@
     display: none;
   }
   </style>
-  <core-ajax id="ajax" url="https://polymerdemo.firebaseio.com/quotes.json" auto on-core-response="{{quotesLoaded}}" 
+  <core-ajax id="ajax" url="items.json" auto on-core-response="{{itemsLoaded}}" 
        handleAs="json"></core-ajax>
-  <core-localstorage id="localstorage" name="my-quote-favorites" value="{{favorites}}" on-core-localstorage-load="{{updateFavorites}}"></core-localstorage>
+  <core-localstorage id="localstorage" name="my-item-favorites" value="{{favorites}}" on-core-localstorage-load="{{updateFavorites}}"></core-localstorage>
 
 </template>
 <script>
-Polymer('quote-data', {
+Polymer('item-data', {
   created: function() {
-    this.quotes = [ ];
+    this.items = [ ];
     this.favorites = {};
   },
-  quotesLoaded: function() {
-    var loadedQuotes = this.$.ajax.response;
-    for (var i=0, len=loadedQuotes.length; i<len; i++) {
-      var q = loadedQuotes[i];
+  favoriteCount: 0,
+  itemsLoaded: function() {
+    var loadedItems = this.$.ajax.response;
+    for (var i=0, len=loadedItems.length; i<len; i++) {
+      var q = loadedItems[i];
       q.uid = i;
       q.favorite = (q.uid in this.favorites);
-      this.quotes.push(q);
+      this.items.push(q);
     }
   },
   updateFavorites: function() {
-    for (var i=0, len=this.quotes.length; i<len; i++) {
-      this.quotes[i].favorite = (this.quotes[i].uid in this.favorites);
+    for (var i=0, len=this.items.length; i<len; i++) {
+      this.items[i].favorite = (this.items[i].uid in this.favorites);
     }
+    this.favoriteCount = Object.keys(this.favorites).length;
   },
   setFavorite: function(uid) {
     this.favorites[uid] = true;
@@ -45,7 +47,7 @@ Polymer('quote-data', {
   }, 
   unsetFavorite: function(uid) {
     delete this.favorites[uid];
-    this.quotes.favorites = false;
+    this.items.favorites = false;
     this.$.localstorage.save();
     this.updateFavorites();
   }

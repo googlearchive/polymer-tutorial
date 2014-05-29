@@ -11,20 +11,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <html>
 <head>
 
-  <title>Core Icons Demo</title>
+  <title>core-icons</title>
   <script src="../platform/platform.js"></script>
-  <link rel="import" href="../core-icon/core-icon.html">
   <!-- load default set -->
   <link rel="import" href="core-icons.html">
   <!-- load the rest -->
   <link rel="import" href="iconsets/av-icons.html">
   <link rel="import" href="iconsets/communication-icons.html">
+  <link rel="import" href="iconsets/device-icons.html">
   <link rel="import" href="iconsets/hardware-icons.html">
   <link rel="import" href="iconsets/image-icons.html">
   <link rel="import" href="iconsets/maps-icons.html">
   <link rel="import" href="iconsets/notification-icons.html">
   <link rel="import" href="iconsets/social-icons.html">
-  <style shim-shadowdom>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial;
+    }
+
+    h2 {
+      text-transform: capitalize;
+    }
+
     core-icon {
       transition: all 0.2s;
       -webkit-transition: all 0.2s;
@@ -34,21 +42,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       fill: #fb8c00;
     }
 
-    h2 {
-      text-transform: capitalize;
-    }
-
     .set {
-      margin-bottom: 100px;
-      border-bottom: 1px solid black;
-      display: flex;
-      display: -webkit-flex;
-      flex-wrap: wrap;
-      -webkit-flex-wrap: wrap;
+      padding: 1em 0;
+      border-bottom: 1px solid silver;
     }
 
     .set:nth-of-type(4n-3) {
-      fill: #D23F31;
+      fill: #656565;
     }
 
     .set:nth-of-type(4n-2) {
@@ -63,54 +63,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       fill: #3B78E7;
     }
 
-    body {
-      font-family: 'Helvetica Neue', Helvetica, Arial;
-    }
-
     .container {
-      flex: 0 0 10em;
-      -webkit-flex: 0 0 10em;
-      display: inline-flex;
-      display: -webkit-inline-flex;
-      flex-flow: column;
-      -webkit-flex-flow: column;
-      align-items: center;
-      -webkit-align-items: center;
-      padding: 20px;
-      font-size: 13px;
+      min-width: 10em;
+      padding: 1em;
     }
   </style>
 </head>
 <body unresolved>
 
-  <!-- Now some icons using our iconset -->
-  <div id="demo">
-    <template repeat="{{ }}">
-      <h2>{{set}}</h2>
-      <div class="set">
-        <template repeat="{{ icon in icons }}">
-          <span class="container">
-            <core-icon icon="{{ set }}:{{ icon }}"></core-icon>
+  <template is="auto-binding">
+    <template repeat="{{iconset in $.meta.metaArray}}">
+      <h2>{{iconset.id}}</h2>
+      
+      <div class="set" horizontal wrap justified layout>
+        <template repeat="{{ icon in iconset.iconNames }}">
+          <span class="container" vertical center layout>
+            <core-icon icon="{{ iconset.id }}:{{ icon }}"></core-icon>
             <div>{{ icon }}</div>
           </span>
         </template>
       </div>
+
     </template>
-  </div>
+    <core-iconset id="meta"></core-iconset>
+  </template>
 
-  <core-meta id="meta" type="iconset"></core-meta>
-
-  <script>
-    addEventListener('polymer-ready', function() {
-      var meta = document.querySelector('#meta')
-      var template = document.querySelector('#demo > template');
-      var iconsets = meta.metaArray;
-      var model = iconsets.map(function(ic) {
-        return {set: ic.id, icons: ic.iconNames};
-      });
-      template.bindingDelegate = new PolymerExpressions();
-      template.model = model;
-    });
-  </script>
 </body>
 </html>

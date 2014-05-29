@@ -2,6 +2,7 @@
   "name": "core-layout",
   "private": true,
   "dependencies": {
-    "polymer": "Polymer/polymer#master"
-  }
+    "polymer": "Polymer/polymer#0.2.4"
+  },
+  "version": "0.2.4"
 }

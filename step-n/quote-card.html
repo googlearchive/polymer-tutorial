@@ -4,9 +4,11 @@
   <link rel="import" href="../components/core-toolbar/core-toolbar.html">
   <link rel="import" href="../components/core-icons/core-icons.html">
   <link rel="import" href="../components/core-icon-button/core-icon-button.html">
+  <link rel="import" href="light-box.html">
+
 </head>
 
-<polymer-element name="quote-card" attributes="attribution favorite" vertical layout>
+<polymer-element name="quote-card" attributes="attribution favorite item" vertical layout>
 <template>
   <style>
     :host {
@@ -23,26 +25,53 @@
 
     .card-content {
       padding: 8px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .card-content img {
+      width: 100%;
+    }
+
+    .metadata {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      bottom: 12px;
+      background-color: rgba(200,200,200,0.7);
+      font-size: 16px;
+    }
+
+    .metadata span {
+      padding-left: 10px;
     }
     </style>
 
 
     <!-- the toolbar forms a header for each card -->
-
+    <!--
       <core-toolbar>
-        <core-icon-button icon="{{favorite ? 'favorite' : 'favorite-outline' }}" on-click="{{toggleFavorite}}" right-justfied layout></core-icon-button>
-
-        <!-- title text on the toolbar -->
-        <span>{{attribution}}</span>
-        <!-- 
-        <a href="https://www.google.com/#q={{attribution}}" target="_blank"><core-icon-button icon="account-circle"></core-icon-button></a>
-        -->
+        
+        <span>{{item.by}}</span>
       </core-toolbar>
-
-
+    -->
+      <div class="container" layout horizontal center-justified>
       <div class="card-content">
-      <h3><content></content></h3>
+        <img src="{{item.thumbnail}}" on-tap="{{showViewer}}"/>
+
+        <div class="metadata">
+          <core-icon-button icon="{{item.favorite ? 'favorite' : 'favorite-outline' }}" on-click="{{toggleFavorite}}" core-theme-dark></core-icon-button>
+          <span>{{item.title}}</span>
+          <span>{{item.by}}</span>
+        </div>
       </div>
+      <light-box id="viewer">
+          <img src="{{item.image}}" class="image" core-overlay-toggle />
+          <core-icon-button icon="{{item.favorite ? 'favorite' : 'favorite-outline' }}" on-click="{{toggleFavorite}}" core-theme-dark></core-icon-button>
+          <p>{{item.title}}</p>
+          <p>{{item.by}}</p>        
+      </light-box>
+      <div>
 
 
   </template>
@@ -51,6 +80,9 @@
       favorite: false,
       toggleFavorite: function(event, detail, sender) {
         this.fire('favoriteclicked');
+      },
+      showViewer: function() {
+        this.$.viewer.open();
       }
     });
   </script>
