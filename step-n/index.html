@@ -58,7 +58,7 @@
 </head>
 
 <body unresolved>
-<template is="core-bind">
+<template is="auto-binding">
 
 <core-drawer-panel id="drawerPanel">
 
@@ -83,43 +83,8 @@
     </div>
 </core-header-panel>
 
-<!--
-<core-header-panel>
-  <core-toolbar>
-      <span class="middle">Settings</span>
-  </core-toolbar>
-   <div class="content">
-      Text color: <input type="color" value="{{settings.textColor}}"> </input>
-   </div>
-
-</core-header-panel>
--->
-<!-- </core-pages> -->
 
 </core-drawer-panel>
-<!--
-<core-scaffold>
-
-  <div navigation>
-    <!-- use a core-menu because it manages a selection state 
-    <core-menu selected="{{selected}}">
-      <core-item label="Quotations"></core-item>
-      <core-item label="Settings"></core-item>
-    </core-menu>  </div>
-
-  <span tool>
-    <core-selector selected="{{selected}}">
-      <span class="title">Quotable</span>
-      <span class="title">Settings</span>
-  </core-selector>
-  </span>
-
-  <div class="content">
-    <quote-panel></quote-panel>
-  </div>
-
-</core-scaffold>
--->
 </template>
 <script>
     var t = document.querySelector('template');

@@ -41,7 +41,7 @@ You can override the margin by doing:
 <link rel="import" href="../core-menu/core-menu.html">
 <link rel="import" href="../core-collapse/core-collapse.html">
 
-<polymer-element name="core-submenu" extends="core-item" attributes="selected selectedItem">
+<polymer-element name="core-submenu" attributes="selected selectedItem label icon src">
 <template>
 
   <link rel="stylesheet" href="core-submenu.css">
@@ -64,7 +64,7 @@ You can override the margin by doing:
     publish: {
       active: {value: false, reflect: true}
     },
-    
+
     opened: false,
 
     get items() {

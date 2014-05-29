@@ -14,6 +14,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script src="../platform/platform.js"></script>
 
+  <link rel="import" href="../core-icons/core-icons.html">
   <link rel="import" href="core-menu.html">
   <link rel="import" href="core-submenu.html">
   <link rel="import" href="../core-item/core-item.html">
@@ -29,8 +30,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       width: 300px;
     }
     
-    section[theme=core-dark-theme] {
+    .dark {
       background-color: #333;
+    }
+
+    .dark core-item {
+      color: #fafafa;
+      fill: #fafafa;
     }
 
   </style>
@@ -40,27 +46,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <h2>simple menu:</h2>
   
-  <section theme="core-light-theme">
+  <section>
   
     <core-menu selected="0">
     
       <core-item icon="settings" label="Settings"></core-item>
       <core-item icon="favorite" label="Favorite"></core-item>
-      <core-item icon="account" label="Account"></core-item>
+      <core-item icon="account-box" label="Account"></core-item>
       
     </core-menu>
   
   </section>
   
-  <h2>simple menu (dark-theme):</h2>
+  <h2>simple menu:</h2>
   
-  <section theme="core-dark-theme">
+  <section class="dark">
   
     <core-menu selected="0">
     
       <core-item icon="settings" label="Settings"></core-item>
       <core-item icon="favorite" label="Favorite"></core-item>
-      <core-item icon="account" label="Account"></core-item>
+      <core-item icon="account-box" label="Account"></core-item>
       
     </core-menu>
   
@@ -68,7 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <h2>submenu:</h2>
   
-  <section theme="core-light-theme">
+  <section>
   
     <core-menu selected="0">
     

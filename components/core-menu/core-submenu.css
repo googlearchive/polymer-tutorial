@@ -16,6 +16,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   font-weight: initial;
 }
 
+core-item {
+  cursor: default;
+}
+
+::content > core-item {
+ cursor: default; 
+}
+
 #submenu {
   margin: 0 0 0 44px;
 }

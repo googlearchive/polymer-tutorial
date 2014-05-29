@@ -18,7 +18,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   Polymer('core-transition-css', {
     
     baseClass: 'core-transition',
-    revealedClass: 'core-revealed',
     openedClass: 'core-opened',
     closedClass: 'core-closed',
     completeEventName: 'transitionend',
@@ -54,18 +53,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     transitionOpened: function(node, opened) {
-      node.classList.add(this.revealedClass);
-      this.async(function() {
-        node.classList.toggle(this.openedClass, opened);
-        node.classList.toggle(this.closedClass, !opened);
-        this.listenOnce(node, this.completeEventName, function() {
-          node.classList.toggle(this.revealedClass, opened);
-          if (!opened) {
-            node.classList.remove(this.closedClass);
-          }
-          this.complete(node);
-        });
+      this.listenOnce(node, this.completeEventName, function() {
+        node.classList.toggle(this.revealedClass, opened);
+        if (!opened) {
+          node.classList.remove(this.closedClass);
+        }
+        this.complete(node);
       });
+      node.classList.toggle(this.openedClass, opened);
+      node.classList.toggle(this.closedClass, !opened);
     },
 
     // TODO(sorvell): worth promoting

@@ -6,19 +6,15 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt */
 
 :host(.core-transition) {
-  display: none;
   outline: none;
+  overflow: hidden;
+  opacity: 0;
   transition: transform 0.2s ease-in-out, opacity 0.2s ease-in;
   -webkit-transition: -webkit-transform 0.2s ease-in-out, opacity 0.2s ease-in;
 }
 
-:host(.core-revealed) {
-  display: block;
-  opacity: 0;
-}
 
-:host(.core-revealed.core-opened) {
-  display: block;
+:host(.core-transition.core-opened) {
   opacity: 1;
   transform: none;
   -webkit-transform: none;

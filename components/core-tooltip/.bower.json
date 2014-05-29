@@ -2,17 +2,17 @@
   "name": "core-tooltip",
   "private": true,
   "dependencies": {
-    "polymer": "Polymer/polymer#0.2.4"
+    "polymer": "Polymer/polymer#>=0.3.0  <1.0.0"
   },
-  "version": "0.2.4",
   "homepage": "https://github.com/Polymer/core-tooltip",
-  "_release": "0.2.4",
+  "version": "0.3.0",
+  "_release": "0.3.0",
   "_resolution": {
     "type": "version",
-    "tag": "0.2.4",
-    "commit": "10e8e0874b9db14b579be25164b93f56c2044061"
+    "tag": "0.3.0",
+    "commit": "6a3c18aeaeeda790ec2406ca5e6032c90e4aff21"
   },
   "_source": "git://github.com/Polymer/core-tooltip.git",
-  "_target": "0.2.4",
+  "_target": "*",
   "_originalSource": "Polymer/core-tooltip"
 }

@@ -30,7 +30,7 @@
 				box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 			}
 		</style>
-		<core-overlay id="overlay" backdrop opened="{{opened}}" autoCloseDisabled="{{autoCloseDisabled}}"  transition="core-transition-center"></core-overlay>
+		<core-overlay id="overlay" layered backdrop opened="{{opened}}" autoCloseDisabled="{{autoCloseDisabled}}"  transition="core-transition-center"></core-overlay>
 		<content></content>
 	</template>
 	<script>
@@ -50,34 +50,31 @@
 	</script>
 	</polymer-element>
 
+
 	<!-- an element that uses the x-dialog element and core-overlay -->
 	<polymer-element name="x-container">
 	<template>
-		<style>
-			.dialog {
-				box-sizing: border-box;
-				-moz-box-sizing: border-box;
-				font-family: Arial, Helvetica, sans-serif;
-				font-size: 13px;
-				-webkit-user-select: none;
-				-moz-user-select: none;
-				overflow: hidden;
-				background: white;
-				padding:30px 42px;
-				outline: 1px solid rgba(0,0,0,0.2);
-				box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-			}
-
-			#dialog {
-				width: 500px;
-			}
-
-			#confirmation {
-				text-align: center;
-				width: 150px;
-			}
-		</style>
 		<x-dialog id="dialog" class="dialog">
+			<!-- place all overlay styles inside the overlay target -->
+			<style no-shim>
+				.dialog {
+					box-sizing: border-box;
+					-moz-box-sizing: border-box;
+					font-family: Arial, Helvetica, sans-serif;
+					font-size: 13px;
+					-webkit-user-select: none;
+					-moz-user-select: none;
+					overflow: hidden;
+					background: white;
+					padding:30px 42px;
+					outline: 1px solid rgba(0,0,0,0.2);
+					box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+				}
+
+				#dialog {
+					width: 500px;
+				}
+			</style>
 			<h2>Dialog</h2>
 			<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed fringilla sapien sed enim sollicitudin laoreet. Suspendisse suscipit, metus ac volutpat sodales, libero magna semper lacus, molestie fringilla massa orci ut arcu. Nullam sodales urna sit amet odio vehicula mattis.</div><br><br>
 			<div>Ut aliquam vulputate congue. Vestibulum pretium pretium nulla quis sollicitudin. Praesent lacinia congue erat nec mattis. Fusce commodo lacus est. Duis turpis eros, ultrices sed aliquet non, blandit egestas velit. Integer a augue nec lorem tristique hendrerit. Curabitur imperdiet risus id enim bibendum vestibulum. Integer id magna at arcu faucibus fermentum vel a augue. Sed fringilla venenatis dolor, in blandit magna molestie luctus. Vestibulum dignissim posuere ultrices. Aenean urna nisl, tincidunt vitae iaculis ut, pharetra nec eros.</div><br><br>
@@ -85,7 +82,29 @@
 			<div>
 				<input placeholder="say something..." autofocus on-input="{{inputHandler}}"></input><br>
 				I agree with this wholeheartedly.
-				<core-overlay id="confirmation" class="dialog" backdrop transition="core-transition-top">
+				<core-overlay layered id="confirmation" class="dialog" backdrop transition="core-transition-top">
+					<!-- place all overlay styles inside the overlay target -->
+					<style no-shim>
+						.dialog {
+							box-sizing: border-box;
+							-moz-box-sizing: border-box;
+							font-family: Arial, Helvetica, sans-serif;
+							font-size: 13px;
+							-webkit-user-select: none;
+							-moz-user-select: none;
+							overflow: hidden;
+							background: white;
+							padding:30px 42px;
+							outline: 1px solid rgba(0,0,0,0.2);
+							box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+						}
+
+						#confirmation {
+							box-sizing: border-box;
+							text-align: center;
+							width: 150px;
+						}
+					</style>
 					Thank you.
 				</core-overlay>
 			</div><br><br>

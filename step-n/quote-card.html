@@ -2,6 +2,7 @@
 <html>
 <head>
   <link rel="import" href="../components/core-toolbar/core-toolbar.html">
+  <link rel="import" href="../components/core-tooltip/core-tooltip.html">
   <link rel="import" href="../components/core-icons/core-icons.html">
   <link rel="import" href="../components/core-icon-button/core-icon-button.html">
   <link rel="import" href="light-box.html">
@@ -66,9 +67,9 @@
         </div>
       </div>
       <light-box id="viewer">
-          <img src="{{item.image}}" class="image" core-overlay-toggle />
-          <core-icon-button icon="{{item.favorite ? 'favorite' : 'favorite-outline' }}" on-click="{{toggleFavorite}}" core-theme-dark></core-icon-button>
-          <p>{{item.title}}</p>
+          <img src="{{item.image}}" class="image" core-overlay-toggle> 
+          <core-icon-button icon="{{item.favorite ? 'favorite' : 'favorite-outline' }}" on-click="{{toggleFavorite}}" fill="white"></core-icon-button>
+          <p><em>{{item.title}}</em></p>
           <p>{{item.by}}</p>        
       </light-box>
       <div>

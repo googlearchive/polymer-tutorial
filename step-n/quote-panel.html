@@ -18,10 +18,8 @@
     font-style: italic;
   }
   </style>
-  <!--
-  <core-ajax id="ajax" url="https://polymerdemo.firebaseio.com/quotes.json" response="{{test-quotes}}" 
-       handleAs="json"></core-ajax>
-     -->
+
+  <!-- item-data supplies the list of photos and tracks favorites -->
   <item-data id="data" items="{{items}}" favoriteCount="{{favoriteCount}}"></item-data>
 
   <template if="{{ show == 'favorites' && favoriteCount == 0}}">
