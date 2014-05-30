@@ -37,20 +37,12 @@
     }
     </style>
 
-
-    <!-- the toolbar forms a header for each card -->
-    <!--
-      <core-toolbar>
-        
-        <span>{{item.by}}</span>
-      </core-toolbar>
-    -->
     <div class="container" layout horizontal center-justified>
       <div class="card-content">
         <img src="{{item.thumbnail}}" on-tap="{{handleImgTap}}" />
         <div class="metadata">
           <core-icon-button
-            icon="{{favoriteIcon}}"
+            icon="{{item.favorite ? 'favorite' : 'favorite-outline'}}"
             on-tap="{{handleFavoriteTap}}"
             core-theme-dark>
           </core-icon-button>
@@ -63,14 +55,6 @@
   </template>
   <script>
   Polymer('quote-card', {
-    favoriteIcon: 'favorite-outline',
-    itemChanged: function(oldVal, newVal) {
-      if (newVal.favorite) {
-        return this.favoriteIcon = 'favorite';
-      }
-
-      this.favoriteIcon = 'favorite-outline';
-    },
     handleFavoriteTap: function(event, detail, sender) {
       this.fire('favorite-tap', { item: this.item });
     },
