@@ -1,58 +1,61 @@
-<!doctype html>
-<html>
-<head>
-  <link rel="import" href="../components/core-ajax/core-ajax.html">
-  <link rel="import" href="../components/core-localstorage/core-localstorage.html">
+<link rel="import" href="../components/core-ajax/core-ajax.html">
+<link rel="import" href="../components/core-localstorage/core-localstorage.html">
 
-</head>
 <polymer-element name="item-data" attributes="items favoriteCount">
 
-<template>
-  <style>
-  :host {
-    display: none;
-  }
-  </style>
-  <core-ajax id="ajax" url="items.json" auto on-core-response="{{itemsLoaded}}" 
-       handleAs="json"></core-ajax>
-  <core-localstorage id="localstorage" name="my-item-favorites" value="{{favorites}}" on-core-localstorage-load="{{updateFavorites}}"></core-localstorage>
+  <template>
+    <style>
+    :host {
+      display: none;
+    }
+    </style>
+    <core-ajax id="ajax"
+      auto
+      url="items.json"
+      on-core-response="{{itemsLoaded}}"
+      handleAs="json">
+    </core-ajax>
+    <core-localstorage id="localstorage"
+      name="my-item-favorites"
+      value="{{favorites}}"
+      on-core-localstorage-load="{{updateFavorites}}">
+    </core-localstorage>
 
-</template>
-<script>
-Polymer('item-data', {
-  created: function() {
-    this.items = [ ];
-    this.favorites = {};
-  },
-  favoriteCount: 0,
-  itemsLoaded: function() {
-    var loadedItems = this.$.ajax.response;
-    for (var i=0, len=loadedItems.length; i<len; i++) {
-      var q = loadedItems[i];
-      q.uid = i;
-      q.favorite = (q.uid in this.favorites);
-      this.items.push(q);
+  </template>
+  <script>
+  Polymer('item-data', {
+    created: function() {
+      this.items = [];
+      this.favorites = {};
+    },
+    favoriteCount: 0,
+    itemsLoaded: function() {
+      var loadedItems = this.$.ajax.response;
+      for (var i = 0, len = loadedItems.length; i < len; i++) {
+        var q = loadedItems[i];
+        q.uid = i;
+        q.favorite = (q.uid in this.favorites);
+        this.items.push(q);
+      }
+    },
+    updateFavorites: function() {
+      for (var i = 0, len = this.items.length; i < len; i++) {
+        this.items[i].favorite = (this.items[i].uid in this.favorites);
+      }
+      this.favoriteCount = Object.keys(this.favorites).length;
+    },
+    setFavorite: function(uid) {
+      this.favorites[uid] = true;
+      this.$.localstorage.save();
+      this.updateFavorites();
+    },
+    unsetFavorite: function(uid) {
+      delete this.favorites[uid];
+      this.items.favorites = false;
+      this.$.localstorage.save();
+      this.updateFavorites();
     }
-  },
-  updateFavorites: function() {
-    for (var i=0, len=this.items.length; i<len; i++) {
-      this.items[i].favorite = (this.items[i].uid in this.favorites);
-    }
-    this.favoriteCount = Object.keys(this.favorites).length;
-  },
-  setFavorite: function(uid) {
-    this.favorites[uid] = true;
-    this.$.localstorage.save();
-    this.updateFavorites();
-  }, 
-  unsetFavorite: function(uid) {
-    delete this.favorites[uid];
-    this.items.favorites = false;
-    this.$.localstorage.save();
-    this.updateFavorites();
-  }
-});
-</script>
+  });
+  </script>
 
 </polymer-element>
-</html>

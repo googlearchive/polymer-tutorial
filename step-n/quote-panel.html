@@ -1,51 +1,49 @@
-﻿<!doctype html>
-<html>
-<head>
-  <link rel="import" href="../components/core-ajax/core-ajax.html">
-  <link rel="import" href="item-data.html">
+﻿<link rel="import" href="../components/core-ajax/core-ajax.html">
+<link rel="import" href="item-data.html">
+<link rel="import" href="quote-card.html">
 
-  <link rel="import" href="quote-card.html">
-</head>
 <polymer-element name="quote-panel" attributes="show">
 
-<template>
-  <style>
-  :host {
-    display: block;
-    background-color: rgba(0,0,0,0);
-  }
-  .notice {
-    font-style: italic;
-  }
-  </style>
+  <template>
+    <style>
+    :host {
+      display: block;
+      background-color: rgba(0, 0, 0, 0);
+    }
+    .notice {
+      font-style: italic;
+    }
+    </style>
 
-  <!-- item-data supplies the list of photos and tracks favorites -->
-  <item-data id="data" items="{{items}}" favoriteCount="{{favoriteCount}}"></item-data>
+    <!-- item-data supplies the list of photos and tracks favorites -->
+    <item-data id="data"
+               items="{{items}}"
+               favoriteCount="{{favoriteCount}}">
+    </item-data>
 
-  <template if="{{ show == 'favorites' && favoriteCount == 0}}">
-    <span class="notice">No favorite images selected.</span>
-  </template>
-  <template repeat="{{one_item in items}}">
-    <template if="{{ show == 'all' || one_item.favorite}}">
-      <quote-card item="{{one_item}}" 
-         on-favoriteclicked="{{favoriteChanged}}">
-      </quote-card>
+    <template if="{{ show == 'Favorites' && favoriteCount == 0}}">
+      <span class="notice">No favorite images selected.</span>
+    </template>
+    <template repeat="{{item in items}}">
+      <template if="{{show == 'All' || item.favorite}}">
+        <quote-card item="{{item}}"
+                    on-favoriteclicked="{{favoriteChanged}}">
+        </quote-card>
+      </template>
     </template>
   </template>
-</template>
 
-<script>
-Polymer('quote-panel', {
-  favoriteChanged: function(event, detail, sender) {
-    var item = event.target.templateInstance.model.one_item;
-    if (item.favorite) {
-      this.$.data.unsetFavorite(item.uid);
-    } else {
-      this.$.data.setFavorite(item.uid);
+  <script>
+  Polymer('quote-panel', {
+    favoriteChanged: function(event, detail, sender) {
+      var changedItem = event.target.templateInstance.model.item;
+      if (changedItem.favorite) {
+        this.$.data.unsetFavorite(changedItem.uid);
+      } else {
+        this.$.data.setFavorite(changedItem.uid);
+      }
     }
-  }
-});
-</script>
+  });
+  </script>
 
 </polymer-element>
-</html>
