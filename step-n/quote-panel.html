@@ -17,8 +17,8 @@
 
     <!-- item-data supplies the list of photos and tracks favorites -->
     <item-data id="data"
-               items="{{items}}"
-               favoriteCount="{{favoriteCount}}">
+      items="{{items}}"
+      favoriteCount="{{favoriteCount}}">
     </item-data>
 
     <template if="{{ show == 'Favorites' && favoriteCount == 0}}">
@@ -27,7 +27,7 @@
     <template repeat="{{item in items}}">
       <template if="{{show == 'All' || item.favorite}}">
         <quote-card item="{{item}}"
-                    on-favoriteclicked="{{favoriteChanged}}">
+          on-favorite-tap="{{favoriteChanged}}">
         </quote-card>
       </template>
     </template>
@@ -36,7 +36,7 @@
   <script>
   Polymer('quote-panel', {
     favoriteChanged: function(event, detail, sender) {
-      var changedItem = event.target.templateInstance.model.item;
+      var changedItem = detail.item;
       if (changedItem.favorite) {
         this.$.data.unsetFavorite(changedItem.uid);
       } else {

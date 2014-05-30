@@ -51,8 +51,9 @@
 
       <core-header-panel main>
         <core-toolbar mode="waterfall">
-          <core-icon-button id="menuButton" icon="menu"
-                            on-tap="{{toggleDrawer}}">
+          <core-icon-button id="menuButton"
+            icon="menu"
+            on-tap="{{toggleDrawer}}">
           </core-icon-button>
           <span>My Portfolio</span>
         </core-toolbar>
@@ -64,6 +65,18 @@
       </core-header-panel>
 
     </core-drawer-panel>
+
+    <!-- <light-box id="viewer">
+      <img src="{{item.image}}" class="image" core-overlay-toggle>
+      <core-icon-button
+        icon="{{favoriteIcon}}"
+        on-click="{{toggleFavorite}}" fill="white">
+      </core-icon-button>
+      <p>
+        <em>{{item.title}}</em>
+      </p>
+      <p>{{item.by}}</p>
+    </light-box> -->
   </template>
   <script>
   var t = document.querySelector('template');

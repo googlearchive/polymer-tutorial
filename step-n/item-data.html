@@ -38,6 +38,7 @@
         this.items.push(q);
       }
     },
+    // this does too much work
     updateFavorites: function() {
       for (var i = 0, len = this.items.length; i < len; i++) {
         this.items[i].favorite = (this.items[i].uid in this.favorites);

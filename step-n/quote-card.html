@@ -4,7 +4,7 @@
 <link rel="import" href="../components/core-icon-button/core-icon-button.html">
 <link rel="import" href="light-box.html">
 
-<polymer-element name="quote-card" attributes="attribution favorite item">
+<polymer-element name="quote-card" attributes="item">
   <template>
     <style>
     :host {
@@ -47,41 +47,35 @@
     -->
     <div class="container" layout horizontal center-justified>
       <div class="card-content">
-        <img src="{{item.thumbnail}}" on-tap="{{showViewer}}" />
-
+        <img src="{{item.thumbnail}}" on-tap="{{handleImgTap}}" />
         <div class="metadata">
           <core-icon-button
-            icon="{{item.favorite ? 'favorite' : 'favorite-outline'}}"
-            on-click="{{toggleFavorite}}"
+            icon="{{favoriteIcon}}"
+            on-tap="{{handleFavoriteTap}}"
             core-theme-dark>
           </core-icon-button>
           <span>{{item.title}}</span>
           <span>{{item.by}}</span>
         </div>
       </div>
-      <light-box id="viewer">
-        <img src="{{item.image}}" class="image" core-overlay-toggle>
-        <core-icon-button
-          icon="{{item.favorite ? 'favorite' : 'favorite-outline' }}"
-          on-click="{{toggleFavorite}}" fill="white">
-        </core-icon-button>
-        <p>
-          <em>{{item.title}}</em>
-        </p>
-        <p>{{item.by}}</p>
-      </light-box>
     </div>
-
 
   </template>
   <script>
   Polymer('quote-card', {
-    favorite: false,
-    toggleFavorite: function(event, detail, sender) {
-      this.fire('favoriteclicked');
+    favoriteIcon: 'favorite-outline',
+    itemChanged: function(oldVal, newVal) {
+      if (newVal.favorite) {
+        return this.favoriteIcon = 'favorite';
+      }
+
+      this.favoriteIcon = 'favorite-outline';
     },
-    showViewer: function() {
-      this.$.viewer.open();
+    handleFavoriteTap: function(event, detail, sender) {
+      this.fire('favorite-tap', { item: this.item });
+    },
+    handleImgTap: function() {
+      this.fire('img-tap', { item: this.item });
     }
   });
   </script>
