@@ -9,45 +9,47 @@
     <style>
     :host {
       display: block;
-      background-color: white;
-      margin-bottom: 20px;
-      box-shadow: rgba(0, 0, 0, 0.14902) 0px 2px 4px, rgba(0, 0, 0, 0.14902) 0px 0px 3px;
-    }
-    core-toolbar {
-      background-color: lightblue;
-    }
-    .card-content {
-      padding: 8px;
       position: relative;
-      display: inline-block;
+      background-color: #FAFAFA;
+      padding: 10px;
+      box-shadow: rgba(0, 0, 0, 0.14902) 0px 2px 4px,
+                  rgba(0, 0, 0, 0.14902) 0px 0px 3px;
     }
     .card-content img {
       width: 100%;
     }
     .metadata {
       position: absolute;
-      left: 8px;
-      right: 8px;
-      bottom: 12px;
-      background-color: rgba(200, 200, 200, 0.7);
-      font-size: 16px;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      opacity: 0;
+      background: rgba(255, 255, 255, 0.96);
+      transition: opacity 0.3s;
     }
-    .metadata span {
-      padding-left: 10px;
+    .metadata:hover {
+      opacity: 1;
+    }
+    h1 {
+      font-family: 'Lato';
+      color: #434343;
+      margin-bottom: 3px;
+    }
+    core-icon-button::shadow core-icon {
+      fill: #D04C61;
     }
     </style>
-
+    
     <div class="container" layout horizontal center-justified>
       <div class="card-content">
-        <img src="{{item.thumbnail}}" on-tap="{{handleImgTap}}" />
-        <div class="metadata">
+        <img src="{{item.thumbnail}}"/>
+        <div class="metadata" layout vertical center center-justified>
+          <h1>{{item.title}}</h1>
           <core-icon-button
             icon="{{item.favorite ? 'favorite' : 'favorite-outline'}}"
-            on-tap="{{handleFavoriteTap}}"
-            core-theme-dark>
+            on-tap="{{handleFavoriteTap}}">
           </core-icon-button>
-          <span>{{item.title}}</span>
-          <span>{{item.by}}</span>
         </div>
       </div>
     </div>
@@ -57,9 +59,6 @@
   Polymer('quote-card', {
     handleFavoriteTap: function(event, detail, sender) {
       this.fire('favorite-tap', { item: this.item });
-    },
-    handleImgTap: function() {
-      this.fire('img-tap', { item: this.item });
     }
   });
   </script>

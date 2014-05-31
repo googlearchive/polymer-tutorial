@@ -3,9 +3,10 @@
 
 <head>
   <title>Quotable</title>
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
   <style>
   body {
-    font-family: sans-serif;
+    font-family: 'Lato';
     background-color: whitesmoke;
   }
   core-drawer-panel, core-pages {
@@ -25,10 +26,8 @@
     padding: 20px;
     height: 100%;
   }
-  quote-panel {
-    min-width: 320px;
-    max-width: 768px;
-    margin: 20px;
+  .content {
+    padding: 50px;
   }
   </style>
   <script src="../components/platform/platform.js"></script>
@@ -55,34 +54,31 @@
             icon="menu"
             on-tap="{{toggleDrawer}}">
           </core-icon-button>
-          <span>My Portfolio</span>
+          <span>Polymer Chronicles</span>
         </core-toolbar>
 
         <!-- use core-pages to display the selected page -->
         <div class="content">
-          <quote-panel show="{{selected}}"></quote-panel>
+          <quote-panel layout vertical center show="{{selected}}"
+            on-img-tap="{{showImg}}">
+          </quote-panel>
         </div>
       </core-header-panel>
 
     </core-drawer-panel>
 
-    <!-- <light-box id="viewer">
-      <img src="{{item.image}}" class="image" core-overlay-toggle>
-      <core-icon-button
-        icon="{{favoriteIcon}}"
-        on-click="{{toggleFavorite}}" fill="white">
-      </core-icon-button>
-      <p>
-        <em>{{item.title}}</em>
-      </p>
-      <p>{{item.by}}</p>
-    </light-box> -->
+    <light-box id="lightbox"></light-box>
   </template>
   <script>
   var t = document.querySelector('template');
   t.selected = 'All';
   t.toggleDrawer = function() {
     document.querySelector('core-drawer-panel').togglePanel();
+  };
+  t.showImg = function(event, detail, sender) {
+    var lightbox = this.$.lightbox;
+    lightbox.item = detail.item;
+    lightbox.open();
   };
   </script>
 </body>
