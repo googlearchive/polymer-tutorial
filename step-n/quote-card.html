@@ -31,10 +31,13 @@
     .metadata:hover {
       opacity: 1;
     }
-    h1 {
-      font-family: 'Lato';
+    h2 {
+      font-size: 1.8em;
       color: #434343;
-      margin-bottom: 3px;
+      margin: 0;
+    }
+    :host-context([narrow]) h2 {
+      font-size: 1.5em;
     }
     core-icon-button::shadow core-icon {
       fill: #D04C61;
@@ -45,7 +48,7 @@
       <div class="card-content">
         <img src="{{item.thumbnail}}"/>
         <div class="metadata" layout vertical center center-justified>
-          <h1>{{item.title}}</h1>
+          <h2>{{item.title}}</h2>
           <core-icon-button
             icon="{{item.favorite ? 'favorite' : 'favorite-outline'}}"
             on-tap="{{handleFavoriteTap}}">
