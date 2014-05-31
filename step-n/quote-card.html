@@ -39,8 +39,19 @@
     :host-context([narrow]) h2 {
       font-size: 1.5em;
     }
+    core-icon-button {
+      z-index: 2;
+    }
     core-icon-button::shadow core-icon {
       fill: #D04C61;
+    }
+    a {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      z-index: 1;
     }
     </style>
     
@@ -53,6 +64,7 @@
             icon="{{item.favorite ? 'favorite' : 'favorite-outline'}}"
             on-tap="{{handleFavoriteTap}}">
           </core-icon-button>
+          <a href="{{item.image}}"></a>
         </div>
       </div>
     </div>
