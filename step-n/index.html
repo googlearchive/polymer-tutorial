@@ -3,84 +3,34 @@
 
 <head>
   <title>Quotable</title>
-  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+  <script src="../components/platform/platform.js"></script>
+  <link rel="import"
+    href="../components/core-header-panel/core-header-panel.html">
+  <link rel="import" href="quote-panel.html">
   <style>
-  body {
-    font-family: 'Lato';
-    background-color: whitesmoke;
-  }
-  core-drawer-panel, core-pages {
+  html,body {
     height: 100%;
-  }
-  #drawerPanel:not([narrow]) #menuButton {
-    display: none;
-  }
-  core-toolbar {
-    background-color: orange;
-  }
-  [drawer] {
-    padding: 20px;
-    background-color: white;
   }
   core-header-panel {
-    padding: 20px;
     height: 100%;
   }
-  .content {
-    padding: 50px;
+  .core-header {
+    padding: 0 20px;
+    background: tomato;
+    color: white;
   }
   </style>
-  <script src="../components/platform/platform.js"></script>
-  <link rel="import" href="elements.html">
 </head>
 
 <body unresolved>
-  <template is="auto-binding">
-
-    <core-drawer-panel id="drawerPanel" responsiveWidth="710px">
-
-      <div drawer>
-        <!-- use a core-menu because it manages a selection state -->
-        <core-menu valueattr="label" selected="{{selected}}">
-          <core-item label="All"></core-item>
-          <core-item label="Favorites"></core-item>
-        </core-menu>
-      </div>
-
-
-      <core-header-panel main>
-        <core-toolbar mode="waterfall">
-          <core-icon-button id="menuButton"
-            icon="menu"
-            on-tap="{{toggleDrawer}}">
-          </core-icon-button>
-          <span>Polymer Portfolio</span>
-        </core-toolbar>
-
-        <!-- use core-pages to display the selected page -->
-        <div class="content">
-          <quote-panel layout vertical center show="{{selected}}"
-            on-img-tap="{{showImg}}">
-          </quote-panel>
-        </div>
-      </core-header-panel>
-
-    </core-drawer-panel>
-
-    <light-box id="lightbox"></light-box>
-  </template>
-  <script>
-  var t = document.querySelector('template');
-  t.selected = 'All';
-  t.toggleDrawer = function() {
-    document.querySelector('core-drawer-panel').togglePanel();
-  };
-  t.showImg = function(event, detail, sender) {
-    var lightbox = this.$.lightbox;
-    lightbox.item = detail.item;
-    lightbox.open();
-  };
-  </script>
+  <core-header-panel>
+    <div class="core-header" layout horizontal center>
+      <h1>Quote Tuts</h1>
+    </div>
+    <div style="padding: 50px;">
+      <quote-panel show="all"></quote-panel>
+    </div>
+  </core-header-panel>
 </body>
 
 </html>
