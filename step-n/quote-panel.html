@@ -28,11 +28,9 @@
       <span class="notice">No favorite images selected.</span>
     </template>
     <template repeat="{{item in items}}">
-      <template if="{{show == 'All' || item.favorite}}">
-        <quote-card item="{{item}}"
-          on-favorite-tap="{{handleFavoriteTap}}">
-        </quote-card>
-      </template>
+      <quote-card hidden?="{{show == 'Favorites' && !item.favorite}}" item="{{item}}"
+        on-favorite-tap="{{handleFavoriteTap}}">
+      </quote-card>
     </template>
   </template>
 
