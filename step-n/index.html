@@ -7,12 +7,16 @@
   <script src="../components/platform/platform.js"></script>
   <link rel="import"
     href="../components/core-header-panel/core-header-panel.html">
+  <link rel="import"
+    href="../components/core-toolbar/core-toolbar.html">
+  <link rel="import"
+    href="../components/core-icon-button/core-icon-button.html">
   <link rel="import" href="post-list.html">
   <style>
   html,body {
     height: 100%;
     margin: 0;
-    background-color: #FAFAFA;
+    background-color: #E5E5E5;
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
     font-size: 16px;
@@ -21,24 +25,23 @@
     height: 100%;
   }
   .core-header {
-    padding: 0 20px;
+    padding: 0 50px;
     background: tomato;
     color: white;
   }
-  post-list {
-    padding: 50px 100px;
-  }
-  @media (max-width: 900px) {
-    html { font-size: 15px; }
-    quote-panel { padding: 50px 15px;}
+  core-icon-button {
+    fill: white;
   }
   </style>
 </head>
 
 <body unresolved>
   <core-header-panel>
+
     <div class="core-header" layout horizontal center>
-      <h1>Unquote</h1>
+      <h1 flex>Unquote</h1>
+      <core-icon-button icon="list"></core-icon-button>
+      <core-icon-button icon="favorite"></core-icon-button>
     </div>
     <post-list show="all" layout vertical center></post-list>
   </core-header-panel>

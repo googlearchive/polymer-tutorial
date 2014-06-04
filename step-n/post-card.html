@@ -8,7 +8,8 @@
       position: relative;
       background-color: white;
       padding: 20px;
-      max-width: 400px
+      max-width: 450px;
+      min-width: 300px;
     }
     .card-header {
       margin-bottom: 10px;
@@ -32,6 +33,11 @@
       border-radius: 50%;
       margin: 10px;
     }
+    core-icon-button {
+      position: absolute;
+      top: 3px;
+      right: 3px;
+    }
     </style>
     <div class="container">
       <div class="card-header" layout horizontal center>
@@ -40,9 +46,11 @@
           <h2>{{post.by}}</h2>
           <span class="timestamp">6 minutes ago</span>
         </div>
-        <button data-uid="{{post.uid}}" on-tap="{{favoriteTapped}}">
-          Favorite
-        </button>
+        <core-icon-button
+          icon="favorite"
+          data-uid="{{post.uid}}"
+          on-tap="{{favoriteTapped}}">
+        </core-icon-button>
       </div>
       <div class="card-content">
         <h3>{{post.title}}</h3>
