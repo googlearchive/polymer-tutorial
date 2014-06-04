@@ -1,0 +1,74 @@
+[
+  {
+    "uid": 1,
+    "title" : "High on a Mountain",
+    "by" : "John Doe",
+    "thumbnail" : "http://lorempixel.com/100/100/nature",
+    "image" : "images/img1.jpg",
+    "favorite": false
+  },
+  {
+    "uid": 2,
+    "title" : "Salt Creek",
+    "by" : "John Doe",
+    "thumbnail" : "http://lorempixel.com/100/100/nature",
+    "image" : "images/img2.jpg",
+    "favorite": false
+  },
+    {
+    "uid": 3,
+    "title" : "Big Sandy River",
+    "by" : "John Doe",
+    "thumbnail" : "http://lorempixel.com/100/100/nature",
+    "image" : "images/img3.jpg",
+    "favorite": false
+  },
+    {
+    "uid": 4,
+    "title" : "In the Pines",
+    "by" : "John Doe",
+    "thumbnail" : "http://lorempixel.com/100/100/nature",
+    "image" : "images/img4.jpg",
+    "favorite": false
+  },
+    {
+    "uid": 5,
+    "title" : "Banks of the Ohio",
+    "by" : "John Doe",
+    "thumbnail" : "http://lorempixel.com/100/100/nature",
+    "image" : "images/img5.jpg",
+    "favorite": false
+  },
+  {
+    "uid": 6,
+    "title" : "Whiskey Before Breakfast",
+    "by" : "John Doe",
+    "thumbnail" : "http://lorempixel.com/100/100/nature",
+    "image" : "images/img6.jpg",
+    "favorite": false
+  },
+  {
+    "uid": 7,
+    "title" : "Blue Night",
+    "by" : "John Doe",
+    "thumbnail" : "http://lorempixel.com/100/100/nature",
+    "image" : "images/img7.jpg",
+    "favorite": false
+  },
+  {
+    "uid": 8,
+    "title" : "Foggy Mountain Top",
+    "by" : "John Doe",
+    "thumbnail" : "http://lorempixel.com/100/100/nature",
+    "image" : "images/img8.jpg",
+    "favorite": false
+  },
+  {
+    "uid": 9,
+    "title" : "Blackberry Blossom",
+    "by" : "John Doe",
+    "thumbnail" : "http://lorempixel.com/100/100/nature",
+    "image" : "images/img9.jpg",
+    "favorite": false
+  }
+]

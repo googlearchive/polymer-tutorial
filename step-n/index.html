@@ -2,14 +2,20 @@
 <html>
 
 <head>
-  <title>Quotable</title>
+  <title>Unquote</title>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
   <script src="../components/platform/platform.js"></script>
   <link rel="import"
     href="../components/core-header-panel/core-header-panel.html">
-  <link rel="import" href="quote-panel.html">
+  <link rel="import" href="post-list.html">
   <style>
   html,body {
     height: 100%;
+    margin: 0;
+    background-color: #FAFAFA;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
   }
   core-header-panel {
     height: 100%;
@@ -19,17 +25,22 @@
     background: tomato;
     color: white;
   }
+  post-list {
+    padding: 50px 100px;
+  }
+  @media (max-width: 900px) {
+    html { font-size: 15px; }
+    quote-panel { padding: 50px 15px;}
+  }
   </style>
 </head>
 
 <body unresolved>
   <core-header-panel>
     <div class="core-header" layout horizontal center>
-      <h1>Quote Tuts</h1>
+      <h1>Unquote</h1>
     </div>
-    <div style="padding: 50px;">
-      <quote-panel show="all"></quote-panel>
-    </div>
+    <post-list show="all" layout vertical center></post-list>
   </core-header-panel>
 </body>
 

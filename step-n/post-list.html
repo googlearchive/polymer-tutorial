@@ -1,0 +1,34 @@
+﻿<link rel="import" href="../components/core-ajax/core-ajax.html">
+<link rel="import" href="post-service.html">
+<link rel="import" href="post-card.html">
+
+<polymer-element name="post-list" attributes="show">
+  <template>
+    <style>
+    :host {
+      display: block;
+      background-color: rgba(0, 0, 0, 0);
+    }
+    post-card {
+      margin-bottom: 30px;
+    }
+    </style>
+
+    <post-service id="service" posts="{{posts}}"></post-service>
+    
+    <template repeat="{{post in posts}}">
+      <post-card
+        post="{{post}}"
+        on-favorite-tap="{{handleFavorite}}">
+      </post-card>
+    </template>
+  </template>
+
+  <script>
+  Polymer('post-list', {
+    handleFavorite: function(event, detail, sender) {
+      this.$.service.toggleFavorite(detail.uid);
+    }
+  });
+  </script>
+</polymer-element>
