@@ -22,12 +22,11 @@
     
     <div layout vertical center>
       <template repeat="{{post in posts}}">
-        <template if="{{show == 'all' || post.favorite}}">
-          <post-card
-            post="{{post}}"
-            on-favorite-tap="{{handleFavorite}}">
-          </post-card>
-        </template>
+        <post-card
+          post="{{post}}"
+          on-favorite-tap="{{handleFavorite}}"
+          hidden?="{{show == 'favorites' && !post.favorite}}">
+        </post-card>
       </template>
     </div>
   </template>
