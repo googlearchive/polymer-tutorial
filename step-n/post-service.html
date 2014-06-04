@@ -23,23 +23,16 @@
       // Make a copy of the loaded data
       this.posts = this.$.ajax.response.slice(0);
     },
-    updatePosts: function() {
-      for (var i = 0, len = this.posts.length; i < len; i++) {
-        var post = this.posts[i];
-        if (post.uid in this.favorites) {
-          return post.favorite = true;
-        }
-
-        post.favorite = false;
-      }
-    },
     toggleFavorite: function(uid) {
-      if (uid in this.favorites) {
-        delete this.favorites[uid];
-      } else {
-        this.favorites[uid] = true;
-      }
-      this.updatePosts();
+      this.posts.forEach(function(post) {
+        if (post.uid == uid) {
+          if (post.favorite) {
+            return post.favorite = false;
+          }
+
+          post.favorite = true;
+        }
+      });
     }
   });
   </script>
