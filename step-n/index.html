@@ -37,14 +37,27 @@
 
 <body unresolved>
   <core-header-panel>
-
     <div class="core-header" layout horizontal center>
       <h1 flex>Unquote</h1>
-      <core-icon-button icon="list"></core-icon-button>
-      <core-icon-button icon="favorite"></core-icon-button>
+      <core-icon-button icon="list" onclick="showList();">
+      </core-icon-button>
+      <core-icon-button icon="favorite" onclick="showFav();">
+      </core-icon-button>
     </div>
-    <post-list show="all" layout vertical center></post-list>
+    <post-list show="all"></post-list>
   </core-header-panel>
+
+  <script>
+  var list = document.querySelector('post-list');
+
+  function showList() {
+    list.setAttribute('show', 'all');
+  }
+
+  function showFav() {
+    list.setAttribute('show', 'favorites');
+  }
+  </script>
 </body>
 
 </html>

@@ -20,12 +20,14 @@
 
     <post-service id="service" posts="{{posts}}"></post-service>
     
-    <template repeat="{{post in posts}}">
-      <post-card
-        post="{{post}}"
-        on-favorite-tap="{{handleFavorite}}">
-      </post-card>
-    </template>
+    <div layout vertical center>
+      <template repeat="{{post in posts}}">
+        <post-card
+          post="{{post}}"
+          on-favorite-tap="{{handleFavorite}}">
+        </post-card>
+      </template>
+    </div>
   </template>
 
   <script>

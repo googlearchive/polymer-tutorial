@@ -17,21 +17,25 @@
   Polymer('post-service', {
     created: function() {
       this.posts = [];
-      this.favorites = [];
+      this.favorites = {};
     },
     postsLoaded: function() {
-      var loadedPosts = this.$.ajax.response;
-      for (var i = 0, len = loadedPosts.length; i < len; i++) {
-        this.posts.push(loadedPosts[i]);
-      }
+      // Make a copy of the loaded data
+      this.posts = this.$.ajax.response.slice(0);
+    },
+    updatePosts: function() {
+      this.posts.forEach(function(post) {
+        if (post.uid in this.favorites) {
+          post.favorite = true;
+        }
+      });
     },
     toggleFavorite: function(uid) {
-      var index = this.favorites.indexOf(uid);
-      if (index == -1) {
-        return this.favorites.push(uid);
+      if (uid in this.favorites) {
+        delete this.favorites[uid];
+      } else {
+        this.favorites[uid] = true;
       }
-
-      this.favorites.splice(index, 1);
     }
   });
   </script>
