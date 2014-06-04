@@ -24,11 +24,14 @@
       this.posts = this.$.ajax.response.slice(0);
     },
     updatePosts: function() {
-      this.posts.forEach(function(post) {
+      for (var i = 0, len = this.posts.length; i < len; i++) {
+        var post = this.posts[i];
         if (post.uid in this.favorites) {
-          post.favorite = true;
+          return post.favorite = true;
         }
-      });
+
+        post.favorite = false;
+      }
     },
     toggleFavorite: function(uid) {
       if (uid in this.favorites) {
@@ -36,6 +39,7 @@
       } else {
         this.favorites[uid] = true;
       }
+      this.updatePosts();
     }
   });
   </script>
