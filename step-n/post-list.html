@@ -9,9 +9,17 @@
       display: block;
       background-color: rgba(0, 0, 0, 0);
       padding: 50px 100px;
+      width: 100%;
     }
     post-card {
       margin-bottom: 30px;
+    }
+    #container {
+      width: 100%;
+    }
+    #card-column {
+      max-width: 450px;
+      min-width: 300px;
     }
     @media (max-width: 900px) {
       :host { padding: 50px 15px; }
@@ -20,21 +28,26 @@
 
     <post-service id="service" posts="{{posts}}"></post-service>
     
-    <div layout vertical center>
+    <div id="container" layout vertical center>
+    <div id="card-column" layout vertical center>
       <template repeat="{{post in posts}}">
         <post-card
-          post="{{post}}"
+          favorite="{{post.favorite}}"
           on-favorite-tap="{{handleFavorite}}"
           hidden?="{{show == 'favorites' && !post.favorite}}">
+  		  <img src="{{post.avatar}}">         
+          <h2>{{post.username}}</h2>
+		  <h3>{{post.text}}</h3>
         </post-card>
       </template>
+    </div>
     </div>
   </template>
 
   <script>
   Polymer('post-list', {
     handleFavorite: function(event, detail, sender) {
-      this.$.service.toggleFavorite(detail.uid);
+      console.log('Favorite changed: ' + post.uid + ", now: " + post.favorite);
     }
   });
   </script>
