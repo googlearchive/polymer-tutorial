@@ -1,0 +1,87 @@
+﻿<link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="../components/core-icon-button/core-icon-button.html">
+<link rel="import" href="../components/paper-icon-button/paper-icon-button.html">
+
+<polymer-element name="post-card">
+  <template>
+    <style>
+    :host {
+      display: block;
+      position: relative;
+      background-color: white;
+      padding: 20px;
+      width: 80%;
+    }
+    .card-header {
+      margin-bottom: 10px;
+    }
+    polyfill-next-selector {
+      content: "h2";
+    }
+    ::content h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 300;
+    }
+    polyfill-next-selector {
+      content: "h3";
+    }
+    ::content h3 {
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+    polyfill-next-selector {
+      content: ".card-header img";
+    }
+    .card-header ::content img {
+      width: 70px;
+      border-radius: 50%;
+      margin: 10px;
+    }
+    core-icon-button {
+      position: absolute;
+      right: 3px;
+      top: 3px;
+    }
+    core-icon-button::shadow core-icon {
+      fill: #333333;
+    }
+    :host([favorite]) core-icon-button::shadow core-icon {
+      fill: #ff0000;
+    }
+    paper-icon-button::shadow #ripple {
+      color: #2a56c6;
+    }
+    </style>
+    <div class="container">
+      <div class="card-header" layout horizontal center>
+        <content select="img"></content>
+        <div>
+          <content select="h2"></content>
+        </div>
+      </div>
+        <core-icon-button
+          id="favicon"
+          icon="favorite"
+          on-tap="{{favoriteTapped}}">
+        </core-icon-button>
+      <div class="card-content">
+        <content select="*"></content>
+      </div>
+    </div>
+  </template>
+  <script>
+  Polymer('post-card', {
+    publish: {
+      favorite: {
+        value: false,
+        reflect: true
+      }
+    },
+    favoriteTapped: function(event, detail, sender) {
+      this.favorite = !this.favorite;
+      this.fire('favorite-tap');
+    }
+  });
+  </script>
+</polymer-element>
