@@ -30,9 +30,16 @@
   paper-tabs {
     width: 100%;
   }
+  .container {
+    width: 80%;
+    margin: 50px auto;
+  }
   @media (min-width: 481px) {
     paper-tabs {
       width: 200px;
+    }
+    .container {
+      width: 400px;
     }
   }
   </style>
@@ -46,7 +53,7 @@
         <paper-tab name="favorites">FAVORITES</paper-tab>
       </paper-tabs>
     </core-toolbar>
-    <div layout vertical center>
+    <div class="container" layout vertical center>
       <post-list show="all"></post-list>
     </div>
   </core-header-panel>
