@@ -17,6 +17,7 @@
     href="../components/core-toolbar/core-toolbar.html">
   <link rel="import"
     href="../components/paper-tabs/paper-tabs.html">
+  <link rel="import" href="post-card.html">  
 
   <link rel="stylesheet" href="unquote.css" type="text/css" media="all">
   </style>
@@ -30,6 +31,14 @@
         <paper-tab name="favorites">FAVORITES</paper-tab>
       </paper-tabs>
     </core-toolbar>
+
+    <div layout vertical center>
+      <post-card>
+        <img src="../images/avatar-07.svg" width="70" height="70">
+        <h2>Another Developer</h2>
+        <h3>I'm composing with shadow DOM!</h3>
+      </post-card>
+    </div>
   </core-header-panel>
   
   <script>

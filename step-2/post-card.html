@@ -38,17 +38,6 @@
       border-radius: 50%;
       margin: 10px;
     }
-    core-icon-button {
-      position: absolute;
-      right: 3px;
-      top: 3px;
-    }
-    core-icon-button::shadow core-icon {
-      fill: #333333;
-    }
-    :host([favorite]) core-icon-button::shadow core-icon {
-      fill: #ff0000;
-    }
     </style>
     <div class="container">
       <div class="card-header" layout horizontal center>
@@ -57,28 +46,12 @@
           <content select="h2"></content>
         </div>
       </div>
-        <core-icon-button
-          id="favicon"
-          icon="favorite"
-          on-tap="{{favoriteTapped}}">
-        </core-icon-button>
       <div class="card-content">
-        <content select="*"></content>
+        <content></content>
       </div>
     </div>
   </template>
   <script>
-  Polymer('post-card', {
-    publish: {
-      favorite: {
-        value: false,
-        reflect: true
-      }
-    },
-    favoriteTapped: function(event, detail, sender) {
-      this.favorite = !this.favorite;
-      this.fire('favorite-tap');
-    }
-  });
+  Polymer({});
   </script>
 </polymer-element>

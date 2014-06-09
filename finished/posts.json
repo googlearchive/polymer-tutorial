@@ -36,8 +36,8 @@
   },
   {
     "uid": 6,
-    "text" : "Whiskey Before Breakfast",
-    "username" : "John Doe",
+    "text" : "Something really profound about code.",
+    "username" : "A. Developer",
     "avatar" : "../images/avatar-06.svg",
     "favorite": false
   },

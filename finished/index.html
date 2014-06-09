@@ -3,6 +3,7 @@
 
 <head>
   <title>unquote</title>
+  <meta name="viewport" content="width=device-width">
   <script src="../components/platform/platform.js"></script>
   <link rel="import" href="../components/font-roboto2/roboto2.html">
   <link rel="import"
@@ -14,7 +15,6 @@
   <link rel="import"
     href="../components/paper-tabs/paper-tabs.html">
   <link rel="import" href="post-list.html">
-  <meta name="viewport" content="width=device-width">
   <style>
   html,body {
     height: 100%;
@@ -24,7 +24,7 @@
     font-size: 16px;
   }
   h1 {
-	font-weight: normal;
+  font-weight: normal;
   }
   core-header-panel {
     height: 100%;
@@ -48,20 +48,15 @@
 
 <body unresolved>
   <core-header-panel>
-    <core-toolbar class="medium-tall">
-      <h1>unquote</h1>
-      <paper-tabs class="bottom" selected="all" valueattr="name" self-end>
+    <core-toolbar>
+      <paper-tabs selected="all" valueattr="name" self-end>
         <paper-tab name="all">ALL</paper-tab>
         <paper-tab name="favorites">FAVORITES</paper-tab>
-        <!--
-        <core-icon-button icon="list" name="all">
-        </core-icon-button>
-        <core-icon-button icon="favorite" name="favorites">
-        </core-icon-button>
-        -->
       </paper-tabs>
     </core-toolbar>
+    <div layout vertical center>
     <post-list show="all"></post-list>
+  </div>
   </core-header-panel>
 
   <script>
