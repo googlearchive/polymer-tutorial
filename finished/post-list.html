@@ -47,6 +47,7 @@
   <script>
   Polymer('post-list', {
     handleFavorite: function(event, detail, sender) {
+      var post = sender.templateInstance.model.post;
       console.log('Favorite changed: ' + post.uid + ", now: " + post.favorite);
     }
   });
