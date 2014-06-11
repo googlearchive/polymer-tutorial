@@ -34,10 +34,10 @@
       right: 3px;
     }
     core-icon-button {
-      fill: #333333;
+      fill: #636363;
     }
     :host([favorite]) core-icon-button {
-      fill: #ff0000;
+      fill: #da4336;
     }
     </style>
     <div class="card-header" layout horizontal center>
@@ -49,7 +49,7 @@
       icon="favorite"
       on-tap="{{favoriteTapped}}">
     </core-icon-button>
-    <content select="*"></content>
+    <content></content>
   </template>
   <script>
   Polymer('post-card', {
