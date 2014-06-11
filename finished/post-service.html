@@ -29,7 +29,7 @@
     </style>
     <core-ajax id="ajax"
       auto
-      url="posts.json"
+      url="/api/posts.json"
       on-core-response="{{postsLoaded}}"
       handleAs="json">
     </core-ajax>
@@ -45,8 +45,8 @@
     },
     /** 
      * Update the service with the current favorite value.
-     * Two-way data binding updates the favorite value 
-     * stored locally. If this was a real service, the 
+     * (Two-way data binding updates the favorite value 
+     * stored locally.) If this was a real service, the 
      * change would need to be persisted to the service here.
      * 
      * @method setFavorite
@@ -54,7 +54,8 @@
      * @param isFavorite {Boolean} True if the user marked this post as a favorite.
      */
     setFavorite: function(uid, isFavorite) {
-      // send update to the service
+      // no service backend, just log the change
+      console.log('Favorite changed: ' + uid + ", now: " + isFavorite);
     }
   });
   </script>
