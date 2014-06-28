@@ -162,6 +162,8 @@ Use `mode` to control the header and scrolling behavior.
         if (tallMode[this.mode]) {
           header.classList.toggle(this.tallClass, atTop);
         }
+        
+        header.classList.toggle('animate', tallMode[this.mode]);
       }
     }
 

@@ -8,8 +8,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <!--
-core-scaffold (WIP)
+`core-scaffold` provides general application layout, introducing a 
+responsive scaffold containing a header, toolbar, menu, title and 
+areas for application content.
 
+Example:
+
+    <core-scaffold>
+      <core-header-panel navigation flex mode="seamed">
+        <core-toolbar>Application</core-toolbar>
+        <core-menu theme="core-light-theme">
+          <core-item icon="settings" label="item1"></core-item>
+          <core-item icon="settings" label="item2"></core-item>
+        </core-menu>
+      </core-header-panel>
+      <div tool>Title</div>
+      <div>Content goes here...</div>
+    </core-scaffold>
+
+Use `mode` to control the header and scrolling behavior of `core-header-panel`
+and `responsiveWidth` to change the layout of the scaffold.
+
+@group Polymer Core Elements
 @element core-scaffold
 @homepage github.io
 -->
@@ -53,7 +73,7 @@ core-scaffold (WIP)
 
     <div vertical layout drawer>
 
-      <content select="[navigation]"></content>
+      <content select="[navigation], nav"></content>
 
     </div>
     
@@ -74,19 +94,44 @@ core-scaffold (WIP)
 <script>
 
   Polymer('core-scaffold', {
-    
+    /**
+     * When the browser window size is smaller than the `responsiveWidth`, 
+     * `core-drawer-panel` changes to a narrow layout. In narrow layout, 
+     * the drawer will be stacked on top of the main panel.
+     *
+     * @attribute responsiveWidth
+     * @type string
+     */    
     responsiveWidth: '600px',
-    
+
+    /**
+     * Used to control the header and scrolling behaviour of `core-header-panel`
+     *
+     * @attribute mode
+     * @type string
+     */     
     mode: 'seamed',
-    
+
+    /**
+      * Toggle the drawer panel
+      * @method togglePanel
+      */    
     togglePanel: function() {
       this.$.drawerPanel.togglePanel();
     },
-    
+
+    /**
+      * Open the drawer panel
+      * @method openDrawer
+      */      
     openDrawer: function() {
       this.$.drawerPanel.openDrawer();
     },
-    
+
+    /**
+      * Close the drawer panel
+      * @method closeDrawer
+      */     
     closeDrawer: function() {
       this.$.drawerPanel.closeDrawer();
     }

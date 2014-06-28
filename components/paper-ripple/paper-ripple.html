@@ -41,7 +41,7 @@ Styling ripple effect:
       color: #4285f4;
     }
 
-  Note that CSS color property is inherited so it is not requried to set it on
+  Note that CSS color property is inherited so it is not required to set it on
   the `paper-ripple` element directly.
 
 Apply `recenteringTouch` class to make the recentering rippling effect.
@@ -52,7 +52,7 @@ Apply `circle` class to make the rippling effect within a circle.
 
     <paper-ripple class="circle"></paper-ripple>
 
-@group Quantum Paper Elements
+@group Paper Elements
 @element paper-ripple
 @homepage github.io
 -->
@@ -70,6 +70,7 @@ Apply `circle` class to make the rippling effect within a circle.
     }
 
     #canvas {
+      pointer-events: none;
       position: absolute;
       top: 0;
       left: 0;
@@ -82,8 +83,6 @@ Apply `circle` class to make the rippling effect within a circle.
     }
 
   </style>
-
-  <canvas id="canvas"></canvas>
 
 </template>
 <script>
@@ -100,7 +99,8 @@ Apply `circle` class to make the rippling effect within a circle.
       var touchUp = touchUpMs / 1000;
       var totalElapsed = touchDown + touchUp;
       var ww = anim.width, hh = anim.height;
-      var waveRadius = Math.min(Math.max(ww, hh), waveMaxRadius) * 1.1 + 5;
+      // use diagonal size of container to avoid floating point math sadness
+      var waveRadius = Math.min(Math.sqrt(ww * ww + hh * hh), waveMaxRadius) * 1.1 + 5;
       var duration = 1.1 - .2 * (waveRadius / waveMaxRadius);
       var tt = (totalElapsed / duration);
 
@@ -163,7 +163,7 @@ Apply `circle` class to make the rippling effect within a circle.
     //
     // DRAWING
     //
-    function drawRipple(ctx, x, y, radius, innerColor, outerColor, innerColorAlpha, outerColorAlpha) {
+    function drawRipple(ctx, x, y, radius, innerColor, outerColor) {
       if (outerColor) {
         ctx.fillStyle = outerColor;
         ctx.fillRect(0,0,ctx.canvas.width, ctx.canvas.height);
@@ -256,6 +256,20 @@ Apply `circle` class to make the rippling effect within a circle.
       eventDelegates: {
         down: 'downAction',
         up: 'upAction'
+      },
+
+      attached: function() {
+        // create the canvas element manually becase ios
+        // does not render the canvas element if it is not created in the
+        // main document (component templates are created in a
+        // different document). See:
+        // https://bugs.webkit.org/show_bug.cgi?id=109073.
+        if (!this.$.canvas) {
+          var canvas = document.createElement('canvas');
+          canvas.id = 'canvas';
+          this.shadowRoot.appendChild(canvas);
+          this.$.canvas = canvas;
+        }
       },
 
       ready: function() {

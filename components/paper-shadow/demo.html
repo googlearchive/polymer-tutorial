@@ -14,7 +14,7 @@ license that can be found in the LICENSE file.
   <link href="paper-shadow.html" rel="import">
   <style>
     body {
-      font-family: Roboto2, 'Helvetica Neue', Helvetica, Arial;
+      font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
       transform: translateZ(0);
       -webkit-transform: translateZ(0);
       transform: translateZ(0);
@@ -76,18 +76,13 @@ license that can be found in the LICENSE file.
   <section>
     <!-- Example of using paper-shadow to add a shadow to an element -->
     <div>
-      <div id="z1" class="card">
-        <paper-shadow id="s1" z="1"></paper-shadow>
+      <div class="card">
+        <paper-shadow z="1"></paper-shadow>
       </div>
     </div>
     <aside>
       z-depth = 1
     </aside>
-    <script>
-      document.addEventListener('polymer-ready', function() {
-        document.getElementById('s1').target = document.getElementById('z1');
-      });
-    </script>
   </section>
 
   <section>
@@ -99,7 +94,7 @@ license that can be found in the LICENSE file.
             display: block;
           }
         </style>
-        <paper-shadow target="{{}}" z="{{z}}"></paper-shadow>
+        <paper-shadow z="{{z}}"></paper-shadow>
       </template>
       <script>
         Polymer('x-card', {
@@ -176,7 +171,7 @@ license that can be found in the LICENSE file.
           border-radius: 24px;
         }
       </style>
-      <paper-shadow target="{{}}" z="{{z}}" animated></paper-shadow>
+      <paper-shadow z="{{z}}" animated></paper-shadow>
     </template>
     <script>
       Polymer('x-shadow', {

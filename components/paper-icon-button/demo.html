@@ -17,20 +17,24 @@ license that can be found in the LICENSE file.
     <link rel="import" href="../paper-shadow/paper-shadow.html">
     <link rel="import" href="paper-icon-button.html">
 
-    <style>
+    <style shim-shadowdom>
       body {
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        padding: 5em;
+        font-family: sans-serif;
       }
 
+      column {
+        display: inline-block;
+        max-width: 720px;
+      }
+      
       section {
         margin: 1em;
       }
 
       span {
         display: inline-block;
-        width: 12em;
         text-align: right;
+        width: 6em;
         margin-right: 1em;
       }
 
@@ -38,62 +42,58 @@ license that can be found in the LICENSE file.
         vertical-align: middle;
       }
 
-      paper-icon-button.red core-icon path {
-        fill: #fe774d;
-      }
-      paper-icon-button.red /deep/ core-icon::shadow path {
+      paper-icon-button.red::shadow core-icon {
         fill: #fe774d;
       }
 
-      polymer-selector paper-icon-button:not([active]) core-icon path {
-        fill: #c9c9c9;
-      }
-      polymer-selector paper-icon-button:not([active]) /deep/ core-icon::shadow path {
+      polymer-selector paper-icon-button:not([active])::shadow core-icon {
         fill: #c9c9c9;
       }
     </style>
     
   </head>
   
-  <body unresolved>
+  <body unresolved layout horizontal center-justified>
 
-    <paper-shadow></paper-shadow>
+    <column>
+     
+      <section>
+        <span>icon buttons</span>
+        <paper-icon-button icon="menu"></paper-icon-button>
+        <paper-icon-button icon="arrow-back"></paper-icon-button>
+        <paper-icon-button icon="arrow-forward"></paper-icon-button>
+        <paper-icon-button icon="check"></paper-icon-button>
+        <paper-icon-button icon="close"></paper-icon-button>
+        <paper-icon-button icon="fullscreen"></paper-icon-button>
+        <paper-icon-button icon="fullscreen-exit"></paper-icon-button>
+        <paper-icon-button icon="more-vert"></paper-icon-button>
+        <paper-icon-button icon="refresh"></paper-icon-button>
+      </section>
+  
+      <section>
+        <span>styled</span>
+        <paper-icon-button icon="favorite"></paper-icon-button>
+        <paper-icon-button class="red" icon="favorite"></paper-icon-button>
+        <paper-icon-button disabled icon="favorite"></paper-icon-button>
+      </section>
+  
+      <section>
+        <span>focused</span>
+        <paper-icon-button focused icon="social:cake"></paper-icon-button>
+        <paper-icon-button focused icon="social:plus-one"></paper-icon-button>
+      </section>
+  
+      <section>
+        <span>segmented</span>
+        <polymer-selector selected="1">
+          <paper-icon-button fill isToggle icon="maps:directionswalk"></paper-icon-button>
+          <paper-icon-button fill isToggle icon="maps:directions-bike"></paper-icon-button>
+          <paper-icon-button fill isToggle icon="maps:directions-transit"></paper-icon-button>
+          <paper-icon-button fill isToggle icon="maps:directions-car"></paper-icon-button>
+        </polymer-selector>
+      </section>
+
+    </column>
     
-    <section>
-      <span>icon buttons</span>
-      <paper-icon-button icon="menu"></paper-icon-button>
-      <paper-icon-button icon="arrow-back"></paper-icon-button>
-      <paper-icon-button icon="arrow-forward"></paper-icon-button>
-      <paper-icon-button icon="check"></paper-icon-button>
-      <paper-icon-button icon="close"></paper-icon-button>
-      <paper-icon-button icon="fullscreen"></paper-icon-button>
-      <paper-icon-button icon="fullscreen-exit"></paper-icon-button>
-      <paper-icon-button icon="more-vert"></paper-icon-button>
-      <paper-icon-button icon="refresh"></paper-icon-button>
-    </section>
-
-    <section>
-      <span>styled</span>
-      <paper-icon-button icon="favorite"></paper-icon-button>
-      <paper-icon-button class="red" inkColor="#fec4c8" icon="favorite"></paper-icon-button>
-      <paper-icon-button disabled icon="favorite"></paper-icon-button>
-    </section>
-
-    <section>
-      <span>focused</span>
-      <paper-icon-button focused icon="social:cake"></paper-icon-button>
-      <paper-icon-button focused icon="social:plus-one"></paper-icon-button>
-    </section>
-
-    <section>
-      <span>segmented</span>
-      <polymer-selector selected="1">
-        <paper-icon-button fill isToggle icon="maps:directionswalk"></paper-icon-button>
-        <paper-icon-button fill isToggle icon="maps:directions-bike"></paper-icon-button>
-        <paper-icon-button fill isToggle icon="maps:directions-transit"></paper-icon-button>
-        <paper-icon-button fill isToggle icon="maps:directions-car"></paper-icon-button>
-      </polymer-selector>
-    </section>
-
   </body>
 </html>

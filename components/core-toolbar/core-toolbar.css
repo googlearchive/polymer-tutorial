@@ -17,6 +17,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   height: 64px;
   /* typography */
   font-size: 1.3em;
+}
+
+:host(.animate) {
   /* transition */
   transition: height 0.18s ease-in;
 }
@@ -31,7 +34,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 .toolbar-tools {
   height: 64px;
-  padding: 0 9px;
+  padding: 0 8px;
+  pointer-events: none;
 }
 
 /* narrow layout */
@@ -49,16 +53,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 :host(.narrow) .toolbar-tools {
   height: 56px;
-  padding: 0 1px;
+  padding: 0;
 }
 
 /* middle bar */
 #middleBar {
   position: absolute;
-  top: calc(100% / 3);
+  top: 0;
   right: 0;
   left: 0;
-  pointer-events: none;
+}
+
+:host(.tall, .medium-tall) #middleBar {
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
 }
 
 /* bottom bar */
@@ -67,12 +75,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   right: 0;
   bottom: 0;
   left: 0;
-  pointer-events: none;
 }
 
 /* shows bottom bar only when in normal height (!tall && !medium-tall) */
-:host(.no-overlap) > #topBar, 
-:host(.no-overlap) > #middleBar {
+:host(.animate.no-overlap) > #topBar, 
+:host(.animate.no-overlap) > #middleBar {
   transition: -webkit-transform 0.18s ease-in;
   transition: transform 0.18s ease-in;
 }
@@ -87,23 +94,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   transform: translateY(-200%);
 }
 
-polyfill-next-selector { content: ':host > #middleBar > *, :host > #bottomBar > *'; }
-::content[select=".middle"] > *, ::content[select=".bottom"] > * {
-  pointer-events: visible;
+/* make elements (e.g. buttons) respond to mouse/touch events */
+polyfill-next-selector { content: '.toolbar-tools > *'; }
+::content > * {
+  pointer-events: auto;
 }
 
-polyfill-next-selector { content: ':host > .toolbar-tools > *'; }
+/* elements spacing */
+polyfill-next-selector { content: '.toolbar-tools > *'; }
 ::content > * {
   margin: 0px 8px;
 }
 
-polyfill-next-selector { content: ':host .core-fit, :host [core-fit]'; }
-::content > .core-fit, ::content > [core-fit] {
+/* misc helpers */
+polyfill-next-selector { content: '.toolbar-tools > .fit'; }
+::content > .fit {
   position: absolute;
-  top: 0;
+  top: auto;
   right: 0;
   bottom: 0;
   left: 0;
+  width: auto;
   margin: 0;
 }
 

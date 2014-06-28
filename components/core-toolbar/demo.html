@@ -66,7 +66,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <core-toolbar class="tall">
     <core-icon-button icon="menu" class="bottom"></core-icon-button>
-    <span flex class="bottom">Toolbar: tall with actions pin to the bottom</span>
+    <span flex class="bottom">Toolbar: tall with elements pin to the bottom</span>
     <core-icon-button icon="refresh" class="bottom"></core-icon-button>
     <core-icon-button icon="add" class="bottom"></core-icon-button>
   </core-toolbar>
@@ -78,7 +78,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <span flex></span>
     <core-icon-button icon="refresh"></core-icon-button>
     <core-icon-button icon="add"></core-icon-button>
-    <span class="bottom indent">Toolbar: medium tall with label aligns to the bottom</span>
+    <span class="bottom indent">Toolbar: medium-tall with label aligns to the bottom</span>
   </core-toolbar>
 
   <br>
@@ -88,8 +88,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div flex></div>
     <core-icon-button icon="refresh"></core-icon-button>
     <core-icon-button icon="add"></core-icon-button>
-    <div flex class="middle indent">Toolbar: label aligns to the middle</div>
-    <div flex class="bottom indent" style="color: #666; font-size: 18px;">some stuffs align to the bottom</div>
+    <div class="middle indent">label aligns to the middle</div>
+    <div class="bottom indent" style="color: #666; font-size: 18px;">some stuffs align to the bottom</div>
+  </core-toolbar>
+  
+  <br>
+  
+  <core-toolbar class="tall">
+    <core-icon-button icon="menu"></core-icon-button>
+    <div flex></div>
+    <core-icon-button icon="refresh"></core-icon-button>
+    <core-icon-button icon="add"></core-icon-button>
+    <div class="middle indent">element (e.g. progress) fits at the bottom of the toolbar</div>
+    <div class="bottom fit" style="height: 20px; background-color: #0f9d58;"></div>
   </core-toolbar>
   
 </body>

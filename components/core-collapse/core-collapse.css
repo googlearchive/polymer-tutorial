@@ -7,14 +7,10 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-:host {
+html /deep/ core-collapse {
   display: block;
 }
 
-:host(.core-collapse-closed) {
-  display: none !important;
-}
-
-.core-collapse-closed {
+html /deep/ .core-collapse-closed {
   display: none;
 }

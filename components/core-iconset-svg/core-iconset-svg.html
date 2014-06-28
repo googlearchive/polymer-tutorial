@@ -11,19 +11,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 /**
  * @group Polymer Core Elements
  *
- * The `core-iconset-svg` element allows users to define their own icon sets 
+ * The `core-iconset-svg` element allows users to define their own icon sets
  * that contain svg icons. The svg icon elements should be children of the
  * `core-iconset-svg` element. Multiple icons should be given distinct id's.
  *
- * Using svg elements to create icons has a few advantages over traditional 
+ * Using svg elements to create icons has a few advantages over traditional
  * bitmap graphics like jpg or png. Icons that use svg are vector based so they
- * are resolution independent and should look good on any device. They are 
+ * are resolution independent and should look good on any device. They are
  * stylable via css. Icons can be themed, colorized, and even animated.
  *
  * Example:
  *
  *     <core-iconset-svg id="my-svg-icons" iconSize="24">
- *       <svg> 
+ *       <svg>
  *         <defs>
  *           <g id="shape">
  *             <rect x="50" y="50" width="50" height="50" />
@@ -34,8 +34,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
  *     </core-iconset-svg>
  *
  * This will automatically register the icon set "my-svg-icons" to the iconset
- * database.  To use these icons from within another element, make a 
- * `core-iconset` element and call the `byId` method 
+ * database.  To use these icons from within another element, make a
+ * `core-iconset` element and call the `byId` method
  * to retrieve a given iconset. To apply a particular icon inside an
  * element use the `applyIcon` method. For example:
  *
@@ -50,11 +50,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../core-iconset/core-iconset.html">
 
 <polymer-element name="core-iconset-svg" extends="core-meta" attributes="iconSize">
-  
+
   <script>
-  
+
     Polymer('core-iconset-svg', {
-  
+
 
       /**
        * The size of an individual icon. Note that icons must be square.
@@ -66,15 +66,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       iconSize: 24,
       type: 'iconset',
 
+      created: function() {
+        this._icons = {};
+      },
+
+      ready: function() {
+        this.super();
+        this.updateIcons();
+      },
+
       iconById: function(id) {
-        return this.querySelector('#' + id);
+        return this._icons[id] || (this._icons[id] = this.querySelector('#' + id));
       },
 
       cloneIcon: function(id) {
         var icon = this.iconById(id);
         if (icon) {
           var content = icon.cloneNode(true);
-          var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+          var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
           svg.setAttribute('viewBox', '0 0 ' + this.iconSize + ' ' +
               this.iconSize);
           // NOTE(dfreedm): work around https://crbug.com/370136
@@ -107,7 +116,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        * applied.
        * @param {String|Number} icon The name the icon to apply.
        */
-      applyIcon: function(element, icon) {
+      applyIcon: function(element, icon, scale) {
         var root = element.shadowRoot || element;
         // remove old
         var old = root.querySelector('svg');
@@ -119,12 +128,41 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (!svg) {
           return;
         }
-        svg.style.height = svg.style.width = this.iconSize + 'px';
-        svg.style.verticalAlign = 'middle';
-        if (svg) {
-          root.insertBefore(svg, root.firstElementChild);
+        var size = scale * this.iconSize;
+        if (size) {
+          svg.style.height = svg.style.width = size + 'px';
+        } else {
+          svg.setAttribute('height', '100%');
+          svg.setAttribute('width', '100%');
+          svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+        }
+        svg.style.display = 'block';
+        root.insertBefore(svg, root.firstElementChild);
+      },
+      
+      /**
+       * Tell users of the iconset, that the set has loaded.
+       * This finds all elements matching the selector argument and calls 
+       * the method argument on them.
+       * @method updateIcons
+       * @param selector {string} css selector to identify iconset users, 
+       * defaults to '[icon]'
+       * @param method {string} method to call on found elements, 
+       * defaults to 'updateIcon'
+       */
+      updateIcons: function(selector, method) {
+        selector = selector || '[icon]';
+        method = method || 'updateIcon';
+        var deep = window.ShadowDOMPolyfill ? '' : 'html /deep/ ';
+        var i$ = document.querySelectorAll(deep + selector);
+        for (var i=0, e; e=i$[i]; i++) {
+          if (e[method]) {
+            e[method].call(e);
+          }
         }
       }
+      
+
     });
 
   </script>

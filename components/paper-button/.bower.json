@@ -9,12 +9,12 @@
     "paper-shadow": "Polymer/paper-shadow#>=0.3.0 <1.0.0"
   },
   "homepage": "https://github.com/Polymer/paper-button",
-  "version": "0.3.2",
-  "_release": "0.3.2",
+  "version": "0.3.3",
+  "_release": "0.3.3",
   "_resolution": {
     "type": "version",
-    "tag": "0.3.2",
-    "commit": "8c983a686e76f65bbebdb479ac76e7610839008b"
+    "tag": "0.3.3",
+    "commit": "babe7dc3aeceb74280efb62df0aaa9dca7c9ec71"
   },
   "_source": "git://github.com/Polymer/paper-button.git",
   "_target": ">=0.3.0 <1.0.0",

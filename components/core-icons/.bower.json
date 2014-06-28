@@ -7,14 +7,14 @@
     "polymer": "Polymer/polymer#>=0.3.0 <1.0.0"
   },
   "homepage": "https://github.com/Polymer/core-icons",
-  "version": "0.3.0",
-  "_release": "0.3.0",
+  "version": "0.3.3",
+  "_release": "0.3.3",
   "_resolution": {
     "type": "version",
-    "tag": "0.3.0",
-    "commit": "bbdcc271c398b059c46cacad4a399a588bd78ae4"
+    "tag": "0.3.3",
+    "commit": "58e8b056aaeea91651ddfeec83e7b83fc6bfc412"
   },
   "_source": "git://github.com/Polymer/core-icons.git",
-  "_target": ">=0.3.0  <1.0.0",
+  "_target": ">=0.3.0 <1.0.0",
   "_originalSource": "Polymer/core-icons"
 }

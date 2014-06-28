@@ -11,35 +11,43 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 The `paper-shadow` element is a helper to add shadows to elements.
 Quantum paper shadows are composed of two shadows on top of each other. We
 mimic this effect by using two elements on top of each other, each with a
-different drop shadow. You can either apply the shadow by assigning a target
-to this element, or by applying the classes directly.
+different drop shadow. You can apply the shadow to an element by assigning
+it as the target. If you do not specify a target, the shadow is applied to
+the `paper-shadow` element's parent element or shadow host element if its
+parent is a shadow root. Alternatively, you can use the CSS classes included
+by this element directly.
 
 Example:
 
     <div id="myCard" class="card"></div>
     <paper-shadow id="myShadow" z="1"></div>
 
-    // Assign a target
+    // Assign a target explicitly
     myShadow.target = document.getElementById('myCard');
 
-    // Use the class directly
+    // Auto-assign the target.
+    <div class="card">
+      <paper-shadow z="1"></paper-shadow>
+    </div>
+
+    // Use the classes directly
     <div class="card paper-shadow-top paper-shadow-top-z-1">
       <div class="card-inner paper-shadow-bottom paper-shadow-bottom-z-1"></div>
     </div>
 
-If you assign a target to a `paper-shadow` element, it creates a node and inserts
-it as the first child of the target, or the first child of the target's shadow root
-if there is one. This node renders the bottom shadow. This implies:
+If you assign a target to a `paper-shadow` element, it creates two nodes and inserts
+them as the first children of the target, or the first children of the target's shadow
+root if there is one. This implies:
 
   1. If the primary node that drops the shadow has styling that affects its shape,
-     the same styling must be applied to elements with class `paper-shadow-bottom`.
+     the same styling must be applied to elements with class `paper-shadow`.
      `border-radius` is a very common property and is inherited automatically.
 
-  2. The target must be `overflow: visible` because the bottom shadow is rendered
-     beyond the bounds of its parent. Use a different child element for clipping
-     if needed.
+  2. The target's overflow property will be set to `overflow: visible` because the
+     shadow is rendered beyond the bounds of its container. Position the shadow as a
+     separate layer and use a different child element for clipping if needed.
 
-@group Quantum Paper Elements
+@group Paper Elements
 @class paper-shadow
 -->
 
@@ -110,6 +118,16 @@ if there is one. This node renders the bottom shadow. This implies:
 
       attached: function() {
         this.installScopeStyle(this._style);
+
+        // If no target is bound at attach, default the target to the parent
+        // element or shadow host.
+        if (!this.target) {
+          if (!this.parentElement && this.parentNode.host) {
+            this.target = this.parentNode.host;
+          } else if (this.parentElement && (window.ShadowDOMPolyfill ? this.parentElement !== wrap(document.body) : this.parentElement !== document.body)) {
+            this.target = this.parentElement;
+          }
+        }
       },
 
       targetChanged: function(old) {
@@ -122,26 +140,30 @@ if there is one. This node renders the bottom shadow. This implies:
       },
 
       zChanged: function(old) {
-        if (this.target && this.target._paperShadowInner) {
-          this.target.classList.remove('paper-shadow-top-z-' + old);
-          this.target.classList.add('paper-shadow-top-z-' + this.z);
-          this.target._paperShadowInner.classList.remove('paper-shadow-bottom-z-' + old);
-          this.target._paperShadowInner.classList.add('paper-shadow-bottom-z-' + this.z);
+        if (this.target && this.target._paperShadow) {
+          var shadow = this.target._paperShadow;
+          ['top', 'bottom'].forEach(function(s) {
+            shadow[s].classList.remove('paper-shadow-' + s + '-z-' + old);
+            shadow[s].classList.add('paper-shadow-' + s + '-z-' + this.z);
+          }.bind(this));
         }
       },
 
       animatedChanged: function() {
-        if (this.target) {
-          if (this.animated) {
-            this.target.classList.add('paper-shadow-animated');
-          } else {
-            this.target.classList.remove('paper-shadow-animated');
-          }
+        if (this.target && this.target._paperShadow) {
+          var shadow = this.target._paperShadow;
+          ['top', 'bottom'].forEach(function(s) {
+            if (this.animated) {
+              shadow[s].classList.add('paper-shadow-animated');
+            } else {
+              shadow[s].classList.remove('paper-shadow-animated');
+            }
+          }.bind(this));
         }
       },
 
       addShadow: function(node) {
-        if (node._paperShadowInner) {
+        if (node._paperShadow) {
           return;
         }
 
@@ -149,33 +171,40 @@ if there is one. This node renders the bottom shadow. This implies:
         if (!this.hasPosition && computed.position === 'static') {
           node.style.position = 'relative';
         }
+        node.style.overflow = 'visible';
 
-        node.classList.add('paper-shadow-top');
-        node.classList.add('paper-shadow-top-z-' + this.z);
+        // Both the top and bottom shadows are children of the target, so
+        // it does not affect the classes and CSS properties of the target.
+        ['top', 'bottom'].forEach(function(s) {
+          var inner = (node._paperShadow && node._paperShadow[s]) || document.createElement('div');
+          inner.classList.add('paper-shadow');
+          inner.classList.add('paper-shadow-' + s + '-z-' + this.z);
+          if (this.animated) {
+            inner.classList.add('paper-shadow-animated');
+          }
 
-        var inner = node._paperShadowInner || document.createElement('div');
-        inner.classList.add('paper-shadow-bottom');
-        inner.classList.add('paper-shadow-bottom-z-' + this.z);
-        if (node.shadowRoot) {
-          node.shadowRoot.insertBefore(inner, node.shadowRoot.firstChild);
-        } else {
-          node.insertBefore(inner, node.firstChild);
-        }
-        node._paperShadowInner = inner;
+          if (node.shadowRoot) {
+            node.shadowRoot.insertBefore(inner, node.shadowRoot.firstChild);
+          } else {
+            node.insertBefore(inner, node.firstChild);
+          }
+
+          node._paperShadow = node._paperShadow || {};
+          node._paperShadow[s] = inner;
+        }.bind(this));
+
       },
 
       removeShadow: function(node) {
-        if (!node._paperShadowInner) {
+        if (!node._paperShadow) {
           return;
         }
 
-        node._paperShadowInner.remove();
-        node._paperShadowInner = null;
+        ['top', 'bottom'].forEach(function(s) {
+          node._paperShadow[s].remove();
+        });
+        node._paperShadow = null;
 
-        node.classList.remove('paper-shadow-top');
-        for (var z = 1; z <= 5; z++) {
-          node.classList.remove('paper-shadow-top-z-' + z);
-        }
         node.style.position = null;
       }
 

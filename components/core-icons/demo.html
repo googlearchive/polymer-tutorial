@@ -74,7 +74,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template is="auto-binding">
     <template repeat="{{iconset in $.meta.metaArray}}">
       <h2>{{iconset.id}}</h2>
-      
+      <h5>{{iconset.id === 'icons' ? 'The Default Set' : 'Import ' + iconset.id + '-icons.html'}}</h5>
       <div class="set" horizontal wrap justified layout>
         <template repeat="{{ icon in iconset.iconNames }}">
           <span class="container" vertical center layout>
@@ -83,7 +83,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           </span>
         </template>
       </div>
-
     </template>
     <core-iconset id="meta"></core-iconset>
   </template>

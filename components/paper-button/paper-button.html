@@ -8,7 +8,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <!--
-@group Quantum Paper Elements
+@group Paper Elements
 
 `paper-button` is a button containing text or an image. When the user touches
 the button, a ripple effect emanates from the point of contact.
@@ -61,7 +61,9 @@ role="button">
     <link href="paper-button.css" rel="stylesheet">
 
     <template if="{{raisedButton}}">
-      <paper-shadow id="shadow" z="{{z}}" animated></paper-shadow>
+      <div fit id="shadow-container">
+        <paper-shadow id="shadow" z="{{z}}" animated></paper-shadow>
+      </div>
     </template>
 
     <div id="clip">
@@ -132,14 +134,6 @@ role="button">
         if (this.textContent) {
           console.warn('Using textContent to label the button is deprecated. Use the "label" property instead');
           this.label = this.textContent;
-        }
-      },
-
-      raisedButtonChanged: function() {
-        if (this.raisedButton) {
-          this.$.shadow.target = this;
-        } else {
-          this.$.shadow.target = null;
         }
       },
 

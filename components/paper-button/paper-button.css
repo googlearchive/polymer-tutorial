@@ -1,5 +1,6 @@
 :host {
   display: inline-block;
+  position: relative;
   border: 0;
   background: transparent;
   text-align: center;
@@ -28,6 +29,10 @@
   background: #eaeaea !important;
   color: #a8a8a8 !important;
   cursor: auto;
+}
+
+#shadow-container {
+  border-radius: inherit;
 }
 
 #clip {

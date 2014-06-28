@@ -62,16 +62,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
       node.classList.toggle(this.openedClass, opened);
       node.classList.toggle(this.closedClass, !opened);
-    },
-
-    // TODO(sorvell): worth promoting
-    listenOnce: function(node, event, fn, args) {
-      var self = this;
-      var listener = function() {
-        fn.apply(self, args);
-        node.removeEventListener(event, listener, false);
-      }
-      node.addEventListener(event, listener, false);
     }
 
   });

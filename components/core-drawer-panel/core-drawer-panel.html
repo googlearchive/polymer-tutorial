@@ -110,7 +110,11 @@ Example:
     
     domReady: function() {
       // to avoid transition at the beginning e.g. page loads
-      this.transition = true;
+      // NOTE: domReady is already raf delayed and delaying another frame
+      // ensures a layout has occurred.
+      this.async(function() {
+        this.transition = true;
+      });
     },
 
     togglePanel: function() {

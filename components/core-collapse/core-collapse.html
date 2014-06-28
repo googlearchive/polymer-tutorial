@@ -29,12 +29,11 @@ will be collapsed.  Use `opened` to show/hide the content.
 
 <link rel="import" href="../polymer/polymer.html">
 
+<link rel="stylesheet" href="core-collapse.css" shim-shadowdom>
+
 <polymer-element name="core-collapse" attributes="target horizontal opened duration fixedSize">
 <template>
 
-  <link rel="stylesheet" polymer-scope="controller" href="core-collapse.css">
-  <link rel="stylesheet" href="core-collapse.css">
-  
   <content></content>
 
 </template>
@@ -118,9 +117,6 @@ will be collapsed.  Use `opened` to show/hide the content.
         return;
       }
       this.isTargetReady = !!this.target;
-      if (this.target !== this) {
-        this.installControllerStyles();
-      }
       this.classList.toggle('core-collapse-closed', this.target !== this);
       this.target.style.overflow = 'hidden';
       this.horizontalChanged();
@@ -131,12 +127,10 @@ will be collapsed.  Use `opened` to show/hide the content.
     },
 
     addListeners: function(node) {
-      node.addEventListener('webkitTransitionEnd', this.transitionEndListener);
       node.addEventListener('transitionend', this.transitionEndListener);
     },
 
     removeListeners: function(node) {
-      node.removeEventListener('webkitTransitionEnd', this.transitionEndListener);
       node.removeEventListener('transitionend', this.transitionEndListener);
     },
 
@@ -159,8 +153,7 @@ will be collapsed.  Use `opened` to show/hide the content.
 
     setTransitionDuration: function(duration) {
       var s = this.target.style;
-      s.webkitTransition = s.transition = duration ? 
-          (this.dimension + ' ' + duration + 's') : null;
+      s.transition = duration ? (this.dimension + ' ' + duration + 's') : null;
       if (duration === 0) {
         this.async('transitionEnd');
       }
@@ -181,6 +174,7 @@ will be collapsed.  Use `opened` to show/hide the content.
 
     updateSize: function(size, duration, forceEnd) {
       this.setTransitionDuration(duration);
+      this.calcSize();
       var s = this.target.style;
       var nochange = s[this.dimension] === size;
       s[this.dimension] = size;
