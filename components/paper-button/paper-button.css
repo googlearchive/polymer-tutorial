@@ -41,6 +41,7 @@
   overflow: hidden;
 }
 
+/*
 #focusBg {
   position: absolute;
   top: 0;
@@ -78,6 +79,7 @@
     opacity: 0;
   }
 }
+*/
 
 #ripple {
   position: absolute;

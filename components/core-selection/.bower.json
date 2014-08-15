@@ -5,12 +5,12 @@
     "polymer": "Polymer/polymer#>=0.3.0 <1.0.0"
   },
   "homepage": "https://github.com/Polymer/core-selection",
-  "version": "0.3.3",
-  "_release": "0.3.3",
+  "version": "0.3.5",
+  "_release": "0.3.5",
   "_resolution": {
     "type": "version",
-    "tag": "0.3.3",
-    "commit": "1fa8080a306496f73faccbf45f563a1f0fd4437b"
+    "tag": "0.3.5",
+    "commit": "9311ad9bf5914f21f124bd44d3161f7420fe5ab1"
   },
   "_source": "git://github.com/Polymer/core-selection.git",
   "_target": ">=0.3.0 <1.0.0",

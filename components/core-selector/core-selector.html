@@ -148,10 +148,10 @@ Fired when an item element is tapped.
       selectedProperty: '',
 
       /**
-       * Specifies the property to be used to set on the selected element
-       * to indicate its active state.
+       * Specifies the attribute to set on the selected element to indicate
+       * its active state.
        *
-       * @attribute selectedProperty
+       * @attribute selectedAttribute
        * @type string
        * @default 'active'
        */
@@ -210,7 +210,7 @@ Fired when an item element is tapped.
        *       <p>color = {{color}}</p>
        *     </form>
        * 
-       * @attribute itemSelector
+       * @attribute itemsSelector
        * @type string
        * @default ''
        */
@@ -270,11 +270,11 @@ Fired when an item element is tapped.
       },
 
       addListener: function(node) {
-        node.addEventListener(this.activateEvent, this.activateListener);
+        Polymer.addEventListener(node, this.activateEvent, this.activateListener);
       },
 
       removeListener: function(node) {
-        node.removeEventListener(this.activateEvent, this.activateListener);
+        Polymer.removeEventListener(node, this.activateEvent, this.activateListener);
       },
 
       get selection() {
