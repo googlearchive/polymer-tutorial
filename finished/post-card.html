@@ -38,18 +38,24 @@
       color: #da4336;
     }
     </style>
+
     <div class="card-header" layout horizontal center>
+
       <content select="img"></content>
       <content select="h2"></content>
+
     </div>
+
     <core-icon-button
       id="favicon"
       icon="favorite"
-      on-tap="{{favoriteTapped}}"></core-icon-button>
-    <content></content>
+      on-tap="{{favoriteTapped}}">
+    </core-icon-button>
+
+    <content></content>   
   </template>
   <script>
-  Polymer('post-card', {
+  Polymer({
     publish: {
       favorite: {
         value: false,

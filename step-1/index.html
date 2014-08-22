@@ -2,9 +2,15 @@
 <html>
 
 <head>
+
   <title>unquote</title>
-  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
-  <script src="../components/platform/platform.js"></script>
+
+  <meta name="viewport" 
+  content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../components/platform/platform.js">
+  </script>
+
   <link rel="import" href="../components/font-roboto/roboto.html">
   <link rel="import"
     href="../components/core-header-panel/core-header-panel.html">
@@ -12,6 +18,7 @@
     href="../components/core-toolbar/core-toolbar.html">
   <link rel="import"
     href="../components/paper-tabs/paper-tabs.html">
+
   <style>
   html,body {
     height: 100%;
@@ -35,6 +42,7 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    text-transform: uppercase;
   }
   .container {
     width: 80%;
@@ -49,15 +57,19 @@
     }
   }
   </style>
+
 </head>
 
 <body unresolved>
   <core-header-panel>
+
     <core-toolbar>
+
       <paper-tabs id="tabs" selected="all" self-end>
-        <paper-tab name="all">ALL</paper-tab>
-        <paper-tab name="favorites">FAVORITES</paper-tab>
+        <paper-tab name="all">All</paper-tab>
+        <paper-tab name="favorites">Favorites</paper-tab>
       </paper-tabs>
+
     </core-toolbar>
 
     <!-- main page content will go here -->
