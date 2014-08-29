@@ -14,9 +14,11 @@
     }
     </style>
 
-    <post-service id="service" posts="{{posts}}"></post-service>
+    <post-service id="service" posts="{{posts}}">
+    </post-service>
     
     <div layout vertical center>
+
       <template repeat="{{post in posts}}">
         <post-card>
           <img src="{{post.avatar}}" width="70" height="70">
@@ -24,10 +26,10 @@
           <p>{{post.text}}</p>
         </post-card>
       </template>
+      
     </div>
   </template>
   <script>
   Polymer({});
   </script>
-
 </polymer-element>

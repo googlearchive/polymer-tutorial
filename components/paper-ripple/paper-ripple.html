@@ -8,7 +8,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <!--
-`paper-ripple` provides a visual effect that other quantum paper elements can
+`paper-ripple` provides a visual effect that other paper elements can
 use to simulate a rippling effect emanating from the point of contact.  The
 effect can be visualized as a concentric circle with motion.
 
@@ -27,7 +27,7 @@ Example:
     <paper-ripple id="ripple" style="pointer-events: none;"></paper-ripple>
     ...
     downAction: function(e) {
-      this.$.ripple.downActon({x: e.x, y: e.y});
+      this.$.ripple.downAction({x: e.x, y: e.y});
     },
     upAction: function(e) {
       this.$.ripple.upAction();
@@ -130,15 +130,6 @@ Apply `circle` class to make the rippling effect within a circle.
       var outerOpacity = touchDown * 0.3;
       var waveOpacity = waveOpacityFn(td, tu, anim);
       return Math.max(0, Math.min(outerOpacity, waveOpacity));
-    }
-
-    function waveGravityToCenterPercentageFn(td, tu, r) {
-      // Convert from ms to s.
-      var touchDown = td / 1000;
-      var touchUp = tu / 1000;
-      var totalElapsed = touchDown + touchUp;
-
-      return Math.min(1.0, touchUp * 6);
     }
 
     // Determines whether the wave should be completely removed.
@@ -382,8 +373,6 @@ Apply `circle` class to make the rippling effect within a circle.
 
           // Ripple gravitational pull to the center of the canvas.
           if (wave.endPosition) {
-
-            var translateFraction = waveGravityToCenterPercentageFn(tDown, tUp, wave.maxRadius);
 
             // This translates from the origin to the center of the view  based on the max dimension of  
             var translateFraction = Math.min(1, radius / wave.containerSize * 2 / Math.sqrt(2) );

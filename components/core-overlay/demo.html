@@ -1,15 +1,34 @@
+<!--
+    @license
+    Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+    Code distributed by Google as part of the polymer project is also
+    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
 <!DOCTYPE html>
 <html>
 <head>
 	<title>core-overlay</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
 	<script src="../platform/platform.js"></script>
 	<link rel="import" href="../core-transition/core-transition-css.html">
 	<link rel="import" href="core-overlay.html">
-	
+	<style>
+		body {
+			margin: 0;
+		}
+
+		section {
+			padding: 24px;
+		}
+	</style>
 </head>
 <body unresolved>
-	
-	<x-container></x-container>
+	<section>
+		<x-container></x-container>
+	</section>
 
 	<!-- a simple dialog element made with core-overlay -->
 	<polymer-element name="x-dialog" attributes="opened autoCloseDisabled">
@@ -80,7 +99,7 @@
 			<div>Ut aliquam vulputate congue. Vestibulum pretium pretium nulla quis sollicitudin. Praesent lacinia congue erat nec mattis. Fusce commodo lacus est. Duis turpis eros, ultrices sed aliquet non, blandit egestas velit. Integer a augue nec lorem tristique hendrerit. Curabitur imperdiet risus id enim bibendum vestibulum. Integer id magna at arcu faucibus fermentum vel a augue. Sed fringilla venenatis dolor, in blandit magna molestie luctus. Vestibulum dignissim posuere ultrices. Aenean urna nisl, tincidunt vitae iaculis ut, pharetra nec eros.</div><br><br>
 
 			<div>
-				<input placeholder="say something..." autofocus on-input="{{inputHandler}}"></input><br>
+				<input placeholder="say something..." autofocus on-input="{{inputHandler}}" /><br>
 				I agree with this wholeheartedly.
 				<core-overlay layered id="confirmation" class="dialog" backdrop transition="core-transition-top">
 					<!-- place all overlay styles inside the overlay target -->

@@ -27,7 +27,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   pointer-events: none;
 }
 
-:host(:not(.core-selected)) > .tab-content {
+:host(:not(.core-selected)) .tab-content {
   opacity: 0.6;
 }
 

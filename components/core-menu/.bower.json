@@ -2,17 +2,17 @@
   "name": "core-menu",
   "private": true,
   "dependencies": {
-    "core-selector": "Polymer/core-selector#>=0.3.0 <1.0.0",
-    "core-collapse": "Polymer/core-collapse#>=0.3.0 <1.0.0",
-    "core-item": "Polymer/core-item#>=0.3.0 <1.0.0"
+    "core-selector": "Polymer/core-selector#>=0.4.0 <1.0.0",
+    "core-collapse": "Polymer/core-collapse#>=0.4.0 <1.0.0",
+    "core-item": "Polymer/core-item#>=0.4.0 <1.0.0"
   },
   "homepage": "https://github.com/Polymer/core-menu",
-  "version": "0.3.3",
-  "_release": "0.3.3",
+  "version": "0.4.0",
+  "_release": "0.4.0",
   "_resolution": {
     "type": "version",
-    "tag": "0.3.3",
-    "commit": "7fca58899d295c999507e4094f4f1521f0324374"
+    "tag": "0.4.0",
+    "commit": "e34f5318e6c16dfb30a52fa5686694299b1dcb75"
   },
   "_source": "git://github.com/Polymer/core-menu.git",
   "_target": "*",

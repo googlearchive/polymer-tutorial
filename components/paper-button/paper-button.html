@@ -67,7 +67,7 @@ role="button">
     </template>
 
     <div id="clip">
-      <div id="focusBg"></div>
+      <!-- <div id="focusBg"></div> -->
       <paper-ripple id="ripple"></paper-ripple>
       <div id="content">
         <template if="{{iconSrc || icon}}">
@@ -112,7 +112,7 @@ role="button">
          * @type string
          * @default ''
          */
-         iconSrc: {value: ''},
+         iconSrc: '',
 
          /**
           * (optional) Specifies the icon name or index in the set of icons
@@ -124,14 +124,14 @@ role="button">
           * @type string
           * @default ''
           */
-         icon: {value: ''}
+         icon: ''
 
       },
 
       z: 1,
 
       attached: function() {
-        if (this.textContent) {
+        if (this.textContent && this.textContent.match(/\S+/)) {
           console.warn('Using textContent to label the button is deprecated. Use the "label" property instead');
           this.label = this.textContent;
         }

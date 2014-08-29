@@ -7,14 +7,13 @@ license that can be found in the LICENSE file.
 <html>
   <head>
     <title>paper-icon-button</title>
-    
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
     <script src="../platform/platform.js"></script>
     
     <link rel="import" href="../core-icons/core-icons.html">
-    <link rel="import" href="../core-icons/iconsets/maps-icons.html">
-    <link rel="import" href="../core-icons/iconsets/social-icons.html">
-    <link rel="import" href="../polymer-selector/polymer-selector.html">
-    <link rel="import" href="../paper-shadow/paper-shadow.html">
+    <link rel="import" href="../core-icons/maps-icons.html">
+    <link rel="import" href="../core-icons/social-icons.html">
+    <link rel="import" href="../core-selector/core-selector.html">
     <link rel="import" href="paper-icon-button.html">
 
     <style shim-shadowdom>
@@ -46,7 +45,7 @@ license that can be found in the LICENSE file.
         fill: #fe774d;
       }
 
-      polymer-selector paper-icon-button:not([active])::shadow core-icon {
+      core-selector paper-icon-button:not([active])::shadow core-icon {
         fill: #c9c9c9;
       }
     </style>
@@ -74,25 +73,29 @@ license that can be found in the LICENSE file.
         <span>styled</span>
         <paper-icon-button icon="favorite"></paper-icon-button>
         <paper-icon-button class="red" icon="favorite"></paper-icon-button>
-        <paper-icon-button disabled icon="favorite"></paper-icon-button>
+        <paper-icon-button disabled onclick="alert('should not be clickable');" icon="favorite"></paper-icon-button>
       </section>
   
-      <section>
+<!--       <section>
         <span>focused</span>
         <paper-icon-button focused icon="social:cake"></paper-icon-button>
         <paper-icon-button focused icon="social:plus-one"></paper-icon-button>
       </section>
-  
+ -->  
       <section>
         <span>segmented</span>
-        <polymer-selector selected="1">
+        <core-selector selected="1">
           <paper-icon-button fill isToggle icon="maps:directionswalk"></paper-icon-button>
           <paper-icon-button fill isToggle icon="maps:directions-bike"></paper-icon-button>
           <paper-icon-button fill isToggle icon="maps:directions-transit"></paper-icon-button>
           <paper-icon-button fill isToggle icon="maps:directions-car"></paper-icon-button>
-        </polymer-selector>
+        </core-selector>
       </section>
 
+      <section>
+        <span>custom img</span>
+        <paper-icon-button iconSrc="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png"></paper-icon-button>
+      </section>
     </column>
     
   </body>

@@ -9,7 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <!--
 The `paper-shadow` element is a helper to add shadows to elements.
-Quantum paper shadows are composed of two shadows on top of each other. We
+Paper shadows are composed of two shadows on top of each other. We
 mimic this effect by using two elements on top of each other, each with a
 different drop shadow. You can apply the shadow to an element by assigning
 it as the target. If you do not specify a target, the shadow is applied to
@@ -101,7 +101,7 @@ root if there is one. This implies:
          * @type boolean
          * @default false
          */
-        hasPosition: {value: false}
+        hasPosition: false
       },
 
       // NOTE: include template so that styles are loaded, but remove
@@ -117,8 +117,6 @@ root if there is one. This implies:
       },
 
       attached: function() {
-        this.installScopeStyle(this._style);
-
         // If no target is bound at attach, default the target to the parent
         // element or shadow host.
         if (!this.target) {
@@ -165,6 +163,14 @@ root if there is one. This implies:
       addShadow: function(node) {
         if (node._paperShadow) {
           return;
+        }
+
+        if (!node._hasShadowStyle) {
+          if (!node.shadowRoot) {
+            node.createShadowRoot().innerHTML = '<content></content>';
+          }
+          this.installScopeStyle(this._style, 'shadow', node.shadowRoot);
+          node._hasShadowStyle = true;
         }
 
         var computed = getComputedStyle(node);

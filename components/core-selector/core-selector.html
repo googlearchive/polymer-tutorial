@@ -148,10 +148,10 @@ Fired when an item element is tapped.
       selectedProperty: '',
 
       /**
-       * Specifies the property to be used to set on the selected element
-       * to indicate its active state.
+       * Specifies the attribute to set on the selected element to indicate
+       * its active state.
        *
-       * @attribute selectedProperty
+       * @attribute selectedAttribute
        * @type string
        * @default 'active'
        */
@@ -210,7 +210,7 @@ Fired when an item element is tapped.
        *       <p>color = {{color}}</p>
        *     </form>
        * 
-       * @attribute itemSelector
+       * @attribute itemsSelector
        * @type string
        * @default ''
        */
@@ -244,6 +244,11 @@ Fired when an item element is tapped.
         }
       },
 
+      /**
+       * Returns an array of all items.
+       *
+       * @property items
+       */
       get items() {
         if (!this.target) {
           return [];
@@ -270,13 +275,18 @@ Fired when an item element is tapped.
       },
 
       addListener: function(node) {
-        node.addEventListener(this.activateEvent, this.activateListener);
+        Polymer.addEventListener(node, this.activateEvent, this.activateListener);
       },
 
       removeListener: function(node) {
-        node.removeEventListener(this.activateEvent, this.activateListener);
+        Polymer.removeEventListener(node, this.activateEvent, this.activateListener);
       },
 
+      /**
+       * Returns the selected item(s). If the `multi` property is true,
+       * this will return an array, otherwise it will return 
+       * the selected item or undefined if there is no selection.
+       */
       get selection() {
         return this.$.selection.getSelection();
       },
@@ -418,7 +428,33 @@ Fired when an item element is tapped.
           }
           target = target.parentNode;
         }
+      },
+      
+      selectIndex: function(index) {
+        var item = this.items[index];
+        if (item) {
+          this.selected = this.valueForNode(item) || index;
+        }
+      },
+      
+      /**
+       * Selects the previous item.  This should be used in single selection only.
+       *
+       * @method selectPrevious
+       */
+      selectPrevious: function() {
+        this.selectIndex(this.selectedIndex - 1);
+      },
+      
+      /**
+       * Selects the next item.  This should be used in single selection only.
+       *
+       * @method selectNext
+       */
+      selectNext: function() {
+        this.selectIndex(this.selectedIndex + 1);
       }
+      
     });
   </script>
 </polymer-element>
