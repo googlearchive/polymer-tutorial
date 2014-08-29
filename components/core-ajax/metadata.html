@@ -7,15 +7,17 @@
     Code distributed by Google as part of the polymer project is also
     subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-<x-meta id="core-icon" label="Icon" group="Core" hideSubtree>
+<x-meta id="core-ajax" label="Ajax" group="Core">
+
+  <property name="handleAs" kind="select" options="json,text,xml,arraybuffer,blob,document"></property>
+  <property name="method" kind="select" options="GET,POST,PUT,DELETE"></property>
 
   <template>
-    <core-icon icon="search"></core-icon>
+    <core-ajax handleAs="json" method="GET"></core-ajax>
   </template>
 
   <template id="imports">
-    <link rel="import" href="../core-icons/core-icons.html">
-    <link rel="import" href="core-icon.html">
+    <link rel="import" href="core-ajax.html">
   </template>
 
 </x-meta>

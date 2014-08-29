@@ -131,7 +131,7 @@ role="button">
       z: 1,
 
       attached: function() {
-        if (this.textContent && !this.textContent.match(/\s+/)) {
+        if (this.textContent && this.textContent.match(/\S+/)) {
           console.warn('Using textContent to label the button is deprecated. Use the "label" property instead');
           this.label = this.textContent;
         }

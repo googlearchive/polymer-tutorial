@@ -29,6 +29,16 @@ Example:
 Use `mode` to control the header and scrolling behavior of `core-header-panel`
 and `responsiveWidth` to change the layout of the scaffold.
 
+To have the content fits to the main area, use `fit` attribute.
+
+    <core-scaffold>
+      <core-header-panel navigation flex mode="seamed">
+        ....
+      </core-header-panel>
+      <div tool>Title</div>
+      <div fit>Content fits to the main area</div>
+    </core-scaffold>
+
 @group Polymer Core Elements
 @element core-scaffold
 @homepage github.io
@@ -39,7 +49,7 @@ and `responsiveWidth` to change the layout of the scaffold.
 <link rel="import" href="../core-header-panel/core-header-panel.html">
 <link rel="import" href="../core-icon-button/core-icon-button.html">
 
-<polymer-element name="core-scaffold" attributes="responsiveWidth mode">
+<polymer-element name="core-scaffold">
 <template>
 
   <style>
@@ -94,23 +104,28 @@ and `responsiveWidth` to change the layout of the scaffold.
 <script>
 
   Polymer('core-scaffold', {
-    /**
-     * When the browser window size is smaller than the `responsiveWidth`, 
-     * `core-drawer-panel` changes to a narrow layout. In narrow layout, 
-     * the drawer will be stacked on top of the main panel.
-     *
-     * @attribute responsiveWidth
-     * @type string
-     */    
-    responsiveWidth: '600px',
-
-    /**
-     * Used to control the header and scrolling behaviour of `core-header-panel`
-     *
-     * @attribute mode
-     * @type string
-     */     
-    mode: 'seamed',
+    
+    publish: {
+      /**
+       * When the browser window size is smaller than the `responsiveWidth`, 
+       * `core-drawer-panel` changes to a narrow layout. In narrow layout, 
+       * the drawer will be stacked on top of the main panel.
+       *
+       * @attribute responsiveWidth
+       * @type string
+       * @default '600px'
+       */    
+      responsiveWidth: '600px',
+  
+      /**
+       * Used to control the header and scrolling behaviour of `core-header-panel`
+       *
+       * @attribute mode
+       * @type string
+       * @default 'seamed'
+       */     
+      mode: {value: 'seamed', reflect: true}
+    },
 
     /**
       * Toggle the drawer panel
