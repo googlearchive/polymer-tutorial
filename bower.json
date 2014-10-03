@@ -3,7 +3,9 @@
   "version": "0.4.2",
   "homepage": "https://github.com/Polymer/polymer-tutorial",
   "authors": [
-    "Rob Dodson <robdodson@google.com>"
+    "Arthur Evans <arthure@google.com>",
+    "Rob Dodson <robdodson@google.com>",
+    "Eric Bidelman <ericbidelman@google.com>"
   ],
   "description": "Polymer tutorial for read-only social network app",
   "license": "MIT",
