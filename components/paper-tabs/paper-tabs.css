@@ -45,7 +45,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 }
 
 #selectionBar.contract {
-  transition-duration: 0.1s;
+  transition-duration: 0.18s;
   transition-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
 }
 

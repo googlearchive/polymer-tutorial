@@ -102,15 +102,18 @@ To change the sliding bar color:
       this.$.selectionBar.classList.add('expand');
       if (old < this.selectedIndex) {
         s.width = w + w * (this.selectedIndex - old) - m + '%';
+        this._transitionCounter = 1;
       } else {
         s.width = w + w * (old - this.selectedIndex) - m + '%';
         s.left = this.selectedIndex * w + m + '%';
+        this._transitionCounter = 2;
       }
     },
     
-    barTransitionEnd: function() {
+    barTransitionEnd: function(e) {
+      this._transitionCounter--;
       var cl = this.$.selectionBar.classList;
-      if (cl.contains('expand')) {
+      if (cl.contains('expand') && !this._transitionCounter) {
         cl.remove('expand');
         cl.add('contract');
         var s = this.$.selectionBar.style;
