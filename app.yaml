@@ -1,0 +1,39 @@
+application: polymer-tut
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /
+  mime_type: text/html
+  static_files: finished/build.html
+  upload: finished/build.html
+
+# - url: /build.js
+#   mime_type: application/javascript
+#   static_files: finished/build.js
+#   upload: finished/build.js
+
+- url: /components/(.*)
+  static_files: components/\1
+  upload: components/.*
+
+- url: /images/(.*)
+  static_files: images/\1
+  upload: images/.*
+
+- url: /api/(.*)
+  static_files: api/\1
+  upload: api/.*
+
+- url: /post-service/(.*)
+  static_files: post-service/\1
+  upload: post-service/.*
+
+- url: /(.*)
+  static_files: finished/\1
+  upload: finished/.*
+
+skip_files:
+- ^(.*/)?node_modules/.*
