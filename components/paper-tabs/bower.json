@@ -8,7 +8,8 @@
     "core-media-query": "Polymer/core-media-query#^0.5.0",
     "font-roboto": "Polymer/font-roboto#^0.5.0",
     "paper-icon-button": "Polymer/paper-icon-button#^0.5.0",
-    "paper-ripple": "Polymer/paper-ripple#^0.5.0"
+    "paper-ripple": "Polymer/paper-ripple#^0.5.0",
+    "core-resizable": "Polymer/core-resizable#^0.5.0"
   },
-  "version": "0.5.1"
+  "version": "0.5.2"
 }
