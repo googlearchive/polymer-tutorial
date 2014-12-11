@@ -53,6 +53,11 @@ license that can be found in the LICENSE file.
         color: #4285f4;
       }
 
+      paper-icon-button.huge::shadow #icon {
+        width: 100px;
+        height: 100px;
+      }
+
 /*      core-selector paper-icon-button:not([active])::shadow core-icon {
         color: #c9c9c9;
       }
@@ -85,10 +90,13 @@ license that can be found in the LICENSE file.
 
         <div>Styled</div>
 
-        <paper-icon-button icon="favorite" title="favorite"></paper-icon-button>
-        <paper-icon-button class="hover" icon="favorite" title="favorite"></paper-icon-button>
-        <paper-icon-button class="red" icon="favorite" title="favorite"></paper-icon-button>
-        <paper-icon-button class="red blueRipple" icon="favorite" title="favorite"></paper-icon-button>
+        <paper-icon-button class="hover" icon="favorite" title="with :hover style"></paper-icon-button>
+        <paper-icon-button class="red" icon="favorite" title="red icon"></paper-icon-button>
+        <paper-icon-button class="red blueRipple" icon="favorite" title="red icon, blue ripple"></paper-icon-button>
+
+        <br>
+
+        <paper-icon-button class="huge" icon="favorite" title="huge"></paper-icon-button>
 
       </section>
 
