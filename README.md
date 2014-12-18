@@ -17,3 +17,9 @@ In this tutorial, you build a simple client for `unquote`, the read-only social 
  -   `images`. Avatar images.
 
 Find a problem in the tutorial? Please open a [Doc bug](https://github.com/Polymer/docs/issues/new) so we can fix it.
+
+## Deploying the project
+
+- `git checkout deploy`
+- `./deploy.sh`
+- profit!
