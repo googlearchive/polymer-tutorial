@@ -11,13 +11,13 @@
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^1.1.4"
   },
-  "version": "0.5.1",
+  "version": "0.5.2",
   "homepage": "https://github.com/Polymer/paper-button",
-  "_release": "0.5.1",
+  "_release": "0.5.2",
   "_resolution": {
     "type": "version",
-    "tag": "0.5.1",
-    "commit": "6e838076db9ec76d4fe739daadd3dc697bf6750b"
+    "tag": "0.5.2",
+    "commit": "8fc1b68fcf590bc867434ad0683b2971ecd5fe53"
   },
   "_source": "git://github.com/Polymer/paper-button.git",
   "_target": "^0.5.0",
