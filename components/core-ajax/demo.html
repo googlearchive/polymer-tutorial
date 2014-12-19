@@ -23,7 +23,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       handleAs="json"></core-ajax>
    
   <template repeat="{{response.feed.entry}}">
-    <div>{{title.$t}}</div>
+    <div><a href="{{link[0].href}}" target="_blank">{{title.$t}}</a></div>
   </template>
   
   <script>
