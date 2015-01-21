@@ -4,15 +4,15 @@
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#master"
   },
-  "version": "0.5.2",
+  "version": "0.5.3",
   "homepage": "https://github.com/Polymer/core-resizable",
-  "_release": "0.5.2",
+  "_release": "0.5.3",
   "_resolution": {
     "type": "version",
-    "tag": "0.5.2",
-    "commit": "d01157d3c4cd5df10de654ad1b9b287bbd55e08f"
+    "tag": "0.5.3",
+    "commit": "7a37a4e29e478ec131a4002f7cb68b76a070a677"
   },
   "_source": "git://github.com/Polymer/core-resizable.git",
-  "_target": "^0.5.0",
+  "_target": "^0.5",
   "_originalSource": "Polymer/core-resizable"
 }
