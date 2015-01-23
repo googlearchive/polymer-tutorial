@@ -1,6 +1,6 @@
 BUILD LOG
 ---------
-Build Time: 2015-01-21T13:51:17
+Build Time: 2015-01-23T14:46:33
 
 NODEJS INFORMATION
 ==================
@@ -11,7 +11,6 @@ grunt-contrib-concat: 0.5.0
 grunt-contrib-copy: 0.7.0
 grunt-contrib-uglify: 0.6.0
 grunt-string-replace: 1.0.0
-web-component-tester: 1.6.2
 
 REPO REVISIONS
 ==============

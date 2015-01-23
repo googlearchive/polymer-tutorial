@@ -5,13 +5,13 @@
     "polymer": "Polymer/polymer#^0.5",
     "core-iconset": "Polymer/core-iconset#^0.5"
   },
-  "version": "0.5.3",
+  "version": "0.5.4",
   "homepage": "https://github.com/Polymer/core-iconset-svg",
-  "_release": "0.5.3",
+  "_release": "0.5.4",
   "_resolution": {
     "type": "version",
-    "tag": "0.5.3",
-    "commit": "534a95b1b8582f054c59ff44c9b0c81901abb2ff"
+    "tag": "0.5.4",
+    "commit": "5f0a16c3313caa2fd9dc6a1128fcaf6898d195b2"
   },
   "_source": "git://github.com/Polymer/core-iconset-svg.git",
   "_target": "^0.5",

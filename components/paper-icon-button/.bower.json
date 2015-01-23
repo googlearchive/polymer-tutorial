@@ -11,13 +11,13 @@
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^1.1.4"
   },
-  "version": "0.5.3",
+  "version": "0.5.4",
   "homepage": "https://github.com/Polymer/paper-icon-button",
-  "_release": "0.5.3",
+  "_release": "0.5.4",
   "_resolution": {
     "type": "version",
-    "tag": "0.5.3",
-    "commit": "919371f90bec6e369f4363d53adc01d21156e273"
+    "tag": "0.5.4",
+    "commit": "73bd1d4db34a7747ce3d1c96286106f0f69caeff"
   },
   "_source": "git://github.com/Polymer/paper-icon-button.git",
   "_target": "^0.5",

@@ -14,13 +14,13 @@
     "test",
     "tests"
   ],
-  "version": "0.5.3",
+  "version": "0.5.4",
   "homepage": "https://github.com/Polymer/core-a11y-keys",
-  "_release": "0.5.3",
+  "_release": "0.5.4",
   "_resolution": {
     "type": "version",
-    "tag": "0.5.3",
-    "commit": "f71cc9e3ed90c6ea5824ff5198d15e50fb7bbe34"
+    "tag": "0.5.4",
+    "commit": "4b08c5f2d180b3ca05c113185f5d8b4f5a6a3511"
   },
   "_source": "git://github.com/Polymer/core-a11y-keys.git",
   "_target": "^0.5",

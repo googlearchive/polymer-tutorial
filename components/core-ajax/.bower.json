@@ -7,13 +7,13 @@
   "devDependencies": {
     "polymer-test-tools": "Polymer/polymer-test-tools#master"
   },
-  "version": "0.5.3",
+  "version": "0.5.4",
   "homepage": "https://github.com/Polymer/core-ajax",
-  "_release": "0.5.3",
+  "_release": "0.5.4",
   "_resolution": {
     "type": "version",
-    "tag": "0.5.3",
-    "commit": "0e78229ae78fb4f2182309b8a383b7854f061782"
+    "tag": "0.5.4",
+    "commit": "13d3fe9566a35b8a5bb63324b6de747bf6adb81f"
   },
   "_source": "git://github.com/Polymer/core-ajax.git",
   "_target": "^0.5.0",

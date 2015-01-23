@@ -19,12 +19,12 @@
     "tools": "Polymer/tools#master",
     "web-component-tester": "Polymer/web-component-tester#^1.4.2"
   },
-  "version": "0.5.3",
-  "_release": "0.5.3",
+  "version": "0.5.4",
+  "_release": "0.5.4",
   "_resolution": {
     "type": "version",
-    "tag": "0.5.3",
-    "commit": "76b579af8ba514570964a5771be7aca06bad716d"
+    "tag": "0.5.4",
+    "commit": "725e182953858d5b13e9ace82b96822621f1c51d"
   },
   "_source": "git://github.com/Polymer/polymer.git",
   "_target": "^0.5",
