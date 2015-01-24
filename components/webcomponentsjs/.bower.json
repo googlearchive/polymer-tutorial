@@ -15,7 +15,7 @@
   "_resolution": {
     "type": "version",
     "tag": "0.5.4",
-    "commit": "4961d0d47900ac4965595363189cadaab14789fc"
+    "commit": "d31b29c8c3bf4ad7ddd9a84236f04864003bc40d"
   },
   "_source": "git://github.com/Polymer/webcomponentsjs.git",
   "_target": "^0.5",

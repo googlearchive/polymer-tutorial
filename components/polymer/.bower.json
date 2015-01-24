@@ -24,7 +24,7 @@
   "_resolution": {
     "type": "version",
     "tag": "0.5.4",
-    "commit": "725e182953858d5b13e9ace82b96822621f1c51d"
+    "commit": "17f0b5d75b1ceeb4414556d44eca197f7dacbde2"
   },
   "_source": "git://github.com/Polymer/polymer.git",
   "_target": "^0.5",
