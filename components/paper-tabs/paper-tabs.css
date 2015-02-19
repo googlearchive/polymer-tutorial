@@ -59,6 +59,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   transition: width, left;
 }
 
+#selectionBar.alignBottom {
+	top: 0;
+	bottom: auto;
+}
+
 #selectionBar.expand {
   transition-duration: 0.15s;
   transition-timing-function: cubic-bezier(0.4, 0.0, 1, 1);

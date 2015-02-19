@@ -11,5 +11,5 @@
     "paper-ripple": "Polymer/paper-ripple#^0.5",
     "core-resizable": "Polymer/core-resizable#^0.5"
   },
-  "version": "0.5.4"
+  "version": "0.5.5"
 }

@@ -43,11 +43,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </test-core-selector>
 
   <script>
-  
+
     var s = document.querySelector('test-core-selector');
 
     suite('content', function() {
-      
+
       test('get selected', function(done) {
         asyncPlatformFlush(function() {
           // check selected class
@@ -65,11 +65,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           done();
         });
       });
-      
+
       test('get items', function() {
         assert.equal(s.$.selector.items.length, s.children.length);
       });
-      
+
       test('activate event', function(done) {
         s.children[2].dispatchEvent(new CustomEvent('tap', {bubbles: true}));
         asyncPlatformFlush(function() {
@@ -78,7 +78,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           done();
         });
       });
-      
+
       test('add item dynamically', function(done) {
         var item = document.createElement('div');
         item.id = 'item4';

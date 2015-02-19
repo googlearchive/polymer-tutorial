@@ -5,5 +5,5 @@
     "webcomponentsjs": "Polymer/webcomponentsjs#^0.5",
     "polymer": "Polymer/polymer#^0.5"
   },
-  "version": "0.5.4"
+  "version": "0.5.5"
 }

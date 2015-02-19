@@ -4,13 +4,13 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^0.5"
   },
-  "version": "0.5.4",
+  "version": "0.5.5",
   "homepage": "https://github.com/Polymer/core-media-query",
-  "_release": "0.5.4",
+  "_release": "0.5.5",
   "_resolution": {
     "type": "version",
-    "tag": "0.5.4",
-    "commit": "1100a2d1428cf94583f1e7a969b2f45f06f8d911"
+    "tag": "0.5.5",
+    "commit": "c8430fd6852257d7fd245356e6ee656d3a000e9f"
   },
   "_source": "git://github.com/Polymer/core-media-query.git",
   "_target": "^0.5",
