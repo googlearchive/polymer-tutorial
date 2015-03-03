@@ -2,14 +2,14 @@
   "name": "paper-icon-button",
   "private": true,
   "dependencies": {
-    "polymer": "Polymer/polymer#^0.5",
-    "paper-button": "Polymer/paper-button#^0.5",
-    "core-icon": "Polymer/core-icon#^0.5",
-    "core-icons": "Polymer/core-icons#^0.5",
-    "paper-ripple": "Polymer/paper-ripple#^0.5"
+    "polymer": "Polymer/polymer#master",
+    "paper-button": "Polymer/paper-button#master",
+    "core-icon": "Polymer/core-icon#master",
+    "core-icons": "Polymer/core-icons#master",
+    "paper-button": "Polymer/paper-button#master",
+    "paper-ripple": "Polymer/paper-ripple#master"
   },
   "devDependencies": {
     "web-component-tester": "Polymer/web-component-tester#^1.1.4"
-  },
-  "version": "0.5.4"
+  }
 }

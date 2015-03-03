@@ -2,10 +2,12 @@
   "name": "paper-shadow",
   "private": true,
   "dependencies": {
-    "polymer": "Polymer/polymer#^0.5"
+    "polymer": "Polymer/polymer#0.8-preview",
+    "layout": "polymer/layout#master"
   },
   "devDependencies": {
-    "web-component-tester": "Polymer/web-component-tester#^1.1.4"
-  },
-  "version": "0.5.4"
+    "web-component-tester": "~2.2.3",
+    "font-roboto": "polymer/font-roboto#~0.5.5",
+    "test-fixture": "polymer/test-fixture"
+  }
 }

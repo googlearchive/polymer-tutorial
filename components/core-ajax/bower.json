@@ -2,10 +2,11 @@
   "name": "core-ajax",
   "private": true,
   "dependencies": {
-    "polymer": "Polymer/polymer#^0.5"
+    "polymer": "Polymer/polymer#0.8-preview"
   },
   "devDependencies": {
-    "polymer-test-tools": "Polymer/polymer-test-tools#master"
-  },
-  "version": "0.5.4"
+    "test-fixture": "polymer/test-fixture",
+    "web-component-tester": "~2.2.3",
+    "webcomponentsjs": "~0.5.5"
+  }
 }

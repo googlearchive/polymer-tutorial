@@ -1,6 +1,6 @@
 {
   "name": "polymer-tutorial",
-  "version": "0.5.4",
+  "version": "0.8.0",
   "homepage": "https://github.com/Polymer/polymer-tutorial",
   "authors": [
     "Arthur Evans <arthure@google.com>",
@@ -19,11 +19,18 @@
     "tests"
   ],
   "dependencies": {
-    "core-icon-button": "Polymer/core-icon-button#^0.5.0",
+    "polymer": "Polymer/polymer#0.8-preview",
+    "core-ajax": "Polymer/core-ajax#0.8-preview",
+    "core-icon": "Polymer/core-icon#0.8-preview",
+    "core-icons": "Polymer/core-icons#0.8-preview",
+    "core-iconset": "Polymer/core-iconset#0.8-preview",
+    "core-iconset-svg": "Polymer/core-iconset-svg#0.8-preview",
     "font-roboto": "Polymer/font-roboto#^0.5.0",
-    "core-header-panel": "Polymer/core-header-panel#^0.5.0",
-    "core-toolbar": "Polymer/core-toolbar#^0.5.0",
-    "paper-tabs": "Polymer/paper-tabs#^0.5.0",
-    "core-ajax": "Polymer/core-ajax#^0.5.0"
+    "core-selector": "Polymer/core-selector#0.8-preview",
+    "core-resizable": "Polymer/core-resizable#0.8-preview",
+    "paper-ripple": "Polymer/paper-ripple#0.8-preview",
+    "paper-shadow": "Polymer/paper-shadow#0.8-preview",
+    "paper-icon-button": "Polymer/paper-icon-button#0.8-preview",
+    "paper-tabs": "Polymer/paper-tabs#0.8-preview"
   }
 }

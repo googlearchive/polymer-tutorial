@@ -2,40 +2,50 @@
 <link rel="import" href="../post-service/post-service.html">
 <link rel="import" href="post-card.html">
 
-<polymer-element name="post-list" attributes="show">
+<dom-module id="post-list">
+  <style>
+  post-list {
+    display: block;
+    width: 100%;
+  }
+  post-card {
+    margin-bottom: 30px;
+  }
+  </style>
   <template>
-    <style>
-    :host {
-      display: block;
-      width: 100%;
-    }
-    post-card {
-      margin-bottom: 30px;
-    }
-    </style>
+  <post-service id="service" posts="{{posts}}"></post-service>
 
-    <post-service id="service" posts="{{posts}}"></post-service>
-    
     <div layout vertical center>
-      <template repeat="{{post in posts}}">
+      <template id="repeater" is="x-repeat" observe="favorite" items="[[posts]]">
         <post-card
-          favorite="{{post.favorite}}"
-          on-favorite-tap="{{handleFavorite}}"
-          hidden?="{{show == 'favorites' && !post.favorite}}">
-          <img src="{{post.avatar}}" width="70" height="70">
-          <h2>{{post.username}}</h2>
-          <p>{{post.text}}</p>
+          favorite="[[item.favorite]]"
+          on-favorite-tap="handleFavorite">
+          <img src="[[item.avatar]]" width="70" height="70">
+          <h2>[[item.username]]</h2>
+          <p>[[item.text]]</p>
         </post-card>
       </template>
     </div>
   </template>
-
+</dom-module>
   <script>
   Polymer({
-    handleFavorite: function(event, detail, sender) {
-      var post = sender.templateInstance.model.post;
-      this.$.service.setFavorite(post.uid, post.favorite);
+    is: "post-list",
+    published: {
+      show: String
+    },
+    bind: {
+      show: 'showChanged'
+    },
+    handleFavorite: function(ev, detail) {
+      var post = this.$.repeater.itemForElement(ev.target);
+      this.$.service.setFavorite(post.uid, detail.favorite);
+    },
+    showChanged: function() {
+      this.$.repeater.filter = (this.show == 'favorites' ? this.favFilter : undefined)
+    },
+    favFilter: function(input) {
+      return input.favorite;
     }
   });
   </script>
-</polymer-element>

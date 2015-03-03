@@ -47,28 +47,44 @@
   @type Array
   @default []
 -->
-<polymer-element name="post-service" attributes="posts">
+<dom-module id="post-service">
+  <style>
+  core-ajax {
+    display: none;
+  }
+  </style>
   <template>
-    <style>
-    :host {
-      display: none;
-    }
-    </style>
     <core-ajax id="ajax"
-      auto
       url="../api/posts.json"
-      on-core-response="{{postsLoaded}}"
-      handleAs="json">
+      auto
+      handleas="json"
+      on-response="postsLoaded">
     </core-ajax>
   </template>
+</dom-module>
   <script>
-  Polymer('post-service', {
-    created: function() {
-      this.posts = [];
+  Polymer({
+    is: 'post-service',
+    /*
+    ready: function() {
+      console.log("<post-service>: Ready");
+      this.$.ajax.url = "../api/posts.json";
+      this.$.ajax.send();
+    },
+    */
+    published: {
+      posts: {
+        type: Array,
+        readOnly: true,
+        notify: true
+      }
     },
     postsLoaded: function() {
+      console.log("<post-service>: Got response");
       // Make a copy of the loaded data
-      this.posts = this.$.ajax.response.slice(0);
+      this._setPosts(this.$.ajax.lastresponse.slice());
+      console.log("# posts: " + this.posts.length);
+      this.fire('new-posts');
     },
     /** 
      * Update the service with the current favorite value.
@@ -81,9 +97,15 @@
      * @param isFavorite {Boolean} True if the user marked this post as a favorite.
      */
     setFavorite: function(uid, isFavorite) {
-      // no service backend, just log the change
-      console.log('Favorite changed: ' + uid + ", now: " + isFavorite);
+      // no service backend, change local data
+      var i, len;
+      for (i = 0, len=this.posts.length; i<len; i++) {
+        if (this.posts[i].uid == uid) {
+          //this.posts[i].favorite = isFavorite;
+          this.setPathValue('posts.' + i + '.favorite', isFavorite);
+          return;
+        }
+      }
     }
   });
   </script>
-</polymer-element>

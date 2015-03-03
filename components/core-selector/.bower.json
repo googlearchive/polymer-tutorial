@@ -1,22 +1,27 @@
 {
   "name": "core-selector",
   "private": true,
+  "main": "core-selector.html",
+  "authors": [
+    "Frankie Fu <ffu@google.com>",
+    "The Polymer Authors"
+  ],
+  "repository": "https://github.com/Polymer/core-selector/tree/0.8-preview",
   "dependencies": {
-    "polymer": "Polymer/polymer#^0.5",
-    "core-selection": "Polymer/core-selection#^0.5"
+    "polymer": "Polymer/polymer#0.8-preview"
   },
   "devDependencies": {
-    "web-component-tester": "Polymer/web-component-tester#^1.4.2"
+    "web-component-tester": "Polymer/web-component-tester#^1.1.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#master"
   },
-  "version": "0.5.4",
   "homepage": "https://github.com/Polymer/core-selector",
-  "_release": "0.5.4",
+  "_release": "c7ca341e00",
   "_resolution": {
-    "type": "version",
-    "tag": "0.5.4",
-    "commit": "668642707f583e7b603373621aaa127844a99d65"
+    "type": "branch",
+    "branch": "0.8-preview",
+    "commit": "c7ca341e0099f57a59a2bde2f443df1cd98064d3"
   },
   "_source": "git://github.com/Polymer/core-selector.git",
-  "_target": "^0.5",
+  "_target": "0.8-preview",
   "_originalSource": "Polymer/core-selector"
 }

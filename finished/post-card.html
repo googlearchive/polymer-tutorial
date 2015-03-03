@@ -1,10 +1,10 @@
 <link rel="import" href="../components/polymer/polymer.html">
-<link rel="import" href="../components/core-icon-button/core-icon-button.html">
+<link rel="import" href="../components/core-icon/core-icon.html">
+<link rel="import" href="../components/core-icons/core-icons.html">
 
-<polymer-element name="post-card">
-  <template>
+<dom-module id="post-card">
     <style>
-    :host {
+    post-card {
       display: block;
       position: relative;
       background-color: white;
@@ -13,59 +13,85 @@
       font-size: 1.2rem;
       font-weight: 300;
     }
-    .card-header {
+    post-card .card-header {
       margin-bottom: 10px;
     }
-    polyfill-next-selector { content: '.card-header h2'; }
-    .card-header ::content h2 {
+    .card-header  h2 {
       margin: 0;
       font-size: 1.8rem;
       font-weight: 300;
     }
-    polyfill-next-selector { content: '.card-header img'; }
-    .card-header ::content img {
+    .card-header  img {
       width: 70px;
       border-radius: 50%;
       margin: 10px;
     }
-    core-icon-button {
+
+    post-card core-icon {
       position: absolute;
       top: 3px;
       right: 3px;
       color: #636363;
+      border-color: black;
     }
-    :host([favorite]) core-icon-button {
+    post-card core-icon.checked {
       color: #da4336;
+      border-color: #da4336;
     }
     </style>
-
-    <div class="card-header" layout horizontal center>
-
-      <content select="img"></content>
-      <content select="h2"></content>
-
-    </div>
-
-    <core-icon-button
-      id="favicon"
-      icon="favorite"
-      on-tap="{{favoriteTapped}}">
-    </core-icon-button>
-
-    <content></content>   
-  </template>
+    <template>
+  
+      <div class="card-header layout horizontal center">
+  
+        <content select="img"></content>
+        <content select="h2"></content>
+  
+      </div>
+  
+      <core-icon
+        id="favicon"
+        icon="favorite"
+        on-click="favoriteTapped" 
+        on-keydown="handleKey"
+        aria-label="favorite"
+        role="checkbox"
+        tabindex="0"
+        aria-checked="false">
+        </core-icon>
+  
+      <content></content>   
+    </template>
+  </dom-module>
   <script>
   Polymer({
-    publish: {
+    is: 'post-card',
+    bind: {
+      favorite: 'favoriteChanged'
+    },
+    published: {
       favorite: {
-        value: false,
-        reflect: true
+        type: Boolean
       }
     },
+    favoriteChanged: function(event, detail, sender) {
+      this.toggleClass('checked', this.favorite, this.$.favicon);
+      this.$.favicon.setAttribute('aria-checked', this.favorite);
+    },
     favoriteTapped: function(event, detail, sender) {
-      this.favorite = !this.favorite;
-      this.fire('favorite-tap');
+      // don't need to set this.favorite directly any more...
+      // now, we fire an event UP, and data is changed in the post-service and flows down from there.
+      // Is this the right API? 
+      // this.favorite = !this.favorite;
+      this.fire('favorite-tap', {favorite: !this.favorite} );
+    },
+    handleKey: function(event, detail, sender) {
+      var key = event.key ? event.key.toLowerCase : ''; 
+      if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey)
+        return;
+      if (key == 'space' || event.keyIdentifier == 'U+0020' || event.keyCode == 32 || event.detail.key == 'space') {
+        this.favoriteTapped();
+        event.preventDefault();
+      }
     }
   });
   </script>
-</polymer-element>

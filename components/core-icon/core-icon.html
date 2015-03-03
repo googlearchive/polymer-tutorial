@@ -25,14 +25,14 @@ Example setting size to 32px x 32px:
       }
     </style>
 
-The core elements include several sets of icons. 
+The core elements include several sets of icons.
 To use the default set of icons, import  `core-icons.html` and use the `icon` attribute to specify an icon:
 
     &lt;!-- import default iconset and core-icon --&gt;
     <link rel="import" href="/components/core-icons/core-icons.html">
 
     <core-icon icon="menu"></core-icon>
-    
+
 To use a different built-in set of icons, import  `core-icons/<iconset>-icons.html`, and
 specify the icon as `<iconset>:<icon>`. For example:
 
@@ -40,8 +40,8 @@ specify the icon as `<iconset>:<icon>`. For example:
     <link rel="import" href="/components/core-icons/communication-icons.html">
 
     <core-icon icon="communication:email"></core-icon>
-    
-You can also create custom icon sets of bitmap or SVG icons. 
+
+You can also create custom icon sets of bitmap or SVG icons.
 
 Example of using an icon named `cherry` from a custom iconset with the ID `fruit`:
 
@@ -57,147 +57,150 @@ See [core-icons](http://www.polymer-project.org/components/core-icons/demo.html)
 @homepage polymer.github.io
 -->
 <link rel="import" href="../core-iconset/core-iconset.html">
+<link rel="import" href="../core-meta/core-meta.html">
+<dom-module id="core-icon">
+  <style>
+    core-icon {
+      display: inline-flex;
+      position: relative;
+      fill: currentcolor;
 
-<link rel="stylesheet" href="core-icon.css" shim-shadowdom>
+      align-items: center;
+      justify-content: center;
 
-<polymer-element name="core-icon" attributes="src icon alt">
+      width: 24px;
+      height: 24px;
+    }
+
+    core-icon > div {
+      display: block;
+      position: relative;
+    }
+
+    core-icon > svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</dom-module>
 <script>
-(function() {
-  
-  // mono-state
-  var meta;
-  
-  Polymer('core-icon', {
+  Polymer({
+    is: 'core-icon',
 
-    /**
-     * The URL of an image for the icon. If the src property is specified,
-     * the icon property should not be.
-     *
-     * @attribute src
-     * @type string
-     * @default ''
-     */
-    src: '',
+    published: {
+      src: String,
+      icon: String,
+      theme: String
+    },
 
-    /**
-     * Specifies the icon name or index in the set of icons available in
-     * the icon's icon set. If the icon property is specified,
-     * the src property should not be.
-     *
-     * @attribute icon
-     * @type string
-     * @default ''
-     */
-    icon: '',
+    configure: function () {
+      // TODO(cdata): Do this declaratively someday when more browsers natively
+      // support ShadowDOM and the performance downside of creating a shadow
+      // is no longer as weighty. Maybe never? :)
+      var meta = document.createElement('core-meta');
+      meta.type = 'iconset';
 
-    /**
-     * Alternative text content for accessibility support.
-     * If alt is present and not empty, it will set the element's role to img and add an aria-label whose content matches alt.
-     * If alt is present and is an empty string, '', it will hide the element from the accessibility layer
-     * If alt is not present, it will set the element's role to img and the element will fallback to using the icon attribute for its aria-label.
-     * 
-     * @attribute alt
-     * @type string
-     * @default ''
-     */
-    alt: null,
+      return {
+        src: '',
+        icon: '',
+        theme: '',
+        meta: meta,
+        srcImgElement: null
+      };
+    },
 
-    observe: {
-      'icon': 'updateIcon',
-      'alt': 'updateAlt'
+    bind: {
+      icon: 'iconChanged',
+      theme: 'iconChanged',
+      src: 'srcChanged'
+    },
+
+    computed: {
+      iconset: 'computeIconset(icon)'
     },
 
     defaultIconset: 'icons',
 
-    ready: function() {
-      if (!meta) {
-        meta = document.createElement('core-iconset');
+    ready: function () {
+      this._afterReady = true;
+
+      if (this.src) {
+        this.srcChanged();
       }
 
-      // Allow user-provided `aria-label` in preference to any other text alternative.
-      if (this.hasAttribute('aria-label')) {
-        // Set `role` if it has not been overridden.
-        if (!this.hasAttribute('role')) {
-          this.setAttribute('role', 'img');
-        }
-        return;
-      }
-      this.updateAlt();
-    },
-
-    srcChanged: function() {
-      var icon = this._icon || document.createElement('div');
-      icon.textContent = '';
-      icon.setAttribute('fit', '');
-      icon.style.backgroundImage = 'url(' + this.src + ')';
-      icon.style.backgroundPosition = 'center';
-      icon.style.backgroundSize = '100%';
-      if (!icon.parentNode) {
-        this.appendChild(icon);
-      }
-      this._icon = icon;
-    },
-
-    getIconset: function(name) {
-      return meta.byId(name || this.defaultIconset);
-    },
-
-    updateIcon: function(oldVal, newVal) {
-      if (!this.icon) {
-        this.updateAlt();
-        return;
-      }
-      var parts = String(this.icon).split(':');
-      var icon = parts.pop();
-      if (icon) {
-        var set = this.getIconset(parts.pop());
-        if (set) {
-          this._icon = set.applyIcon(this, icon);
-          if (this._icon) {
-            this._icon.setAttribute('fit', '');
-          }
-        }
-      }
-      // Check to see if we're using the old icon's name for our a11y fallback
-      if (oldVal) {
-        if (oldVal.split(':').pop() == this.getAttribute('aria-label')) {
-          this.updateAlt();
-        }
+      if (this.icon) {
+        this.iconChanged();
       }
     },
 
-    updateAlt: function() {
-      // Respect the user's decision to remove this element from
-      // the a11y tree
-      if (this.getAttribute('aria-hidden')) {
+    get iconsetElement () {
+      var iconsetElement;
+
+      if (this.icon) {
+        iconsetElement = this.meta.byKey(
+          this.computeIconset(this.icon)
+        );
+      }
+
+      return iconsetElement;
+    },
+
+    get iconName () {
+      if (this.icon) {
+        return this.icon.split(':').pop();
+      }
+
+      return '';
+    },
+
+    get usesSrcAttribute () {
+      return !this.icon || this.src;
+    },
+
+    computeIconset: function (icon) {
+      var iconset;
+
+      if (icon && icon.indexOf(':') > -1) {
+        iconset = icon.split(':').shift();
+      }
+
+      return iconset || this.defaultIconset;
+    },
+
+    iconChanged: function () {
+      if (!this._afterReady) {
         return;
       }
 
-      // Remove element from a11y tree if `alt` is empty, otherwise
-      // use `alt` as `aria-label`.
-      if (this.alt === '') {
-        this.setAttribute('aria-hidden', 'true');
-        if (this.hasAttribute('role')) {
-          this.removeAttribute('role');
-        }
-        if (this.hasAttribute('aria-label')) {
-          this.removeAttribute('aria-label');
-        }
-      } else {
-        this.setAttribute('aria-label', this.alt ||
-                                        this.icon.split(':').pop());
-        if (!this.hasAttribute('role')) {
-          this.setAttribute('role', 'img');
-        }
-        if (this.hasAttribute('aria-hidden')) {
-          this.removeAttribute('aria-hidden');
-        }
+      if (this.usesSrcAttribute) {
+        return;
       }
+
+      this.iconsetElement.applyIcon(this, this.iconName, this.theme);
+    },
+
+    srcChanged: function () {
+      var currentIconChild;
+
+      if (!this._afterReady) {
+        return;
+      }
+
+      if (!this.usesSrcAttribute) {
+        return;
+      }
+
+      if (currentIconChild = this.lightDom.querySelector('div')) {
+        this.lightDom.removeChild(currentIconChild);
+      }
+
+      if (!this.srcImgElement) {
+        this.srcImgElement = document.createElement('img');
+      }
+
+      this.srcImgElement.src = this.src;
+      this.lightDom.appendChild(this.srcImgElement);
     }
-
   });
-  
-})();
 </script>
-
-</polymer-element>

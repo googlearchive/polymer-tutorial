@@ -6,425 +6,408 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-
 <!--
 @group Polymer Core Elements
 
-The `core-ajax` element exposes `XMLHttpRequest` functionality.
+The `core-ajax` element exposes network request functionality.
 
     <core-ajax
         auto
         url="http://gdata.youtube.com/feeds/api/videos/"
         params='{"alt":"json", "q":"chrome"}'
-        handleAs="json"
-        on-core-response="{{handleResponse}}"></core-ajax>
+        handleas="json"
+        on-response="{{handleResponse}}"></core-ajax>
 
 With `auto` set to `true`, the element performs a request whenever
-its `url`, `params` or `body` properties are changed.
+its `url`, `params` or `body` properties are changed. Automatically generated
+requests will be debounced in the case that multiple attributes are changed
+sequentially.
 
 Note: The `params` attribute must be double quoted JSON.
 
-You can trigger a request explicitly by calling `go` on the
+You can trigger a request explicitly by calling `generateRequest` on the
 element.
 
 @element core-ajax
-@status beta
+@status preview
 @homepage github.io
 -->
-<link rel="import" href="core-xhr.html">
-<polymer-element name="core-ajax" hidden attributes="url handleAs auto params response error method headers body contentType withCredentials progress loading">
-<script>
 
-  Polymer('core-ajax', {
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="core-request.html">
+<dom-element id="core-ajax"></dom-element>
+<script>
+  Polymer({
+    is: 'core-ajax',
+
+    /**
+     * Fired when a request is sent.
+     *
+     * @event request
+     */
+
     /**
      * Fired when a response is received.
      *
-     * @event core-response
+     * @event response
      */
 
     /**
      * Fired when an error is received.
      *
-     * @event core-error
+     * @event error
      */
 
-    /**
-     * Fired whenever a response or an error is received.
-     *
-     * @event core-complete
-     */
+    published: {
+      /**
+       * The URL target of the request.
+       *
+       * @attribute url
+       * @type string
+       * @default ''
+       */
+      url: String,
 
-    /**
-     * The URL target of the request.
-     *
-     * @attribute url
-     * @type string
-     * @default ''
-     */
-    url: '',
+      /**
+       * An object that contains query parameters to be appended to the
+       * specified `url` when generating a request.
+       *
+       * @attribute params
+       * @type Object
+       * @default {}
+       */
+      params: Object,
 
-    /**
-     * Specifies what data to store in the `response` property, and
-     * to deliver as `event.response` in `response` events.
-     *
-     * One of:
-     *
-     *    `text`: uses `XHR.responseText`.
-     *
-     *    `xml`: uses `XHR.responseXML`.
-     *
-     *    `json`: uses `XHR.responseText` parsed as JSON.
-     *
-     *    `arraybuffer`: uses `XHR.response`.
-     *
-     *    `blob`: uses `XHR.response`.
-     *
-     *    `document`: uses `XHR.response`.
-     *
-     * @attribute handleAs
-     * @type string
-     * @default 'text'
-     */
-    handleAs: '',
+      /**
+       * The HTTP method to use such as 'GET', 'POST', 'PUT', or 'DELETE'.
+       * Default is 'GET'.
+       *
+       * @attribute method
+       * @type string
+       * @default 'GET'
+       */
+      method: String,
 
-    /**
-     * If true, automatically performs an Ajax request when either `url` or `params` changes.
-     *
-     * @attribute auto
-     * @type boolean
-     * @default false
-     */
-    auto: false,
+      /**
+       * HTTP request headers to send.
+       *
+       * Example:
+       *
+       *     <core-ajax
+       *         auto
+       *         url="http://somesite.com"
+       *         headers='{"X-Requested-With": "XMLHttpRequest"}'
+       *         handleAs="json"
+       *         on-core-response="{{handleResponse}}"></core-ajax>
+       *
+       * @attribute headers
+       * @type Object
+       * @default {}
+       */
+      headers: Object,
 
-    /**
-     * Parameters to send to the specified URL, as JSON.
-     *
-     * @attribute params
-     * @type string
-     * @default ''
-     */
-    params: '',
+      /**
+       * Content type to use when sending data. If the contenttype is set
+       * and a `Content-Type` header is specified in the `headers` attribute,
+       * the `headers` attribute value will take precedence.
+       *
+       * @attribute contenttype
+       * @type string
+       * @default 'application/x-www-form-urlencoded'
+       */
+      contenttype: String,
 
-    /**
-     * The response for the current request, or null if it hasn't
-     * completed yet or the request resulted in error.
-     *
-     * @attribute response
-     * @type Object
-     * @default null
-     */
-    response: null,
+      /**
+       * Optional raw body content to send when method === "POST".
+       *
+       * Example:
+       *
+       *     <core-ajax method="POST" auto url="http://somesite.com"
+       *         body='{"foo":1, "bar":2}'>
+       *     </core-ajax>
+       *
+       * @attribute body
+       * @type Object
+       * @default undefined
+       */
+      body: String,
 
-    /**
-     * The error for the current request, or null if it hasn't
-     * completed yet or the request resulted in success.
-     *
-     * @attribute error
-     * @type Object
-     * @default null
-     */
-    error: null,
+      /**
+       * Toggle whether XHR is synchronous or asynchronous. Don't change this
+       * to true unless You Know What You Are Doing™.
+       *
+       * @attribute sync
+       * @type boolean
+       * @default false
+       */
+      sync: Boolean,
 
-    /**
-     * Whether the current request is currently loading.
-     *
-     * @attribute loading
-     * @type boolean
-     * @default false
-     */
-    loading: false,
+      /**
+       * Specifies what data to store in the `response` property, and
+       * to deliver as `event.response` in `response` events.
+       *
+       * One of:
+       *
+       *    `text`: uses `XHR.responseText`.
+       *
+       *    `xml`: uses `XHR.responseXML`.
+       *
+       *    `json`: uses `XHR.responseText` parsed as JSON.
+       *
+       *    `arraybuffer`: uses `XHR.response`.
+       *
+       *    `blob`: uses `XHR.response`.
+       *
+       *    `document`: uses `XHR.response`.
+       *
+       * @attribute handleas
+       * @type string
+       * @default 'json'
+       */
+      handleas: String,
 
-    /**
-     * The progress of the current request.
-     *
-     * @attribute progress
-     * @type {loaded: number, total: number, lengthComputable: boolean}
-     * @default {}
-     */
-    progress: null,
+      /**
+       * Set the withcredentials flag on the request.
+       *
+       * @attribute withcredentials
+       * @type boolean
+       * @default false
+       */
+      withcredentials: Boolean,
 
-    /**
-     * The HTTP method to use such as 'GET', 'POST', 'PUT', or 'DELETE'.
-     * Default is 'GET'.
-     *
-     * @attribute method
-     * @type string
-     * @default ''
-     */
-    method: '',
+      /**
+       * If true, automatically performs an Ajax request when either `url` or
+       * `params` changes.
+       *
+       * @attribute auto
+       * @type boolean
+       * @default false
+       */
+      auto: Boolean,
 
-    /**
-     * HTTP request headers to send.
-     *
-     * Example:
-     *
-     *     <core-ajax
-     *         auto
-     *         url="http://somesite.com"
-     *         headers='{"X-Requested-With": "XMLHttpRequest"}'
-     *         handleAs="json"
-     *         on-core-response="{{handleResponse}}"></core-ajax>
-     *
-     * @attribute headers
-     * @type Object
-     * @default null
-     */
-    headers: null,
+      /**
+       * If true, error messages will automatically be logged to the console.
+       *
+       * @attribute verbose
+       * @type boolean
+       * @default false
+       */
+      verbose: Boolean,
 
-    /**
-     * Optional raw body content to send when method === "POST".
-     *
-     * Example:
-     *
-     *     <core-ajax method="POST" auto url="http://somesite.com"
-     *         body='{"foo":1, "bar":2}'>
-     *     </core-ajax>
-     *
-     * @attribute body
-     * @type Object
-     * @default null
-     */
-    body: null,
+      /**
+       * Will be set to true if there is at least one in-flight request
+       * associated with this core-ajax element.
+       *
+       * @attribute loading
+       * @type boolean
+       * @default false
+       */
+      loading: {
+        type: Boolean,
+        notify: true
+      },
 
-    /**
-     * Content type to use when sending data.
-     *
-     * @attribute contentType
-     * @type string
-     * @default 'application/x-www-form-urlencoded'
-     */
-    contentType: 'application/x-www-form-urlencoded',
+      /**
+       * Will be set to the most recent request made by this core-ajax element.
+       *
+       * @attribute lastrequest
+       * @type core-request
+       * @default null
+       */
+      lastrequest: {
+        type: Object,
+        notify: true
+      },
 
-    /**
-     * Set the withCredentials flag on the request.
-     *
-     * @attribute withCredentials
-     * @type boolean
-     * @default false
-     */
-    withCredentials: false,
+      /**
+       * Will be set to the most recent response received by a request
+       * that originated from this core-ajax element. The type of the response
+       * is determined by the value of `handleas` at the time that the request
+       * was generated.
+       *
+       * @attribute lastresponse
+       * @type *
+       * @default null
+       */
+      lastresponse: {
+        type: Object,
+        notify: true
+      },
 
-    /**
-     * Additional properties to send to core-xhr.
-     *
-     * Can be set to an object containing default properties
-     * to send as arguments to the `core-xhr.request()` method
-     * which implements the low-level communication.
-     *
-     * @property xhrArgs
-     * @type Object
-     * @default null
-     */
-    xhrArgs: null,
+      /**
+       * Will be set to the most recent error that resulted from a request
+       * that originated from this core-ajax element.
+       *
+       * @attribute lasterror
+       * @type Error
+       * @default null
+       */
+      lasterror: {
+        type: Object,
+        notify: true
+      },
 
-    created: function() {
-      this.progress = {};
-    },
-
-    ready: function() {
-      this.xhr = document.createElement('core-xhr');
-    },
-
-    receive: function(response, xhr) {
-      if (this.isSuccess(xhr)) {
-        this.processResponse(xhr);
-      } else {
-        this.processError(xhr);
+      /**
+       * An Array of all in-flight requests originating from this core-ajax
+       * element.
+       *
+       * @attribute activerequests
+       * @type Array
+       * @default []
+       */
+      activerequests: {
+        type: Array,
+        notify: true
       }
-      this.complete(xhr);
     },
 
-    isSuccess: function(xhr) {
-      var status = xhr.status || 0;
-      return !status || (status >= 200 && status < 300);
+    configure: function () {
+      return {
+        url: '',
+        params: {},
+        method: 'GET',
+        headers: {},
+        contenttype: 'application/x-www-form-urlencoded',
+        body: undefined,
+        sync: false,
+        handleas: 'json',
+        withcredentials: false,
+        auto: false,
+        verbose: false,
+        lastrequest: null,
+        lastresponse: null,
+        lasterror: null,
+        activerequests: []
+      };
     },
 
-    processResponse: function(xhr) {
-      var response = this.evalResponse(xhr);
-      if (xhr === this.activeRequest) {
-        this.response = response;
+    bind: {
+      url: 'requestOptionsChanged',
+      method: 'requestOptionsChanged',
+      headers: 'requestOptionsChanged',
+      contenttype: 'requestOptionsChanged',
+      body: 'requestOptionsChanged',
+      sync: 'requestOptionsChanged',
+      handleas: 'requestOptionsChanged',
+      withcredentials: 'requestOptionsChanged'
+    },
+
+    ready: function () {
+      this._afterReady = true;
+      this.requestOptionsChanged();
+    },
+
+    get queryString () {
+      var queryParts = [];
+      var param;
+      var value;
+
+      for (param in this.params) {
+        value = this.params[param];
+        param = window.encodeURIComponent(param);
+
+        if (value !== null) {
+          param += '=' + window.encodeURIComponent(value);
+        }
+
+        queryParts.push(param);
       }
-      this.fire('core-response', {response: response, xhr: xhr});
+
+      return queryParts.join('&');
     },
 
-    processError: function(xhr) {
-      var response = xhr.status + ': ' + xhr.responseText;
-      if (xhr === this.activeRequest) {
-        this.error = response;
+    get requestUrl () {
+      var queryString = this.queryString;
+
+      if (queryString) {
+        return this.url + '?' + queryString;
       }
-      this.fire('core-error', {response: response, xhr: xhr});
+
+      return this.url;
     },
 
-    processProgress: function(progress, xhr) {
-      if (xhr !== this.activeRequest) {
+    get requestHeaders () {
+      var headers = Object.create(this.headers || {});
+
+      if (!('content-type' in headers)) {
+        headers['content-type'] = this.contenttype;
+      }
+
+      return headers;
+    },
+
+    toRequestOptions: function () {
+      return {
+        url: this.requestUrl,
+        method: this.method,
+        headers: this.requestHeaders,
+        body: this.body,
+        async: !this.sync,
+        handleAs: this.handleas,
+        withCredentials: this.withcredentials
+      };
+    },
+
+    requestOptionsChanged: function () {
+      if (!this._afterReady) {
         return;
       }
-      // We create a proxy object here because these fields
-      // on the progress event are readonly properties, which
-      // causes problems in common use cases (e.g. binding to
-      // <paper-progress> attributes).
-      var progressProxy = {
-        lengthComputable: progress.lengthComputable,
-        loaded: progress.loaded,
-        total: progress.total
-      }
-      this.progress = progressProxy;
-    },
 
-    complete: function(xhr) {
-      if (xhr === this.activeRequest) {
-        this.loading = false;
-      }
-      this.fire('core-complete', {response: xhr.status, xhr: xhr});
-    },
-
-    evalResponse: function(xhr) {
-      return this[(this.handleAs || 'text') + 'Handler'](xhr);
-    },
-
-    xmlHandler: function(xhr) {
-      return xhr.responseXML;
-    },
-
-    textHandler: function(xhr) {
-      return xhr.responseText;
-    },
-
-    jsonHandler: function(xhr) {
-      var r = xhr.responseText;
-      try {
-        return JSON.parse(r);
-      } catch (x) {
-        console.warn('core-ajax caught an exception trying to parse response as JSON:');
-        console.warn('url:', this.url);
-        console.warn(x);
-        return r;
-      }
-    },
-
-    documentHandler: function(xhr) {
-      return xhr.response;
-    },
-
-    blobHandler: function(xhr) {
-      return xhr.response;
-    },
-
-    arraybufferHandler: function(xhr) {
-      return xhr.response;
-    },
-
-    urlChanged: function() {
-      if (!this.handleAs) {
-        var ext = String(this.url).split('.').pop();
-        switch (ext) {
-          case 'json':
-            this.handleAs = 'json';
-            break;
-        }
-      }
-      this.autoGo();
-    },
-
-    paramsChanged: function() {
-      this.autoGo();
-    },
-
-    bodyChanged: function() {
-      this.autoGo();
-    },
-
-    autoChanged: function() {
-      this.autoGo();
-    },
-
-    // TODO(sorvell): multiple side-effects could call autoGo
-    // during one micro-task, use a job to have only one action
-    // occur
-    autoGo: function() {
       if (this.auto) {
-        this.goJob = this.job(this.goJob, this.go, 0);
+        this.debounce('autoGenerateRequest', this.generateRequest);
       }
-    },
-
-    getParams: function(params) {
-      params = this.params || params;
-      if (params && typeof(params) == 'string') {
-        params = JSON.parse(params);
-      }
-      return params;
     },
 
     /**
-     * Performs an Ajax request to the specified URL.
+     * Performs an AJAX request to the specified URL.
      *
-     * @method go
+     * @method generateRequest
      */
-    go: function() {
-      var args = this.xhrArgs || {};
-      // TODO(sjmiles): we may want XHR to default to POST if body is set
-      args.body = this.body || args.body;
-      args.params = this.getParams(args.params);
-      args.headers = this.headers || args.headers || {};
-      if (args.headers && typeof(args.headers) == 'string') {
-        args.headers = JSON.parse(args.headers);
-      }
-      var hasContentType = Object.keys(args.headers).some(function (header) {
-        return header.toLowerCase() === 'content-type';
+    generateRequest: function () {
+      var request = document.createElement('core-request');
+      var requestOptions = this.toRequestOptions();
+
+      this.activerequests.push(request);
+
+      request.completes.then(
+        this.handleResponse.bind(this),
+        this.handleError.bind(this)
+      ).then(
+        this.discardRequest.bind(this, request)
+      );
+
+      request.send(requestOptions);
+
+      this.lastrequest = request;
+
+      this.fire('request', {
+        xhr: request.xhr,
+        options: requestOptions
       });
-      // No Content-Type should be specified if sending `FormData`.  
-      // The UA must set the Content-Type w/ a calculated  multipart boundary ID.
-      if (args.body instanceof FormData) {
-        delete args.headers['Content-Type'];
-      } 
-      else if (!hasContentType && this.contentType) {
-        args.headers['Content-Type'] = this.contentType;
-      }
-      if (this.handleAs === 'arraybuffer' || this.handleAs === 'blob' ||
-          this.handleAs === 'document') {
-        args.responseType = this.handleAs;
-      }
-      args.withCredentials = this.withCredentials;
-      args.callback = this.receive.bind(this);
-      args.url = this.url;
-      args.method = this.method;
 
-      this.response = this.error = this.progress = null;
-      this.activeRequest = args.url && this.xhr.request(args);
-      if (this.activeRequest) {
-        this.loading = true;
-        var activeRequest = this.activeRequest;
-        // IE < 10 doesn't support progress events.
-        if ('onprogress' in activeRequest) {
-          this.activeRequest.addEventListener(
-              'progress',
-              function(progress) {
-                this.processProgress(progress, activeRequest);
-              }.bind(this), false);
-        } else {
-          this.progress = {
-            lengthComputable: false,
-          }
-        }
-      }
-      return this.activeRequest;
+      return request;
     },
 
-    /**
-     * Aborts the current active request if there is one and resets internal
-     * state appropriately.
-     *
-     * @method abort
-     */
-    abort: function() {
-      if (!this.activeRequest) return;
-      this.activeRequest.abort();
-      this.activeRequest = null;
-      this.progress = {};
-      this.loading = false;
+    handleResponse: function (response) {
+      this.lastresponse = response;
+      this.fire('response', response);
+    },
+
+    handleError: function (error) {
+      if (this.verbose) {
+        console.error(error);
+      }
+
+      this.lasterror = error;
+      this.fire('error', error);
+    },
+
+    discardRequest: function (request) {
+      var requestIndex = this.activerequests.indexOf(request);
+
+      if (requestIndex > 0) {
+        this.activerequests.splice(requestIndex, 1);
+      }
     }
-
   });
-
 </script>
-</polymer-element>

@@ -1,5 +1,5 @@
 <!--
-Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
 The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
@@ -18,65 +18,126 @@ Example:
       <paper-tab>TAB 2</paper-tab>
       <paper-tab>TAB 3</paper-tab>
     </paper-tabs>
-    
-Styling tab:
-
-To change the ink color:
-
-    .pink paper-tab::shadow #ink {
-      color: #ff4081;
-    }
 
 @group Paper Elements
 @element paper-tab
 @homepage github.io
 -->
 
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../layout/layout.html">
 <link rel="import" href="../paper-ripple/paper-ripple.html">
 
-<polymer-element name="paper-tab" attributes="noink" role="tab" inline flex center-center horizontal layout>
-<template>
+<dom-module id="paper-tab">
 
-  <link rel="stylesheet" href="paper-tab.css">
-  
-  <div class="tab-content" flex auto center-center horizontal layout><content></content></div>
-  <paper-ripple id="ink" initialOpacity="0.95" opacityDecayVelocity="0.98"></paper-ripple>
-  
-</template>
+  <style>
+
+    paper-tab {
+      display: -ms-inline-flexbox;
+      display: -webkit-inline-flex;
+      display: inline-flex;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+      -ms-flex: 1;
+      -webkit-flex: 1;
+      flex: 1;
+      position: relative;
+      padding: 0 12px;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    paper-tab[link] {
+      padding: 0;
+    }
+
+    paper-tab .tab-content {
+      height: 100%;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      transition: opacity 0.1s cubic-bezier(0.4, 0.0, 1, 1);
+    }
+
+    paper-tab:not(.core-selected) .tab-content {
+      opacity: 0.6;
+    }
+
+    paper-tab #ink {
+      color: #ffff8d;
+      pointer-events: none;
+    }
+
+    paper-tab .tab-content a {
+      height: 100%;
+      /* flex */
+      -ms-flex: 1 1 0.000000001px;
+      -webkit-flex: 1;
+      flex: 1;
+      -webkit-flex-basis: 0.000000001px;
+      flex-basis: 0.000000001px;
+    }
+
+  </style>
+
+  <template>
+
+    <div class="tab-content flex auto center-center horizontal layout"><content></content></div>
+
+    <paper-ripple id="ink" initialOpacity="0.95" opacityDecayVelocity="0.98" fit></paper-ripple>
+
+  </template>
+
+</dom-module>
+
 <script>
 
-  Polymer('paper-tab', {
-    
-    /**
-     * If true, ink ripple effect is disabled.
-     *
-     * @attribute noink
-     * @type boolean
-     * @default false
-     */
-    noink: false,
-    
-    eventDelegates: {
-      down: 'downAction',
-      up: 'upAction'
+  Polymer({
+
+    is: 'paper-tab',
+
+    published: {
+      /**
+       * If true, ink ripple effect is disabled.
+       *
+       * @attribute noink
+       * @type Boolean
+       * @default false
+       */
+      noink: Boolean
+    },
+
+    listeners: {
+      mousedown: 'downAction',
+      mouseup: 'upAction'
+    },
+
+    configure: function() {
+      return {
+        noink: false
+      };
     },
 
     downAction: function(e) {
-      if (this.noink || (this.parentElement && this.parentElement.noink)) {
+      var parent = this.lightDom.elementParent(this);
+      if (this.noink || (parent && parent.noink)) {
         return;
       }
-      this.$.ink.downAction(e);
+      this.$.ink.mousedownAction(e);
     },
 
     upAction: function() {
-      this.$.ink.upAction();
+      this.$.ink.mouseupAction();
     },
-    
+
     cancelRipple: function() {
-      this.$.ink.upAction();
+      this.$.ink.mouseupAction();
     }
-    
+
   });
-  
+
 </script>
 </polymer-element>

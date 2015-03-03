@@ -9,12 +9,10 @@
 
   <script src="../components/webcomponentsjs/webcomponents.js">
   </script>
-
-  <link rel="import" href="../components/font-roboto/roboto.html">
-  <link rel="import"
-    href="../components/core-header-panel/core-header-panel.html">
-  <link rel="import"
-    href="../components/core-toolbar/core-toolbar.html">
+    <link rel="import"
+    href="../components/polymer/polymer.html">
+    <link rel="import"
+    href="../components/layout/layout.html">
   <link rel="import"
     href="../components/paper-tabs/paper-tabs.html">
   <link rel="import" href="post-list.html">
@@ -26,12 +24,7 @@
     background-color: #E5E5E5;
     font-family: 'RobotoDraft', sans-serif;
   }
-  core-header-panel {
-    height: 100%;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch; 
-  }
-  core-toolbar {
+  .header  {
     background: #03a9f4;
     color: white;
   }
@@ -42,7 +35,8 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-	text-transform: uppercase;
+    text-transform: uppercase;
+    color: white;
   }
   .container {
     width: 80%;
@@ -60,33 +54,52 @@
 
 </head>
 
-<body unresolved>
+<body>
 
-  <core-header-panel>
+  <div class="header flex">
+      <paper-tabs id="tabs" selected="0" tabindex="0">
+        <paper-tab id="tab1" name="all">All</paper-tab>
+        <paper-tab id="tab2" name="favorites">Favorites</paper-tab>
+     </paper-tabs>
+  </div>
 
-    <core-toolbar>
+  <div class="container layout vertical center">
+    <post-list show="all"></post-list>
+  </div>
 
-      <paper-tabs id="tabs" selected="all" self-end>
-        <paper-tab name="all">All</paper-tab>
-        <paper-tab name="favorites">Favorites</paper-tab>
-      </paper-tabs>
-
-    </core-toolbar>
-
-    <div class="container" layout vertical center>
-      <post-list show="all"></post-list>
-    </div>
-
-  </core-header-panel>
 
   <script>
   var tabs = document.querySelector('paper-tabs');
   var list = document.querySelector('post-list');
 
+  var tabcontrols = document.querySelectorAll('paper-tab');
+  var FORWARD = 1;
+  var BACKWARD = -1;
+
+  function cycleTabs(step) {
+    var tabIndex = Number(tabs.selected) + step % tabcontrols.length;
+    if (tabIndex < 0) tabIndex = tabcontrols.length - 1;
+    tabcontrols[tabs.selected].setAttribute('aria-selected', false);
+    tabs.selected = tabIndex;
+    tabcontrols[tabIndex].setAttribute('aria-selected', true);
+  }
+
   tabs.addEventListener('core-select', function() {
-    list.show = tabs.selected;
+      list.show = tabs.selected == 0 ? "all" : "favorites";
   });
-  </script>
+
+  tabs.addEventListener('keydown', function(event) {
+      var key = event.key ? event.key.toLowerCase : ''; 
+      if (event.ctrlKey || event.metaKey || event.altKey || event.shiftKey)
+        return;
+      if (key == 'left' || event.keyCode == 37 || event.detail.key == 'left') {
+        cycleTabs(BACKWARD);       
+      }
+      if (key == 'right' || event.keyCode == 39 || event.detail.key == 'right') {
+        cycleTabs(FORWARD);       
+      }
+  });
+ </script>
 </body>
 
 </html>

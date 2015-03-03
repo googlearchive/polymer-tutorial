@@ -1,18 +1,27 @@
 {
   "name": "core-resizable",
   "private": true,
-  "devDependencies": {
-    "web-component-tester": "Polymer/web-component-tester#master"
+  "main": "core-resizable.html",
+  "authors": [
+    "Frankie Fu <ffu@google.com>",
+    "The Polymer Authors"
+  ],
+  "repository": "https://github.com/Polymer/core-resizable/tree/0.8-preview",
+  "dependencies": {
+    "polymer": "Polymer/polymer#0.8-preview"
   },
-  "version": "0.5.4",
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^1.1.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#master"
+  },
   "homepage": "https://github.com/Polymer/core-resizable",
-  "_release": "0.5.4",
+  "_release": "99634c887b",
   "_resolution": {
-    "type": "version",
-    "tag": "0.5.4",
-    "commit": "4eae89c4b3517cf0ed3632df5345f7ec83bf0b37"
+    "type": "branch",
+    "branch": "0.8-preview",
+    "commit": "99634c887b88f55964b9604380f1dba7ac708666"
   },
   "_source": "git://github.com/Polymer/core-resizable.git",
-  "_target": "^0.5",
+  "_target": "0.8-preview",
   "_originalSource": "Polymer/core-resizable"
 }
