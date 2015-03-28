@@ -4,7 +4,7 @@
     "text" : "Have you heard about the Web Components revolution?",
     "username" : "Eric",
     "avatar" : "../images/avatar-01.svg",
-    "favorite": false
+    "favorite": true
   },
   {
     "uid": 2,
