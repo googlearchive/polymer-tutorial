@@ -1,5 +1,6 @@
 <!doctype html>
 <!--
+@license
 Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE
 The complete set of authors may be found at http://polymer.github.io/AUTHORS
@@ -14,16 +15,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <title>paper-tabs</title>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
 
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
-    <link rel="import" href="../../layout/layout.html">
+    <link rel="import" href="../../iron-flex-layout/classes/iron-flex-layout.html">
+
+    <link rel="import" href="../../paper-toolbar/paper-toolbar.html">
+
     <link rel="import" href="../paper-tabs.html">
     <link rel="import" href="../paper-tab.html">
-    <link rel="import" href="../../core-toolbar/core-toolbar.html">
-
-    <style>
+    <style is="custom-style">
+      :root {
+        --paper-toolbar-background: #00bcd4;
+      }
 
       body {
         font-family: sans-serif;
@@ -32,17 +37,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: #333;
       }
 
-      paper-tabs, core-toolbar {
+      paper-tabs, paper-toolbar {
         background-color: #00bcd4;
         color: #fff;
         box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
       }
 
-      core-toolbar paper-tabs {
+      paper-toolbar paper-tabs {
         box-shadow: none;
       }
 
-      paper-tabs[noink][nobar] paper-tab.core-selected {
+      paper-tabs[noink][no-bar] paper-tab.iron-selected {
         color: #ffff8d;
       }
 
@@ -53,6 +58,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       h3 {
         font-size: 16px;
         font-weight: 400;
+        padding-top: 20px;
       }
 
     </style>
@@ -62,29 +68,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <h3>A. No ink effect and no sliding bar</h3>
 
-    <paper-tabs selected="0" noink nobar>
+    <paper-tabs selected="0" noink no-bar>
 
       <paper-tab>ITEM ONE</paper-tab>
       <paper-tab>ITEM TWO</paper-tab>
       <paper-tab>ITEM THREE</paper-tab>
 
     </paper-tabs>
-
-    <br>
-    <br>
 
     <h3>B. The bottom bar appears to indicate the selected tab, but without sliding effect.</h3>
 
-    <paper-tabs selected="0" noink noslide>
+    <paper-tabs selected="0" noink no-slide>
 
       <paper-tab>ITEM ONE</paper-tab>
       <paper-tab>ITEM TWO</paper-tab>
       <paper-tab>ITEM THREE</paper-tab>
 
     </paper-tabs>
-
-    <br>
-    <br>
 
     <h3>C. The bar slides to the selected tab</h3>
 
@@ -96,9 +96,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </paper-tabs>
 
-    <br>
-    <br>
-
     <h3>D. Inky Tabs</h3>
 
     <paper-tabs selected="0">
@@ -108,9 +105,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <paper-tab>ITEM THREE</paper-tab>
 
     </paper-tabs>
-
-    <br>
-    <br>
 
     <h3>E. Scrollable Tabs</h3>
 
@@ -131,9 +125,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </paper-tabs>
 
-    <br>
-    <br>
-
     <h3>F. Link Tabs</h3>
 
     <paper-tabs selected="0">
@@ -144,12 +135,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     </paper-tabs>
 
-    <br>
-    <br>
-
     <h3>G. Tabs in Toolbar</h3>
 
-    <core-toolbar class="tall">
+    <paper-toolbar class="tall">
 
       <paper-tabs selected="0" class="bottom self-end" style="width: 300px;">
 
@@ -160,10 +148,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <div class="bottom flex"></div>
 
-    </core-toolbar>
-
-    <br>
-    <br>
+    </paper-toolbar>
 
     <h3>H. Tabs aligned to bottom</h3>
 
@@ -174,6 +159,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <paper-tab>ITEM THREE</paper-tab>
 
     </paper-tabs>
+
+    <h3>I. Bound Selection</h3>
+
+    <template is="dom-bind">
+      <h2>Current Tab: <span>[[selected]]</span></h2>
+      <paper-tabs selected="{{selected}}">
+
+        <paper-tab>ITEM ONE</paper-tab>
+        <paper-tab>ITEM TWO</paper-tab>
+        <paper-tab>ITEM THREE</paper-tab>
+
+      </paper-tabs>
+    </template>
 
   </body>
 </html>

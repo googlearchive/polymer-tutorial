@@ -1,4 +1,5 @@
 <link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="../components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../post-service/post-service.html">
 <link rel="import" href="post-card.html">
 
@@ -8,6 +9,10 @@
     display: block;
     width: 100%;
   }
+  .container {
+    @apply(--layout-vertical);
+    @apply(--layout-center);
+  }
   post-card {
     margin-bottom: 30px;
   }
@@ -15,8 +20,8 @@
   <template>
   <post-service id="service" posts="{{posts}}"></post-service>
 
-    <div layout vertical center>
-      <template id="repeater" is="x-repeat" observe="favorite" items="[[posts]]">
+    <div class="container">
+      <template id="repeater" is="dom-repeat" items="[[posts]]" observe="favorite">
         <post-card
           favorite="[[item.favorite]]"
           on-favorite-tap="handleFavorite">
@@ -31,11 +36,11 @@
   <script>
   Polymer({
     is: "post-list",
-    published: {
-      show: String
-    },
-    bind: {
-      show: 'showChanged'
+    properties: {
+      show: {
+        type: String, 
+        observer: 'showChanged'
+      }
     },
     handleFavorite: function(ev, detail) {
       var post = this.$.repeater.itemForElement(ev.target);
@@ -43,9 +48,13 @@
     },
     showChanged: function() {
       this.$.repeater.filter = (this.show == 'favorites' ? this.favFilter : undefined)
+      this.$.repeater.sort = (this.show == 'favorites' ? this.sortMe : undefined)
     },
     favFilter: function(input) {
       return input.favorite;
+    },
+    sortMe: function(one, two) {
+      return one.username.localeCompare(two.username);
     }
-  });
+ });
   </script>

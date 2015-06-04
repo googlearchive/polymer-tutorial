@@ -7,6 +7,9 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+
 <!--
 `paper-ripple` provides a visual effect that other paper elements can
 use to simulate a rippling effect emanating from the point of contact.  The
@@ -16,11 +19,11 @@ Example:
 
     <paper-ripple></paper-ripple>
 
-`paper-ripple` listens to "down" and "up" events so it would display ripple
+`paper-ripple` listens to "mousedown" and "mouseup" events so it would display ripple
 effect when touches on it.  You can also defeat the default behavior and
 manually route the down and up actions to the ripple element.  Note that it is
-important if you call downAction() you will have to make sure to call upAction()
-so that `paper-ripple` would end the animation loop.
+important if you call downAction() you will have to make sure to call
+upAction() so that `paper-ripple` would end the animation loop.
 
 Example:
 
@@ -49,29 +52,33 @@ attribute to have the ripple grow toward the center of its container.
 
     <paper-ripple recenters></paper-ripple>
 
+You can also  center the ripple inside its container from the start.
+
+    <paper-ripple center></paper-ripple>
+
 Apply `circle` class to make the rippling effect within a circle.
 
     <paper-ripple class="circle"></paper-ripple>
 
 @group Paper Elements
 @element paper-ripple
-@homepage github.io
+@hero hero.svg
+@demo demo/index.html
 -->
-
-<!--
-Fired when the animation finishes. This is useful if you want to wait until the ripple
-animation finishes to perform some action.
-
-@event core-transitionend
-@param {Object} detail
-@param {Object} detail.node The animated node
--->
-
-<link rel="import" href="../polymer/polymer.html">
 
 <dom-module id="paper-ripple">
+
+  <!--
+  Fired when the animation finishes. This is useful if you want to wait until the ripple
+  animation finishes to perform some action.
+
+  @event transitionend
+  @param {Object} detail
+  @param {Object} detail.node The animated node
+  -->
+
   <style>
-    paper-ripple {
+    :host {
       display: block;
       position: absolute;
       border-radius: inherit;
@@ -80,22 +87,28 @@ animation finishes to perform some action.
       left: 0;
       right: 0;
       bottom: 0;
+    }
 
-      /* This resolves a rendering issue in Chrome 40 where the
+    :host([animating]) {
+      /* This resolves a rendering issue in Chrome (as of 40) where the
          ripple is not properly clipped by its parent (which may have
-         rounded corners. See: http://jsbin.com/temexa/4 */
-      -webkit-transform: translate3d(0, 0, 0);
+         rounded corners). See: http://jsbin.com/temexa/4
+
+         Note: We only apply this style conditionally. Otherwise, the browser
+         will create a new compositing layer for every ripple element on the
+         page, and that would be bad. */
+      -webkit-transform: translate(0, 0);
       transform: translate3d(0, 0, 0);
     }
 
-    paper-ripple[noink] {
+    :host([noink]) {
       pointer-events: none;
     }
 
-    paper-ripple #background,
-    paper-ripple #waves,
-    paper-ripple .wave-container,
-    paper-ripple .wave {
+    #background,
+    #waves,
+    .wave-container,
+    .wave {
       pointer-events: none;
       position: absolute;
       top: 0;
@@ -104,27 +117,27 @@ animation finishes to perform some action.
       height: 100%;
     }
 
-    paper-ripple #background,
-    paper-ripple .wave {
+    #background,
+    .wave {
       opacity: 0;
     }
 
-    paper-ripple #waves,
-    paper-ripple .wave {
+    #waves,
+    .wave {
       overflow: hidden;
     }
 
-    paper-ripple .wave-container,
-    paper-ripple .wave {
+    .wave-container,
+    .wave {
       border-radius: 50%;
     }
 
-    paper-ripple.circle #background,
-    paper-ripple.circle #waves {
+    :host(.circle) #background,
+    :host(.circle) #waves {
       border-radius: 50%;
     }
 
-    paper-ripple.circle .wave-container {
+    :host(.circle) .wave-container {
       overflow: hidden;
     }
 
@@ -135,7 +148,7 @@ animation finishes to perform some action.
   </template>
 </dom-module>
 <script>
-  using(['Base'], function (Base) {
+  (function() {
     var Utility = {
       cssColorWithAlpha: function(cssColor, alpha) {
         var parts = cssColor.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
@@ -167,6 +180,10 @@ animation finishes to perform some action.
       })()
     };
 
+    /**
+     * @param {HTMLElement} element
+     * @constructor
+     */
     function ElementMetrics(element) {
       this.element = element;
       this.width = this.boundingRect.width;
@@ -190,6 +207,10 @@ animation finishes to perform some action.
       }
     };
 
+    /**
+     * @param {HTMLElement} element
+     * @constructor
+     */
     function Ripple(element) {
       this.element = element;
       this.color = window.getComputedStyle(element).color;
@@ -199,7 +220,7 @@ animation finishes to perform some action.
       this.wave.style.backgroundColor = this.color;
       this.wave.classList.add('wave');
       this.waveContainer.classList.add('wave-container');
-      this.waveContainer.appendChild(this.wave);
+      Polymer.dom(this.waveContainer).appendChild(this.wave);
 
       this.resetInteractionState();
     }
@@ -209,6 +230,10 @@ animation finishes to perform some action.
     Ripple.prototype = {
       get recenters() {
         return this.element.recenters;
+      },
+
+      get center() {
+        return this.element.center;
       },
 
       get mouseDownElapsed() {
@@ -358,24 +383,40 @@ animation finishes to perform some action.
         dx = this.xNow - (this.containerMetrics.width / 2);
         dy = this.yNow - (this.containerMetrics.height / 2);
 
-        Base.translate3d(this.waveContainer, dx + 'px', dy + 'px', 0);
 
         // 2d transform for safari because of border-radius and overflow:hidden clipping bug.
         // https://bugs.webkit.org/show_bug.cgi?id=98538
+        this.waveContainer.style.webkitTransform = 'translate(' + dx + 'px, ' + dy + 'px)';
+        this.waveContainer.style.transform = 'translate3d(' + dx + 'px, ' + dy + 'px, 0)';
         this.wave.style.webkitTransform = 'scale(' + scale + ',' + scale + ')';
         this.wave.style.transform = 'scale3d(' + scale + ',' + scale + ',1)';
       },
 
-      mousedownAction: function(event) {
+      downAction: function(event) {
+        var xCenter = this.containerMetrics.width / 2;
+        var yCenter = this.containerMetrics.height / 2;
+
         this.resetInteractionState();
         this.mouseDownStart = Utility.now();
 
-        this.xStart = event.x - this.containerMetrics.boundingRect.left;
-        this.yStart = event.y - this.containerMetrics.boundingRect.top;
+        if (this.center) {
+          this.xStart = xCenter;
+          this.yStart = yCenter;
+          this.slideDistance = Utility.distance(
+            this.xStart, this.yStart, this.xEnd, this.yEnd
+          );
+        } else {
+          this.xStart = event ?
+              event.detail.x - this.containerMetrics.boundingRect.left :
+              this.containerMetrics.width / 2;
+          this.yStart = event ?
+              event.detail.y - this.containerMetrics.boundingRect.top :
+              this.containerMetrics.height / 2;
+        }
 
         if (this.recenters) {
-          this.xEnd = this.containerMetrics.width / 2;
-          this.yEnd = this.containerMetrics.height / 2;
+          this.xEnd = xCenter;
+          this.yEnd = yCenter;
           this.slideDistance = Utility.distance(
             this.xStart, this.yStart, this.xEnd, this.yEnd
           );
@@ -395,7 +436,7 @@ animation finishes to perform some action.
         this.waveContainer.style.height = this.containerMetrics.size + 'px';
       },
 
-      mouseupAction: function(event) {
+      upAction: function(event) {
         if (!this.isMouseDown) {
           return;
         }
@@ -404,14 +445,20 @@ animation finishes to perform some action.
       },
 
       remove: function() {
-        this.waveContainer.remove();
+        Polymer.dom(this.waveContainer.parentNode).removeChild(
+          this.waveContainer
+        );
       }
     };
 
     Polymer({
       is: 'paper-ripple',
 
-      published: {
+      behaviors: [
+        Polymer.IronA11yKeysBehavior
+      ],
+
+      properties: {
         /**
          * The initial opacity set on the wave.
          *
@@ -419,7 +466,10 @@ animation finishes to perform some action.
          * @type number
          * @default 0.25
          */
-        initialOpacity: Number,
+        initialOpacity: {
+          type: Number,
+          value: 0.25
+        },
 
         /**
          * How fast (opacity per second) the wave fades out.
@@ -428,7 +478,10 @@ animation finishes to perform some action.
          * @type number
          * @default 0.8
          */
-        opacityDecayVelocity: Number, 
+        opacityDecayVelocity: {
+          type: Number,
+          value: 0.8
+        },
 
         /**
          * If true, ripples will exhibit a gravitational pull towards
@@ -438,7 +491,22 @@ animation finishes to perform some action.
          * @type boolean
          * @default false
          */
-         recenters: Boolean,
+        recenters: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * If true, ripples will center inside its container
+         *
+         * @attribute recenters
+         * @type boolean
+         * @default false
+         */
+        center: {
+          type: Boolean,
+          value: false
+        },
 
         /**
          * A list of the visual ripples.
@@ -447,23 +515,74 @@ animation finishes to perform some action.
          * @type Array
          * @default []
          */
-         ripples: Array
+        ripples: {
+          type: Array,
+          value: function() {
+            return [];
+          }
+        },
+
+        /**
+         * True when there are visible ripples animating within the
+         * element.
+         */
+        animating: {
+          type: Boolean,
+          readOnly: true,
+          reflectToAttribute: true,
+          value: false
+        },
+
+        /**
+         * If true, the ripple will remain in the "down" state until `holdDown`
+         * is set to false again.
+         */
+        holdDown: {
+          type: Boolean,
+          value: false,
+          observer: '_holdDownChanged'
+        },
+
+        _animating: {
+          type: Boolean
+        },
+
+        _boundAnimate: {
+          type: Function,
+          value: function() {
+            return this.animate.bind(this);
+          }
+        }
       },
 
-      configure: function() {
-        return {
-          initialOpacity: 0.25,
-          opacityDecayVelocity: 0.8,
-          ripples: [],
-          animating: false,
-          recenters: false,
-          boundAnimate: this.animate.bind(this)
-        };
+      get target () {
+        var ownerRoot = Polymer.dom(this).getOwnerRoot();
+        var target;
+
+        if (ownerRoot) {
+          target = ownerRoot.host;
+        }
+
+        if (!target) {
+          target = this.parentNode;
+        }
+
+        return target;
       },
 
-      listeners: {
-        mousedown: 'mousedownAction',
-        mouseup: 'mouseupAction'
+      keyBindings: {
+        'enter:keydown': '_onEnterKeydown',
+        'space:keydown': '_onSpaceKeydown',
+        'space:keyup': '_onSpaceKeyup'
+      },
+
+      attached: function() {
+        this._listen(this.target, 'up', this.upAction.bind(this));
+        this._listen(this.target, 'down', this.downAction.bind(this));
+
+        if (!this.target.hasAttribute('noink')) {
+          this.keyEventTarget = this.target;
+        }
       },
 
       get shouldKeepAnimating () {
@@ -476,26 +595,43 @@ animation finishes to perform some action.
         return false;
       },
 
-      mousedownAction: function(event) {
+      simulatedRipple: function() {
+        this.downAction(null);
+
+        // Please see polymer/polymer#1305
+        this.async(function() {
+          this.upAction();
+        }, 1);
+      },
+
+      downAction: function(event) {
+        if (this.holdDown && this.ripples.length > 0) {
+          return;
+        }
+
         var ripple = this.addRipple();
 
-        ripple.mousedownAction(event);
+        ripple.downAction(event);
 
-        if (!this.animating) {
+        if (!this._animating) {
           this.animate();
         }
       },
 
-      mouseupAction: function(event) {
+      upAction: function(event) {
+        if (this.holdDown) {
+          return;
+        }
+
         this.ripples.forEach(function(ripple) {
-          ripple.mouseupAction(event);
+          ripple.upAction(event);
         });
 
         this.animate();
       },
 
       onAnimationComplete: function() {
-        this.animating = false;
+        this._animating = false;
         this.$.background.style.backgroundColor = null;
         this.fire('transitionend');
       },
@@ -503,9 +639,11 @@ animation finishes to perform some action.
       addRipple: function() {
         var ripple = new Ripple(this);
 
-        this.$.waves.appendChild(ripple.waveContainer);
+        Polymer.dom(this.$.waves).appendChild(ripple.waveContainer);
         this.$.background.style.backgroundColor = ripple.color;
         this.ripples.push(ripple);
+
+        this._setAnimating(true);
 
         return ripple;
       },
@@ -520,13 +658,17 @@ animation finishes to perform some action.
         this.ripples.splice(rippleIndex, 1);
 
         ripple.remove();
+
+        if (!this.ripples.length) {
+          this._setAnimating(false);
+        }
       },
 
       animate: function() {
         var index;
         var ripple;
 
-        this.animating = true;
+        this._animating = true;
 
         for (index = 0; index < this.ripples.length; ++index) {
           ripple = this.ripples[index];
@@ -540,13 +682,33 @@ animation finishes to perform some action.
           }
         }
 
-        if (this.shouldKeepAnimating) {
-          window.requestAnimationFrame(this.boundAnimate);
-        } else if (this.ripples.length === 0) {
+        if (!this.shouldKeepAnimating && this.ripples.length === 0) {
           this.onAnimationComplete();
+        } else {
+          window.requestAnimationFrame(this._boundAnimate);
+        }
+      },
+
+      _onEnterKeydown: function() {
+        this.downAction();
+        this.async(this.upAction, 1);
+      },
+
+      _onSpaceKeydown: function() {
+        this.downAction();
+      },
+
+      _onSpaceKeyup: function() {
+        this.upAction();
+      },
+
+      _holdDownChanged: function(holdDown) {
+        if (holdDown) {
+          this.downAction();
+        } else {
+          this.upAction();
         }
       }
     });
-  });
+  })();
 </script>
-

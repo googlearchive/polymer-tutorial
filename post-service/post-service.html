@@ -1,5 +1,5 @@
 <link rel="import" href="../components/polymer/polymer.html">
-<link rel="import" href="../components/core-ajax/core-ajax.html">
+<link rel="import" href="../components/iron-ajax/iron-ajax.html">
 <!-- 
   `<post-service>` provides an API for a fake service -- 
   _unquote_, the read-only social networking service!
@@ -49,17 +49,17 @@
 -->
 <dom-module id="post-service">
   <style>
-  core-ajax {
+  iron-ajax {
     display: none;
   }
   </style>
   <template>
-    <core-ajax id="ajax"
+    <iron-ajax id="ajax"
       url="../api/posts.json"
       auto
       handleas="json"
       on-response="postsLoaded">
-    </core-ajax>
+    </iron-ajax>
   </template>
 </dom-module>
   <script>
@@ -72,7 +72,7 @@
       this.$.ajax.send();
     },
     */
-    published: {
+    properties: {
       posts: {
         type: Array,
         readOnly: true,
@@ -81,8 +81,8 @@
     },
     postsLoaded: function() {
       console.log("<post-service>: Got response");
-      // Make a copy of the loaded data
-      this._setPosts(this.$.ajax.lastresponse.slice());
+      // Make a (shallow) copy of the loaded data
+      this._setPosts(this.$.ajax.lastResponse.slice());
       console.log("# posts: " + this.posts.length);
       this.fire('new-posts');
     },
@@ -102,7 +102,7 @@
       for (i = 0, len=this.posts.length; i<len; i++) {
         if (this.posts[i].uid == uid) {
           //this.posts[i].favorite = isFavorite;
-          this.setPathValue('posts.' + i + '.favorite', isFavorite);
+          this.set('posts.' + i + '.favorite', isFavorite);
           return;
         }
       }

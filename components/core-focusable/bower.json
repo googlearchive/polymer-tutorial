@@ -1,7 +1,0 @@
-{
-  "name": "core-focusable",
-  "private": false,
-  "dependencies": {
-    "polymer": "Polymer/polymer#master"
-  }
-}

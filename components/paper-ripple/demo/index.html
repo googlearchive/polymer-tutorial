@@ -1,6 +1,6 @@
 <!--
 @license
-Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
 The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
@@ -10,18 +10,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <!doctype html>
 <html>
 <head>
-  <title>paper-ripple</title>
+  <title>paper-ripple demo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-  <script src="../../webcomponentsjs/webcomponents.js"></script>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
-  <link rel="import" href="../../core-icons/core-icons.html">
+  <link rel="import" href="../../iron-icons/iron-icons.html">
   <link rel="import" href="../paper-ripple.html">
-  <link rel="import" href="../../font-roboto/roboto.html">
-  <link rel="import" href="../../core-icon/core-icon.html">
+  <link rel="import" href="../../paper-styles/classes/typography.html">
+  <link rel="import" href="../../iron-icon/iron-icon.html">
 
   <style>
 
@@ -95,13 +95,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       height: 56px;
     }
 
-    .icon-button > core-icon {
+    .icon-button > iron-icon {
       margin: 16px;
       transition: -webkit-transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .icon-button:hover > core-icon {
+    .icon-button:hover > iron-icon {
       -webkit-transform: scale(1.2);
       transform: scale(1.2);
     }
@@ -111,7 +111,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       color: #646464;
     }
 
-    .icon-button.red > core-icon::shadow path {
+    .icon-button.red > iron-icon::shadow path {
       fill: #db4437;
     }
 
@@ -119,7 +119,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       color: #db4437;
     }
 
-    .icon-button.blue > core-icon::shadow path {
+    .icon-button.blue > iron-icon::shadow path {
       fill: #4285f4;
     }
 
@@ -158,11 +158,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       transition-delay: 0s;
     }
 
-    .fab > core-icon {
+    .fab > iron-icon {
       margin: 16px;
     }
 
-    .fab > core-icon::shadow path {
+    .fab > iron-icon::shadow path {
       fill: #fff;
     }
 
@@ -289,22 +289,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <section>
 
     <div class="icon-button">
-      <core-icon icon="menu"></core-icon>
+      <iron-icon icon="menu"></iron-icon>
       <paper-ripple class="circle" recenters></paper-ripple>
     </div>
 
     <div class="icon-button">
-      <core-icon icon="more-vert"></core-icon>
+      <iron-icon icon="more-vert"></iron-icon>
       <paper-ripple class="circle" recenters></paper-ripple>
     </div>
 
     <div class="icon-button red">
-      <core-icon icon="delete"></core-icon>
+      <iron-icon icon="delete"></iron-icon>
       <paper-ripple class="circle" recenters></paper-ripple>
     </div>
 
     <div class="icon-button blue">
-      <core-icon icon="account-box"></core-icon>
+      <iron-icon icon="account-box"></iron-icon>
       <paper-ripple class="circle" recenters></paper-ripple>
     </div>
 
@@ -313,17 +313,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <section>
 
     <div class="fab red">
-      <core-icon icon="add"></core-icon>
+      <iron-icon icon="add"></iron-icon>
       <paper-ripple class="circle" recenters></paper-ripple>
     </div>
 
     <div class="fab blue">
-      <core-icon icon="mail"></core-icon>
+      <iron-icon icon="mail"></iron-icon>
       <paper-ripple class="circle" recenters></paper-ripple>
     </div>
 
     <div class="fab green">
-      <core-icon icon="create"></core-icon>
+      <iron-icon icon="create"></iron-icon>
       <paper-ripple class="circle" recenters></paper-ripple>
     </div>
 

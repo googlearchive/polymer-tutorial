@@ -1,24 +1,37 @@
 {
   "name": "paper-tabs",
-  "version": "0.8.0",
+  "version": "1.0.0",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "description": "Material design tabs",
   "private": true,
   "main": "paper-tabs.html",
   "authors": [
-    "Frankie Fu <ffu@google.com>",
     "The Polymer Authors"
   ],
-  "repository": "https://github.com/Polymer/paper-tabs/tree/0.8-preview",
+  "keywords": [
+    "web-components",
+    "polymer",
+    "tabs",
+    "control"
+  ],
+  "repository": "https://github.com/PolymerElements/paper-tabs.git",
   "dependencies": {
-    "polymer": "Polymer/polymer#0.8-preview",
-    "layout": "Polymer/layout#master",
-    "core-selector": "Polymer/core-selector#0.8-preview",
-    "paper-ripple": "Polymer/paper-ripple#0.8-preview",
-    "core-resizable": "Polymer/core-resizable#0.8-preview",
-    "core-icon": "Polymer/core-icon#0.8-preview"
+    "iron-behaviors": "polymerelements/iron-behaviors#^1.0.0",
+    "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
+    "iron-icon": "polymerelements/iron-icon#^1.0.0",
+    "iron-iconset-svg": "polymerelements/iron-iconset-svg#^1.0.0",
+    "iron-menu-behavior": "polymerelements/iron-menu-behavior#^1.0.0",
+    "iron-resizable-behavior": "polymerelements/iron-resizable-behavior#^1.0.0",
+    "paper-ripple": "polymerelements/paper-ripple#^1.0.0",
+    "paper-styles": "polymerelements/paper-styles#^1.0.0",
+    "polymer": "Polymer/polymer#^1.0.0",
+    "paper-icon-button": "polymerelements/paper-icon-button#^1.0.0"
   },
   "devDependencies": {
-    "web-component-tester": "Polymer/web-component-tester#^1.1.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#master",
-    "core-toolbar": "Polymer/core-toolbar#0.8-preview"
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "paper-toolbar": "polymerelements/paper-toolbar#^1.0.0",
+    "test-fixture": "polymerelements/test-fixture#^1.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
+    "web-component-tester": "*"
   }
 }

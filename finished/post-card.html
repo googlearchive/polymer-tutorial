@@ -1,10 +1,12 @@
 <link rel="import" href="../components/polymer/polymer.html">
-<link rel="import" href="../components/core-icon/core-icon.html">
-<link rel="import" href="../components/core-icons/core-icons.html">
+<link rel="import" href="../components/iron-icon/iron-icon.html">
+<link rel="import" href="../components/iron-icons/iron-icons.html">
+<link rel="import" href="../components/iron-flex-layout/iron-flex-layout.html">
+
 
 <dom-module id="post-card">
     <style>
-    post-card {
+    :host {
       display: block;
       position: relative;
       background-color: white;
@@ -13,51 +15,53 @@
       font-size: 1.2rem;
       font-weight: 300;
     }
-    post-card .card-header {
+    .card-header {
       margin-bottom: 10px;
     }
-    .card-header  h2 {
+    .card-header  ::content h2 {
       margin: 0;
       font-size: 1.8rem;
       font-weight: 300;
+      @apply(--layout-horizontal);
+      @apply(--layout-center);
     }
-    .card-header  img {
+    .card-header ::content img {
       width: 70px;
       border-radius: 50%;
       margin: 10px;
     }
 
-    post-card core-icon {
+    iron-icon {
       position: absolute;
       top: 3px;
       right: 3px;
       color: #636363;
       border-color: black;
     }
-    post-card core-icon.checked {
+    iron-icon.checked {
       color: #da4336;
       border-color: #da4336;
     }
     </style>
     <template>
   
-      <div class="card-header layout horizontal center">
+      <div class="card-header">
   
         <content select="img"></content>
         <content select="h2"></content>
   
       </div>
   
-      <core-icon
+      <iron-icon
         id="favicon"
         icon="favorite"
-        on-click="favoriteTapped" 
+        on-tap="favoriteTapped" 
         on-keydown="handleKey"
         aria-label="favorite"
         role="checkbox"
         tabindex="0"
         aria-checked="false">
-        </core-icon>
+        </iron-icon>
   
       <content></content>   
     </template>
@@ -65,12 +69,10 @@
   <script>
   Polymer({
     is: 'post-card',
-    bind: {
-      favorite: 'favoriteChanged'
-    },
-    published: {
+    properties: {
       favorite: {
-        type: Boolean
+        type: Boolean,
+        observer: 'favoriteChanged'
       }
     },
     favoriteChanged: function(event, detail, sender) {

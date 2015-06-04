@@ -12,17 +12,18 @@
     <link rel="import"
     href="../components/polymer/polymer.html">
     <link rel="import"
-    href="../components/layout/layout.html">
+    href="../components/iron-flex-layout/iron-flex-layout.html">
   <link rel="import"
     href="../components/paper-tabs/paper-tabs.html">
   <link rel="import" href="post-list.html">
 
-  <style>
+  <style is="custom-style">
   html,body {
     height: 100%;
     margin: 0;
     background-color: #E5E5E5;
     font-family: 'RobotoDraft', sans-serif;
+    @apply(--layout-flex);
   }
   .header  {
     background: #03a9f4;
@@ -41,6 +42,8 @@
   .container {
     width: 80%;
     margin: 50px auto;
+    @apply(--layout-vertical);
+    @apply(--layout-center);
   }
   @media (min-width: 481px) {
     #tabs {
@@ -56,14 +59,14 @@
 
 <body>
 
-  <div class="header flex">
+  <div class="header">
       <paper-tabs id="tabs" selected="0" tabindex="0">
         <paper-tab id="tab1" name="all">All</paper-tab>
         <paper-tab id="tab2" name="favorites">Favorites</paper-tab>
      </paper-tabs>
   </div>
 
-  <div class="container layout vertical center">
+  <div class="container">
     <post-list show="all"></post-list>
   </div>
 
@@ -84,7 +87,7 @@
     tabcontrols[tabIndex].setAttribute('aria-selected', true);
   }
 
-  tabs.addEventListener('core-select', function() {
+  tabs.addEventListener('selected-changed', function() {
       list.show = tabs.selected == 0 ? "all" : "favorites";
   });
 
