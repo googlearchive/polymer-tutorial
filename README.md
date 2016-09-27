@@ -1,7 +1,7 @@
 # Polymer Starter Project
 
 This project includes a set of Polymer components and a starter project,
-designed to be used with the [Polymer tutorial](http://polymer-project.org/docs/start/tutorial/intro.html).
+designed to be used with the [Polymer tutorial](https://www.polymer-project.org/1.0/start/).
 
 In this tutorial, you build a simple client for `unquote`, the read-only social networking service.
 
