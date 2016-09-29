@@ -68,7 +68,7 @@
     },
     postsLoaded: function() {
       // Make a copy of the loaded data
-      this.posts = this.$.ajax.response.slice(0);
+      this.posts = this.$.ajax.response;
     },
     /** 
      * Update the service with the current favorite value.
